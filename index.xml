@@ -2,21 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Lean Max</title>
-        <link>http://localhost:1313/</link>
+        <link>https://leanmax.github.io/</link>
         <description>Recent content on Lean Max</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Lean Max</copyright>
-        <lastBuildDate>Fri, 11 Oct 2024 21:03:48 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>My First Post</title>
-        <link>http://localhost:1313/p/my-first-post/</link>
-        <pubDate>Fri, 11 Oct 2024 21:03:48 +0800</pubDate>
-        
-        <guid>http://localhost:1313/p/my-first-post/</guid>
-        <description>&lt;h1 id=&#34;my-first-blog&#34;&gt;My First Blog
-&lt;/h1&gt;&lt;p&gt;Just memory my first blog. Nothing else~&lt;/p&gt;
-</description>
-        </item>
-        
+        <lastBuildDate></lastBuildDate><atom:link href="https://leanmax.github.io/index.xml" rel="self" type="application/rss+xml" />
     </channel>
 </rss>
