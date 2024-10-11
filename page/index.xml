@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Lean Max</title>
-        <link>http://localhost:1313/</link>
-        <description>Recent content on Lean Max</description>
+        <title>Pages on Lean Max</title>
+        <link>http://localhost:1313/page/</link>
+        <description>Recent content in Pages on Lean Max</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Lean Max</copyright>
-        <lastBuildDate>Fri, 11 Oct 2024 21:03:48 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>My First Post</title>
-        <link>http://localhost:1313/p/my-first-post/</link>
-        <pubDate>Fri, 11 Oct 2024 21:03:48 +0800</pubDate>
-        
-        <guid>http://localhost:1313/p/my-first-post/</guid>
-        <description>&lt;h1 id=&#34;my-first-blog&#34;&gt;My First Blog
-&lt;/h1&gt;&lt;p&gt;Just memory my first blog. Nothing else~&lt;/p&gt;
-</description>
-        </item>
-        <item>
+        <lastBuildDate>Fri, 09 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/page/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Archives</title>
         <link>http://localhost:1313/archives/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
