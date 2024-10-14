@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>保研 on Lean Max</title>
+        <link>http://localhost:1313/categories/%E4%BF%9D%E7%A0%94/</link>
+        <description>Recent content in 保研 on Lean Max</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Lean Max</copyright>
+        <lastBuildDate>Sun, 13 Oct 2024 14:29:12 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/%E4%BF%9D%E7%A0%94/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>保研回忆录</title>
+        <link>http://localhost:1313/p/%E4%BF%9D%E7%A0%94%E5%9B%9E%E5%BF%86%E5%BD%95/</link>
+        <pubDate>Sun, 13 Oct 2024 14:29:12 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/%E4%BF%9D%E7%A0%94%E5%9B%9E%E5%BF%86%E5%BD%95/</guid>
+        <description>&lt;h1 id=&#34;宇宙级免责声明&#34;&gt;宇宙级免责声明
+&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;本人无意泄露各高校试题，严格遵守任何保密协议，如有不妥随时私信，本人将立刻删除相关内容。本文章的所有内容都仅代表本人观点，如有不同观点，欢迎友善交流~&lt;/strong&gt;&lt;br&gt;&lt;/p&gt;
+&lt;h1 id=&#34;写在前面&#34;&gt;写在前面
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;关于信息差&lt;/strong&gt;&lt;/em&gt;：保研是一场重大的信息差备赛，有的同学可能从大一刚入学就开始准备了，有的到大三下才真正开始了解保研（比如我），大三下开始会很吃亏！！规划的太晚，不清楚自己想走学术还是就业，没有及时套磁（很多三四月份甚至更早就开始联系导师了），总之早点确认自己的方向总不会错啦。这里也强烈推荐计算机保研er的破茧利器——&lt;a class=&#34;link&#34; href=&#34;https://csbaoyan.top/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;全国最大非商业用爱交流计算机保研交流群&lt;/a&gt;（虽然潜水几个月lru了好几次hh，但是真心推荐！！）&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;关于套磁&lt;/strong&gt;&lt;/em&gt;：其次就是要勇敢地去套磁，其实整个保研周期我的套磁都挺失败的，周围一套一个准，我套磁之前总会想着老师会不会嫌自己太菜、经历不匹配啥的，总之有点焦虑过头而错过了很多好时机（infj哭死），其实大家都差不多，甚至水平不如自己，勇敢冲就是了！&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;关于海王&lt;/strong&gt;&lt;/em&gt;：夏令营我的整体策略就四个字：多多益善。相较于担心老师那边不好回绝，在夏令营阶段更需要担心的是能否拿到一个保底的offer（大佬除外），也有部分提前套磁好的弱com的同学，自然也不必参加过多的夏令营，毕竟确实耗钱耗时间耗精力。当然，在有铁offer并且满意的前提下，也应该及时释放掉多余的offer，减少对老师招生带来的影响，也避免学弟学妹被拉入黑名单。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;个人情况&#34;&gt;个人情况
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;院校：次九&lt;/li&gt;
+&lt;li&gt;专业排名：SE，前2%&lt;/li&gt;
+&lt;li&gt;竞赛：非算法类竞赛若干，有果酱，没有牌子&lt;/li&gt;
+&lt;li&gt;科研：一段本校隐私计算方面的科研，B刊在投&lt;/li&gt;
+&lt;li&gt;工程：一段医学交叉的横向，从0到1搭起来的系统，比较solid，基本都能答上&lt;/li&gt;
+&lt;li&gt;外语：CET-6（不到500，和CET-4成绩相差巨大，是个雷点）&lt;/li&gt;
+&lt;li&gt;个人意向：70%就业向，title == 导师 &amp;gt; 方向 &amp;raquo; 地域，因为就业意向偏重，主要还是看导儿放不放实习&lt;/li&gt;
+&lt;li&gt;最终去向：清软专硕&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;前期准备&#34;&gt;前期准备
+&lt;/h1&gt;&lt;p&gt;前期主要是在各种文书的准备和无效套磁中（悲），套磁就不误人子弟了。文书方面主要包括了简历、个人陈述、PPT、套磁信、推荐信、中英文自我介绍、成绩单、排名证明……&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;简历我这里用的是超级简历，当然也可以直接用word做，绿裙里有相关的模板可以拿来用，主要是要不断迭代完善，建议是保留好每一次的修改，我的简历从五月末到929已经出了15版，针对于每次面试老师偏好的点进行针对性修改完善，也伴随着可能出现科研成果上的更新而更新，并且一定要对简历上的每一个字负责，问穿就尴尬了。&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;然后就是个人陈述，有一部分学校是要求提交个人陈述的，这个建议提前写好，一般学校也不会以此为参考，主要准备好500、1000和2000字三个版本，直接针对每个学校稍微改改交上去就好。&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;PPT的话可以提前准备好一份，模块化处理，比如基本情况介绍可以1~2页，简单列一下rk、奖学金、竞赛之类的，然后项目经历每个3~4页，科研经历每个5~6页，针对每个学校的要求适当增删，套磁面试的时候一般不太卡时间，适当详细一点是没问题的。可以用本校的模板，也可以用面试学校的模板，但一定要做到整洁干净，不能太花哨，动画也建议少，以免播不出来出岔子。&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;中英文自我介绍建议都准备1分钟、3分钟和5分钟版本的，一定要做到肌肉记忆般熟练，同简历一样，也要对自己说的每一句话有百分之一百的把握。&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;推荐信的话并不是每个学校都需要，但是提前准备好总没错，一般是要两名职称副教授以上的（计算所需要两名教授职称的），建议直接找好两位教授，能要到电子签名最好（虽然一般不给）。&lt;br&gt;&lt;/p&gt;
+&lt;h1 id=&#34;夏令营情况&#34;&gt;夏令营情况
+&lt;/h1&gt;&lt;p&gt;整体来说，我的夏令营投递是偏保守的（真的很担心没保底），基本投了所有学校（但主要集中在华五），并且大部分都是学硕，导致整个七月份都是在奔波度过，下面就是我的夏令营基本情况。&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;院校&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;入营情况&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;是否优营&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;备注&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;南大cs学硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;线上被刷&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;南大ai学硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;感觉和cs被刷有一定关系&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;南大se学硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;感觉和cs被刷有一定关系&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;人大gl学硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;本来也没抱啥希望&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;人大信院学硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;迷之bar。。。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;复旦cs学硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;普信旦是这样的，后面紧急扩散了&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;北大软微&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;是&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;科研向了，拒绝了就包没优营的&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;武大cs学硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;是&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;是&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;上交电院se直硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;是&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;是&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;其实只有联培。。。&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;中科院计算所学硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否（计算所霸面）&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;被三个组霸面，因为方向问题都拒了&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;中科院软件所学硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;是（和sjtu冲突）&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;中大cs学硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;是（和sjtu冲突）&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;科大网安学硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;是&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;是&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;人均优营，重要是双选，但是还是穿了&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;浙大CAD&amp;amp;CG&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;是&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;是&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;项目制考核，夏令营只有直博&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;哈工深CS学硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;今年bar很高&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;南大cs学硕&#34;&gt;南大CS学硕
+&lt;/h2&gt;&lt;p&gt;南大今年开的很早，五月初就出结果了，但是南大需要先双机位通过线上测试才能够参加线下营，南大也是出了名的强com，试题的范围涉及很广，我甚至还提前一天去开了间酒店通宵复习408（血亏），结果今年考了不少编译原理和离散，这简直对我来说是天崩开局，因此也就无疾而终了。总之还是要感谢一下南大肯给我入营的机会，否则我的夏令营投递策略还会更加保守。&lt;br&gt;
+（ps: 听说南大给的酒店巨好，可惜无福消受了555）&lt;/p&gt;
+&lt;h2 id=&#34;人大信院学硕&#34;&gt;人大信院学硕
+&lt;/h2&gt;&lt;p&gt;这我是万万没想到的，整个保研周期最让我感到震惊的bar，之前一直以为人大信院是个保底的存在，也联系好了一个评价巨好的老师，结果居然连营都没入，甚至老师都怀疑我是不是报错了，后面也替我亲自去问了教务（真的好感动），感觉是我整个保研过程中最看好我的老师了555。&lt;br&gt;&lt;/p&gt;
+&lt;div align=&#34;center&#34;&gt;
+    &lt;figure&gt;
+        &lt;img src=&#34;pics/ruc-1.png&#34; title=&#34;亲自问学院（好好的老师啊啊啊啊）&#34;&gt;
+        &lt;img src=&#34;pics/ruc-2.png&#34; title=&#34;亲自问学院（好好的老师啊啊啊啊）&#34;&gt;
+        &lt;figcaption&gt;亲自问学院（好好的老师啊啊啊啊）&lt;/figcaption&gt;
+    &lt;/figure&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;北大软微&#34;&gt;北大软微
+&lt;/h2&gt;&lt;p&gt;为了错峰出行，也为了进入梦校，软微我报了方向2，通过初筛后还有一轮论文筛，会给个list，其中挑一篇感兴趣的写一篇阅读报告，方向2感觉真的不太卷，而且和我本科研究方向比较契合，只要多看几遍论文，仔细写好阅读报告基本都能入。&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;作为第一个线下营，上来就北大对我这个菜鸟十分不友好，提前一天就到了大兴，不得不说软微这个位置确实有点偏僻，校区也很小。&lt;br&gt;&lt;/p&gt;
+&lt;figure align=&#34;center&#34;&gt;
+    &lt;img src=&#34;pics/rw-1.jpeg&#34; title=&#34;软微校门&#34;&gt;
+    &lt;figcaption&gt;软微校门&lt;/figcaption&gt;
+&lt;/figure&gt;
+软微夏令营今年分为了三天，第一天是宣讲和各个方向的座谈会，后面两天笔试+面试，不过方向2人不算多，6号基本都结束了。&lt;br&gt;
+&lt;p&gt;笔试的难度不高，30min手撕三道，基本都能写出来。面试的话只能提交3页的pdf还是有点局促的，也算是最罕见的要求了，面试的老师都挺和蔼的，不会的话也不会过多为难，整体气氛十分欢快。&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;后续：面试后陆续有三位老师联系了我，但知道了不放实习+本人想要尝试更多学校，和父母、学长仔细斟酌后还是放弃了offer（软微要承诺一定来才会发优营）。&lt;br&gt;
+ps：软微夏令营在科研向的道路上渐行渐远了，虽然也有羊导，但是今年方向2基本都是搞科研的了（毕竟报销学费）&lt;br&gt;&lt;/p&gt;
+&lt;figure align=&#34;center&#34;&gt;
+    &lt;img src=&#34;pics/rw-2.png&#34; title=&#34;算是拒绝过北大的人了，老师也超nice的！！&#34;&gt;
+    &lt;figcaption&gt;算是拒绝过北大的人了，老师也超nice的！！&lt;/figcaption&gt;
+&lt;/figure&gt;
+整体来说，软微的夏令营体验还是相当棒的，无论是入营礼包（T恤+饭票），还是没有架子的老师们，都给人一种额外的归属感。面试后我还去绕天安门附近夜骑了一圈，尝了卤煮（好吃嘿嘿）、豆汁儿（难以接受），这次首都之行还是很满意的！
+&lt;h2 id=&#34;武大cs学硕&#34;&gt;武大CS学硕
+&lt;/h2&gt;&lt;p&gt;武大夏令营开的算是不错的了，甚至提供两晚汉庭+包饭，离学校超近，校园也是超好看的（可惜樱花季已经过了）。&lt;/p&gt;
+&lt;figure align=&#34;center&#34;&gt;
+    &lt;img src=&#34;pics/whu-1.png&#34; title=&#34;武大校门&#34;&gt;
+    &lt;figcaption&gt;武大校门&lt;/figcaption&gt;
+&lt;/figure&gt;
+整体来说，夏令营时间安排挺紧凑的，第一天上午报到+宣讲，下午机试，因为早上要很早报到+中午没睡，下午脑子一团浆糊，机试五道题，涉及的算法还挺广的，最后就做出了一两道，其他纯在骗分，机试直接原地大爆炸。
+&lt;p&gt;第二天就只有面试了，面试是坐在大方桌的主持人座，老师在两侧，摄像机从对面录像，因为有了软微的经验，面试的整个过程还是相当顺利的，都是简历面，也基本都能答上来。&lt;/p&gt;
+&lt;figure align=&#34;center&#34;&gt;
+    &lt;img src=&#34;pics/whu-2.png&#34; title=&#34;傍晚的武大&#34;&gt;
+    &lt;figcaption&gt;傍晚的武大&lt;/figcaption&gt;
+&lt;/figure&gt;
+后续：过了没几天发了优营名单，背景评估、机试分、面试分三者综合打出一个综合分，感觉算是十分公开透明的了（点赞）。我虽然在优营名单中，但志不在此，就没有去联系导师了。&lt;br&gt;
+&lt;p&gt;武大是我高考的梦校，尽管不是最终去向，但还是很感激武大能够给我这次机会~&lt;/p&gt;
+&lt;h2 id=&#34;上交软院智慧应用方向&#34;&gt;上交软院（智慧应用方向）
+&lt;/h2&gt;&lt;p&gt;上交CS直硕的bar一直很高，为了求稳我报了软院（但是软院感觉除了IPADS性价比都不高，但IPADS也是出了名的难）。&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;上交软院在线下参营前会公布各个方向（线上宣讲）及其具体的入营任务，大多数是读论文，选定了论文就是选定了方向。后面还会有一次方向调整的机会，通过邮件的方式告诉你各个方向的竞争指数，为了错峰选了智慧应用，但是后来出了竞争指数智慧应用却是最高的（大家的想法都一样hh），不过后面还是头铁上了（&lt;del&gt;懒得改了&lt;/del&gt;），结果到最后统计的时候智慧应用反而只剩七个了（博弈论算是玩明白了）。&lt;br&gt;&lt;/p&gt;
+&lt;figure align=&#34;center&#34;&gt;
+    &lt;img src=&#34;pics/sjtu.png&#34; title=&#34;上交（闵行）校门&#34;&gt;
+    &lt;figcaption&gt;上交（闵行）校门&lt;/figcaption&gt;
+&lt;/figure&gt;
+因为上交和武大只隔了一天，因此在武汉多住一晚后直接从武汉出发赶往上海了。上交软院夏令营是在闵行校区，感觉特别偏僻，周围配套还不是很完善，地铁站离学校还有一段距离，但学校大是真的大。&lt;br&gt;
+&lt;p&gt;夏令营分为了两天，考核是常规的机试+面试，但是机试很不常规，非OJ，一道超大模拟题，可以带一些离线资料（然并卵），最后提交一个压缩包上去。第二天面试，老师都挺好的，不会过多刁难你，印象里问了好多问题，有数据结构，也有简历面，不过论文倒是一点没问（奇怪）。&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;在面试完后，有老师打电话给我，说我面试还不错，问我是否考虑，我当即答应了下来。不过上交得到九月才出名额，后面到了被告知这个方向只有联培了，遂作罢。&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;整体来说，感觉上交硕士的本校保护很厉害，无论是宣讲还是最后的给的名额，给外校的基本都只有联培的名额（并非说联培不好，叠甲）。但是软院的招生老师还是很好滴，无论是前期的通知还是后续打电话问是否接受联培名额，整体给人的感觉很亲切负责。&lt;/p&gt;
+&lt;h2 id=&#34;科大网安&#34;&gt;科大网安
+&lt;/h2&gt;&lt;p&gt;科大是出了名的对号入座，非CS的很难入CS营，又因为网安大部分老师是从6系和CS那边调过来的，方向没这么偏向安全，因此就报了网安。
+科大的夏令营感觉是全场最佳了，酒店、大礼包、一百块的饭卡，还有超级盛大的开营仪式，而且全程有志愿者对接，简直仪式感拉满！！&lt;/p&gt;
+&lt;figure align=&#34;center&#34;&gt;
+    &lt;img src=&#34;pics/ustc.png&#34; title=&#34;无敌的仪式感&#34;&gt;
+    &lt;figcaption&gt;无敌的仪式感&lt;/figcaption&gt;
+&lt;/figure&gt;
+夏令营分为了三天，第一天就是学校和各个学院的介绍+合影。第二天则是实验室介绍，如果打算来科大的千万要抓住这个机会，这不仅仅是参观，还要趁此机会加心仪实验室的联系方式，主动交流占坑。第三天的面试分为了上下午两场，一场十分钟，区别在于是否有英文问题，感觉更多是走个过场，不会过深挖掘。&lt;br&gt;
+&lt;p&gt;科大基本人均优营，没有效力，需要和老师完成双选才是铁offer，建议提前联系好导师面试，强导基本在夏令营开始前就被占满了，并且科大的预推免基本没有名额，得看鸽子（今年网安鸽子很多，到929都还有坑位）。&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;科大的夏令营真的办得很棒，食宿、文创什么的都拉满了（据说书包还被倒卖出去不少hh），最后也联系上了导师，不过因为后面拿到了清软的offer就主动释放了。&lt;/p&gt;
+&lt;h2 id=&#34;浙大cadcg&#34;&gt;浙大CAD&amp;amp;CG
+&lt;/h2&gt;&lt;p&gt;浙大根据实验室不同，安排的项目考核时长也相应不同，有的长达两个月，有的可能就一个多星期（比如我们），考核内容基本是以论文复现为主，竞争总体不会特别激烈，因为只有外校的，并且到后面很多都坚持不下去。&lt;/p&gt;
+&lt;figure align=&#34;center&#34;&gt;
+    &lt;img src=&#34;pics/zju.png&#34; title=&#34;CAD&amp;CG&#34;&gt;
+    &lt;figcaption&gt;CAD&amp;CG&lt;/figcaption&gt;
+&lt;/figure&gt;
+CAD&amp;CG是在紫金港，是真的又大又好看（别人家的学校），实验室的师兄师姐和老师也很nice！！不过后面把我专业调剂了，并且和个人的规划方向不太相同，主动释放了offer。
+&lt;h1 id=&#34;预推免情况&#34;&gt;预推免情况
+&lt;/h1&gt;&lt;p&gt;夏令营在拿到科大和浙大的铁offer后，预推免就能更大胆些了，目标就主要是一些夏令营没能入营与清北两所了。&lt;br&gt;&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;院校&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;是否入营&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;是否优营&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;备注&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;哈工深cs学硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;hitsz你拒我两次555&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;清华软院专硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;是&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;是&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;最终去向&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;清华深圳专硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;它甚至发拒信，哭死&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;复旦cs学硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;是&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;开摆&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;北大软微&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;今年大部分要跟实验室课题了，头铁网安方向，寄&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;北大深圳&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;没有套磁，意料之中&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;南大ai学硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;南大se学硕&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;是&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;否&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;准备清软，放弃入营&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;清华软院专硕&#34;&gt;清华软院专硕
+&lt;/h2&gt;&lt;p&gt;这是我的预一营，最初我就是抱着报来试试的心态，没想到能够顺利入营，那时候高兴的要起飞了。招生老师也超级好，虽然没有建群，但是基本有求必应，并且所有通知都是邮箱短信双提醒（赞）。&lt;br&gt;&lt;/p&gt;
+&lt;figure align=&#34;center&#34;&gt;
+    &lt;img src=&#34;pics/thu.png&#34; title=&#34;入营邮件&#34;&gt;
+    &lt;figcaption&gt;入营邮件&lt;/figcaption&gt;
+&lt;/figure&gt;
+清华的前期流程算是比较复杂的了，需要老师在线填写推荐信（真的感觉很不好意思），别的按照要求填上就好。&lt;br&gt;
+&lt;p&gt;清软的考核分为了两天，第一天机试，可以带参考资料，我带了AcWing的模板，一共三题，第一题打卡题，第二题我用了模板很快也AC了，最后一题实在是想不出来了，罚坐（有大佬一个半小时结束战斗xm）。第二天面试，老师们都特别和蔼，不会刻意刁难，虽然我英文题爆炸了（被cue了六级），但是老师还是没有过多为难。&lt;br&gt;&lt;/p&gt;
+&lt;p&gt;虽然机试20%+面试80%，但是我感觉面试大家的差距不会很大，反而机试十分重要，占比是主要的，我也难得幸运了一次（开心），也可能是自己本身放低了预期，没想着能够进入清华，心态比较好吧hh&lt;br&gt;&lt;/p&gt;
+&lt;h2 id=&#34;复旦cs学硕&#34;&gt;复旦CS学硕
+&lt;/h2&gt;&lt;p&gt;在拿了清软的offer后，复旦就没有过多去准备了，第一天机试（5题），第二天英文面试（甚至单拎出来，就五分钟，可能这天更多是联系导师吧），第三天就是专业面试了（问了超多专业课，根本不会，感觉要把老师题库问完了，一直在看结束没xs）&lt;/p&gt;
+&lt;h1 id=&#34;929终章&#34;&gt;9.29终章
+&lt;/h1&gt;&lt;p&gt;9.28填好系统后，9.29就等清华发offer啦，虽然比别的学校都要晚点hh，但是等待是值得的~&lt;/p&gt;
+&lt;figure align=&#34;center&#34;&gt;
+    &lt;img src=&#34;pics/result.png&#34; title=&#34;上岸咯&#34;&gt;
+    &lt;figcaption&gt;上岸咯&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;h1 id=&#34;个人总结建议&#34;&gt;个人总结&amp;amp;建议
+&lt;/h1&gt;&lt;p&gt;上圣经！！&lt;/p&gt;
+&lt;figure align=&#34;center&#34;&gt;
+    &lt;img src=&#34;pics/shengjing.png&#34; title=&#34;保研圣经&#34;&gt;
+    &lt;figcaption&gt;保研圣经&lt;/figcaption&gt;
+&lt;/figure&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;关于心态&lt;/strong&gt;&lt;/em&gt;：在拿到清软offer前，其实一直没有一个满意的offer，总是差点意思，这也导致了夏令营和预推免这段空档我并不轻松，时常会做噩梦惊醒。因此，我认为放平心态十分重要，我身边既有夏0营但最后保研华五的，也有拿着一堆夏令营但最后去向一般的，夏令营20%的人掌握了80%的offer，但最终只能留下一个，复旦在十月份还在紧急扩散呢，策略不同势必会导致不同的入营情况，没有必要去刻意地对比，查漏补缺，针对性补充完全来得及。&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;关于提前进组&lt;/strong&gt;&lt;/em&gt;：整个保研周期从夏令营到9.29大概三个月，不算长，但真正的准备可能从大三上就开始了，提前进组实习能够十分有效提高你在保研的竞争力，如果恰好是弱com，那直接提前锁定了。&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;关于入营&lt;/strong&gt;&lt;/em&gt;：选择性入营，选择大于努力，参加过多营的弊端很明显，耗时耗精力，更是没有时间去停下来反思总结，十分考验个人的调整能力，适当的放弃能更全身心地准备梦校。&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;关于机试&lt;/strong&gt;&lt;/em&gt;：算法很重要，我算法从大三下开始，把leetcode hot100三刷，又在夏令营和预推免之间的空窗期把AcWing基础算法课刷完，其实整体是有点赶的，建议还是尽早做准备，算法无法一蹴而就。&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;关于面试&lt;/strong&gt;&lt;/em&gt;：可以准备好简历带过去，建议穿的干净一点，面试过程中不卑不亢，自信而不失谦逊，言语铿锵有力，不必担心老师会瞧不上你的科研，也不应频繁打断老师提问，张弛有度、彬彬有礼即可。&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;关于人品&lt;/strong&gt;&lt;/em&gt;：我认为在9.29前如果有心仪且铁offer时，应该把其他的offer及时释放掉，尽可能少的影响老师的招生，也能将offer给到有需要的人。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;结语&#34;&gt;结语
+&lt;/h1&gt;&lt;p&gt;&lt;strong&gt;没有什么根本来不及，种一棵树最好的时候是十年前，其次是现在，我们需要的是更多勇气。&lt;/strong&gt;&lt;br&gt;
+在这里，我要感谢一路帮助我的老师、学长、同学、朋友们，精辟独到的建议指引我正确的方向，我也要感恩一直以来支持和鼓励我的父母和女朋友，在我最需要的时候出现在我身边，支撑着我坚持到最后！&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
