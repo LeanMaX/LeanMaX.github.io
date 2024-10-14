@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="对Django的认识\rDjango是走大而全的方向，它最出名的是其全自动化的管理后台：只需要使用其ORM，做简单的对象定义，它就能自动生成数据库结构、以及全功能的管理后台。 Django内置的ORM跟框架内的其他模块耦合程度高。应用程序必须使用Django内置的ORM，否则就不能享受到框架内提供的种种基于其ORM的便利； Django适用的是中小型的网站，或者是作为大型网站快速实现产品雏形的工具。 Django模板的设计哲学是彻底的将代码、样式分离；Django从根本上杜绝在模板中进行编码、处理数据的可能。 Django，Flask和Tornado的对比\r框架定位\nDjango：全栈框架，功能全面，内置ORM、认证、后台管理等，适合中大型项目。 Flask：轻量微框架，灵活性高，适合小型应用和需要定制化的项目。 Tornado：异步Web框架，擅长高并发和实时通讯，适合实时系统和高并发场景。 开发效率\nDjango：内置功能多，开发效率高，但灵活性相对较低。 Flask：简洁灵活，开发者有更多技术选择空间，但需自行集成扩展。 Tornado：异步模式高效并发，但开发和调试复杂。 性能与适用场景\nDjango：适合企业级应用，性能一般，但可通过缓存等手段优化。 Flask：轻量，适合API和小型项目，需外部工具提升并发性能。 Tornado：异步架构，适合高并发、WebSocket等实时应用，性能最优。 总结\nDjango：适合功能复杂、需要快速开发的项目。 Flask：适合灵活定制的小型应用或微服务。 Tornado：适合高并发、实时通讯的系统。 Web服务器和Web框架的区别\rWeb服务器即用来接受客户端请求，建立连接，转发响应的程序。至于转发的内容是什么，交由Web框架来处理，即处理这些业务逻辑。如查询数据库、生成实时信息等。 Nginx是一个Web服务器，Django或flask就是Web框架。\n什么是WSGI,uWSGI,aWSGI？\rWSGI，Web服务器网关接口，是一种Web服务器网关接口，它是一个Web服务器（如Nginx，uWSGI等服务器）与Web应用（如Flask框架写的程序）通信的一种规范。当前运行在WSGI协议之上的Web框架有Bottle，Flask，Django uWSGI，是实现了WSGI协议的一个Web服务器。即用来接受客户端请求，转发响应的程序。实际上，一个uWSGI的Web服务器，再加上Django这样的Web框架，就已经可以实现网站的功能了。 aWSGI，异步网关协议接口，一个介于网络协议服务和Python应用之间的标准接口，能够处理多种通用的协议类型，包括HTTP，HTTP2和WebSocket。 WSGI和ASGI的区别\rWSGI是基于HTTP协议模式的，不支持WebSocket，而ASGI的诞生则是为了解决Python常用的WSGI不支持当前Web开发中的一些新的协议标准。同时，ASGI对于WSGI原有的模式的支持和WebSocket的扩展，即ASGI是WSGI的扩展。\nDjango的生命周期\rwsgi,请求封装后交给web框架 （Flask、Django） 中间件，对请求进行校验或在请求对象中添加其他相关数据，例如：csrf、request.session 路由匹配,根据浏览器发送的不同url去匹配不同的视图函数 视图函数，在视图函数中进行业务逻辑的处理，可能涉及到：orm、templates =&gt; 渲染 中间件，对响应的数据进行处理。 wsgi,将响应的内容发送给浏览器。 什么是FBV和CBV？\rFBV（function base views）： 基于函数的视图，就是在视图里使用函数处理请求。 CBV（class base views）： 基于类的视图，就是在视图里使用类处理请求。\nFBV\r就是使用了函数来处理用户的请求，查看以下实例：\n路由配置：\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 # urls.py urlpatterns = [ path(&#34;login/&#34;, views.login), ] # views.py from django.shortcuts import render,HttpResponse def login(request): if request.method == &#34;GET&#34;: return HttpResponse(&#34;GET 方法&#34;) if request.method == &#34;POST&#34;: user = request.POST.get(&#34;user&#34;) pwd = request.POST.get(&#34;pwd&#34;) if user == &#34;runoob&#34; and pwd == &#34;123456&#34;: return HttpResponse(&#34;POST 方法&#34;) else: return HttpResponse(&#34;POST 方法1&#34;) CBV\r基于类的视图，就是使用了类来处理用户的请求，不同的请求我们可以在类中使用不同方法来处理，这样大大的提高了代码的可读性。\n定义的类要继承父类 View，所以需要先引入库：\nfrom django.views import View 执行对应请求的方法前会优先执行 dispatch 方法(在get/post/put&hellip;方法前执行)，dispatch() 方法会根据请求的不同调用相应的方法来处理。\n其实，在我们前面学到的知识都知道 Django 的 url 是将一个请求分配给可调用的函数的，而不是一个类，那是如何实现基于类的视图的呢？ 主要还是通过父类 View 提供的一个静态方法 as_view() ，as_view 方法是基于类的外部接口， 他返回一个视图函数，调用后请求会传递给 dispatch 方法，dispatch 方法再根据不同请求来处理不同的方法。\n路由配置：\n">
+<title>Django面试题（一）</title>
+
+<link rel='canonical' href='http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%80/'>
+
+<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="Django面试题（一）">
+<meta property='og:description' content="对Django的认识\rDjango是走大而全的方向，它最出名的是其全自动化的管理后台：只需要使用其ORM，做简单的对象定义，它就能自动生成数据库结构、以及全功能的管理后台。 Django内置的ORM跟框架内的其他模块耦合程度高。应用程序必须使用Django内置的ORM，否则就不能享受到框架内提供的种种基于其ORM的便利； Django适用的是中小型的网站，或者是作为大型网站快速实现产品雏形的工具。 Django模板的设计哲学是彻底的将代码、样式分离；Django从根本上杜绝在模板中进行编码、处理数据的可能。 Django，Flask和Tornado的对比\r框架定位\nDjango：全栈框架，功能全面，内置ORM、认证、后台管理等，适合中大型项目。 Flask：轻量微框架，灵活性高，适合小型应用和需要定制化的项目。 Tornado：异步Web框架，擅长高并发和实时通讯，适合实时系统和高并发场景。 开发效率\nDjango：内置功能多，开发效率高，但灵活性相对较低。 Flask：简洁灵活，开发者有更多技术选择空间，但需自行集成扩展。 Tornado：异步模式高效并发，但开发和调试复杂。 性能与适用场景\nDjango：适合企业级应用，性能一般，但可通过缓存等手段优化。 Flask：轻量，适合API和小型项目，需外部工具提升并发性能。 Tornado：异步架构，适合高并发、WebSocket等实时应用，性能最优。 总结\nDjango：适合功能复杂、需要快速开发的项目。 Flask：适合灵活定制的小型应用或微服务。 Tornado：适合高并发、实时通讯的系统。 Web服务器和Web框架的区别\rWeb服务器即用来接受客户端请求，建立连接，转发响应的程序。至于转发的内容是什么，交由Web框架来处理，即处理这些业务逻辑。如查询数据库、生成实时信息等。 Nginx是一个Web服务器，Django或flask就是Web框架。\n什么是WSGI,uWSGI,aWSGI？\rWSGI，Web服务器网关接口，是一种Web服务器网关接口，它是一个Web服务器（如Nginx，uWSGI等服务器）与Web应用（如Flask框架写的程序）通信的一种规范。当前运行在WSGI协议之上的Web框架有Bottle，Flask，Django uWSGI，是实现了WSGI协议的一个Web服务器。即用来接受客户端请求，转发响应的程序。实际上，一个uWSGI的Web服务器，再加上Django这样的Web框架，就已经可以实现网站的功能了。 aWSGI，异步网关协议接口，一个介于网络协议服务和Python应用之间的标准接口，能够处理多种通用的协议类型，包括HTTP，HTTP2和WebSocket。 WSGI和ASGI的区别\rWSGI是基于HTTP协议模式的，不支持WebSocket，而ASGI的诞生则是为了解决Python常用的WSGI不支持当前Web开发中的一些新的协议标准。同时，ASGI对于WSGI原有的模式的支持和WebSocket的扩展，即ASGI是WSGI的扩展。\nDjango的生命周期\rwsgi,请求封装后交给web框架 （Flask、Django） 中间件，对请求进行校验或在请求对象中添加其他相关数据，例如：csrf、request.session 路由匹配,根据浏览器发送的不同url去匹配不同的视图函数 视图函数，在视图函数中进行业务逻辑的处理，可能涉及到：orm、templates =&gt; 渲染 中间件，对响应的数据进行处理。 wsgi,将响应的内容发送给浏览器。 什么是FBV和CBV？\rFBV（function base views）： 基于函数的视图，就是在视图里使用函数处理请求。 CBV（class base views）： 基于类的视图，就是在视图里使用类处理请求。\nFBV\r就是使用了函数来处理用户的请求，查看以下实例：\n路由配置：\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 # urls.py urlpatterns = [ path(&#34;login/&#34;, views.login), ] # views.py from django.shortcuts import render,HttpResponse def login(request): if request.method == &#34;GET&#34;: return HttpResponse(&#34;GET 方法&#34;) if request.method == &#34;POST&#34;: user = request.POST.get(&#34;user&#34;) pwd = request.POST.get(&#34;pwd&#34;) if user == &#34;runoob&#34; and pwd == &#34;123456&#34;: return HttpResponse(&#34;POST 方法&#34;) else: return HttpResponse(&#34;POST 方法1&#34;) CBV\r基于类的视图，就是使用了类来处理用户的请求，不同的请求我们可以在类中使用不同方法来处理，这样大大的提高了代码的可读性。\n定义的类要继承父类 View，所以需要先引入库：\nfrom django.views import View 执行对应请求的方法前会优先执行 dispatch 方法(在get/post/put&hellip;方法前执行)，dispatch() 方法会根据请求的不同调用相应的方法来处理。\n其实，在我们前面学到的知识都知道 Django 的 url 是将一个请求分配给可调用的函数的，而不是一个类，那是如何实现基于类的视图的呢？ 主要还是通过父类 View 提供的一个静态方法 as_view() ，as_view 方法是基于类的外部接口， 他返回一个视图函数，调用后请求会传递给 dispatch 方法，dispatch 方法再根据不同请求来处理不同的方法。\n路由配置：\n">
+<meta property='og:url' content='http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%80/'>
+<meta property='og:site_name' content='Lean Max'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-10-13T21:57:51&#43;08:00'/><meta property='article:modified_time' content='2024-10-13T21:57:51&#43;08:00'/>
+<meta name="twitter:title" content="Django面试题（一）">
+<meta name="twitter:description" content="对Django的认识\rDjango是走大而全的方向，它最出名的是其全自动化的管理后台：只需要使用其ORM，做简单的对象定义，它就能自动生成数据库结构、以及全功能的管理后台。 Django内置的ORM跟框架内的其他模块耦合程度高。应用程序必须使用Django内置的ORM，否则就不能享受到框架内提供的种种基于其ORM的便利； Django适用的是中小型的网站，或者是作为大型网站快速实现产品雏形的工具。 Django模板的设计哲学是彻底的将代码、样式分离；Django从根本上杜绝在模板中进行编码、处理数据的可能。 Django，Flask和Tornado的对比\r框架定位\nDjango：全栈框架，功能全面，内置ORM、认证、后台管理等，适合中大型项目。 Flask：轻量微框架，灵活性高，适合小型应用和需要定制化的项目。 Tornado：异步Web框架，擅长高并发和实时通讯，适合实时系统和高并发场景。 开发效率\nDjango：内置功能多，开发效率高，但灵活性相对较低。 Flask：简洁灵活，开发者有更多技术选择空间，但需自行集成扩展。 Tornado：异步模式高效并发，但开发和调试复杂。 性能与适用场景\nDjango：适合企业级应用，性能一般，但可通过缓存等手段优化。 Flask：轻量，适合API和小型项目，需外部工具提升并发性能。 Tornado：异步架构，适合高并发、WebSocket等实时应用，性能最优。 总结\nDjango：适合功能复杂、需要快速开发的项目。 Flask：适合灵活定制的小型应用或微服务。 Tornado：适合高并发、实时通讯的系统。 Web服务器和Web框架的区别\rWeb服务器即用来接受客户端请求，建立连接，转发响应的程序。至于转发的内容是什么，交由Web框架来处理，即处理这些业务逻辑。如查询数据库、生成实时信息等。 Nginx是一个Web服务器，Django或flask就是Web框架。\n什么是WSGI,uWSGI,aWSGI？\rWSGI，Web服务器网关接口，是一种Web服务器网关接口，它是一个Web服务器（如Nginx，uWSGI等服务器）与Web应用（如Flask框架写的程序）通信的一种规范。当前运行在WSGI协议之上的Web框架有Bottle，Flask，Django uWSGI，是实现了WSGI协议的一个Web服务器。即用来接受客户端请求，转发响应的程序。实际上，一个uWSGI的Web服务器，再加上Django这样的Web框架，就已经可以实现网站的功能了。 aWSGI，异步网关协议接口，一个介于网络协议服务和Python应用之间的标准接口，能够处理多种通用的协议类型，包括HTTP，HTTP2和WebSocket。 WSGI和ASGI的区别\rWSGI是基于HTTP协议模式的，不支持WebSocket，而ASGI的诞生则是为了解决Python常用的WSGI不支持当前Web开发中的一些新的协议标准。同时，ASGI对于WSGI原有的模式的支持和WebSocket的扩展，即ASGI是WSGI的扩展。\nDjango的生命周期\rwsgi,请求封装后交给web框架 （Flask、Django） 中间件，对请求进行校验或在请求对象中添加其他相关数据，例如：csrf、request.session 路由匹配,根据浏览器发送的不同url去匹配不同的视图函数 视图函数，在视图函数中进行业务逻辑的处理，可能涉及到：orm、templates =&gt; 渲染 中间件，对响应的数据进行处理。 wsgi,将响应的内容发送给浏览器。 什么是FBV和CBV？\rFBV（function base views）： 基于函数的视图，就是在视图里使用函数处理请求。 CBV（class base views）： 基于类的视图，就是在视图里使用类处理请求。\nFBV\r就是使用了函数来处理用户的请求，查看以下实例：\n路由配置：\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 # urls.py urlpatterns = [ path(&#34;login/&#34;, views.login), ] # views.py from django.shortcuts import render,HttpResponse def login(request): if request.method == &#34;GET&#34;: return HttpResponse(&#34;GET 方法&#34;) if request.method == &#34;POST&#34;: user = request.POST.get(&#34;user&#34;) pwd = request.POST.get(&#34;pwd&#34;) if user == &#34;runoob&#34; and pwd == &#34;123456&#34;: return HttpResponse(&#34;POST 方法&#34;) else: return HttpResponse(&#34;POST 方法1&#34;) CBV\r基于类的视图，就是使用了类来处理用户的请求，不同的请求我们可以在类中使用不同方法来处理，这样大大的提高了代码的可读性。\n定义的类要继承父类 View，所以需要先引入库：\nfrom django.views import View 执行对应请求的方法前会优先执行 dispatch 方法(在get/post/put&hellip;方法前执行)，dispatch() 方法会根据请求的不同调用相应的方法来处理。\n其实，在我们前面学到的知识都知道 Django 的 url 是将一个请求分配给可调用的函数的，而不是一个类，那是如何实现基于类的视图的呢？ 主要还是通过父类 View 提供的一个静态方法 as_view() ，as_view 方法是基于类的外部接口， 他返回一个视图函数，调用后请求会传递给 dispatch 方法，dispatch 方法再根据不同请求来处理不同的方法。\n路由配置：\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu10645090171398504556.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🥥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Lean Max</a></h1>
+            <h2 class="site-description">Try to be better</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/LeanMaX/LeanMaX.github.io'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#对django的认识">对Django的认识</a></li>
+    <li><a href="#djangoflask和tornado的对比">Django，Flask和Tornado的对比</a></li>
+    <li><a href="#web服务器和web框架的区别">Web服务器和Web框架的区别</a></li>
+    <li><a href="#什么是wsgiuwsgiawsgi">什么是WSGI,uWSGI,aWSGI？</a>
+      <ol>
+        <li><a href="#wsgi和asgi的区别">WSGI和ASGI的区别</a></li>
+      </ol>
+    </li>
+    <li><a href="#django的生命周期">Django的生命周期</a></li>
+    <li><a href="#什么是fbv和cbv">什么是FBV和CBV？</a>
+      <ol>
+        <li><a href="#fbv">FBV</a></li>
+        <li><a href="#cbv">CBV</a></li>
+      </ol>
+    </li>
+    <li><a href="#如何给cbv的程序添加装饰器">如何给CBV的程序添加装饰器？</a></li>
+    <li><a href="#简述mvc和mtv">简述MVC和MTV</a>
+      <ol>
+        <li><a href="#mvcmodel-view-controller-模型-视图-控制器">MVC（Model View Controller 模型-视图-控制器）</a></li>
+        <li><a href="#mtvmodel-templates-view-模型-模板-视图">MTV（Model Templates View 模型-模板-视图）</a></li>
+        <li><a href="#mvc和mtv的区别">MVC和MTV的区别</a></li>
+      </ol>
+    </li>
+    <li><a href="#django框架中配置url路由时name的作用">Django框架中配置url路由时name的作用</a></li>
+    <li><a href="#列举django的内置组件">列举django的内置组件？</a>
+      <ol>
+        <li><a href="#1-模型model">1. <strong>模型（Model）</strong></a></li>
+        <li><a href="#2-视图view">2. <strong>视图（View）</strong></a></li>
+        <li><a href="#3-模板引擎template-engine">3. <strong>模板引擎（Template Engine）</strong></a></li>
+        <li><a href="#4-url-路由url-routing">4. <strong>URL 路由（URL Routing）</strong></a></li>
+        <li><a href="#5-表单处理forms">5. <strong>表单处理（Forms）</strong></a></li>
+        <li><a href="#6-认证和授权系统authentication-and-authorization">6. <strong>认证和授权系统（Authentication and Authorization）</strong></a></li>
+        <li><a href="#7-管理界面admin">7. <strong>管理界面（Admin）</strong></a></li>
+        <li><a href="#8-中间件middleware">8. <strong>中间件（Middleware）</strong></a></li>
+        <li><a href="#9-消息框架messages-framework">9. <strong>消息框架（Messages Framework）</strong></a></li>
+        <li><a href="#10-文件上传处理file-handling">10. <strong>文件上传处理（File Handling）</strong></a></li>
+        <li><a href="#11-信号signals">11. <strong>信号（Signals）</strong></a></li>
+      </ol>
+    </li>
+    <li><a href="#说一下djangomiddlewares中间件的作用和应用场景">说一下Django，MIDDLEWARES中间件的作用和应用场景？</a></li>
+    <li><a href="#列举django中间件的5个方法">列举django中间件的5个方法？</a></li>
+    <li><a href="#references">References</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%80/">Django面试题（一）</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 13, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="对django的认识">对Django的认识
+</h1><ul>
+<li>Django是走大而全的方向，它最出名的是其全自动化的管理后台：只需要使用其ORM，做简单的对象定义，它就能自动生成数据库结构、以及全功能的管理后台。</li>
+<li>Django内置的ORM跟框架内的其他模块耦合程度高。应用程序必须使用Django内置的ORM，否则就不能享受到框架内提供的种种基于其ORM的便利；</li>
+<li>Django适用的是中小型的网站，或者是作为大型网站快速实现产品雏形的工具。</li>
+<li>Django模板的设计哲学是彻底的将代码、样式分离；Django从根本上杜绝在模板中进行编码、处理数据的可能。</li>
+</ul>
+<h1 id="djangoflask和tornado的对比">Django，Flask和Tornado的对比
+</h1><ol>
+<li><strong>框架定位</strong><br>
+Django：全栈框架，功能全面，内置ORM、认证、后台管理等，适合中大型项目。
+Flask：轻量微框架，灵活性高，适合小型应用和需要定制化的项目。
+Tornado：异步Web框架，擅长高并发和实时通讯，适合实时系统和高并发场景。</li>
+<li><strong>开发效率</strong><br>
+Django：内置功能多，开发效率高，但灵活性相对较低。
+Flask：简洁灵活，开发者有更多技术选择空间，但需自行集成扩展。
+Tornado：异步模式高效并发，但开发和调试复杂。</li>
+<li><strong>性能与适用场景</strong><br>
+Django：适合企业级应用，性能一般，但可通过缓存等手段优化。
+Flask：轻量，适合API和小型项目，需外部工具提升并发性能。
+Tornado：异步架构，适合高并发、WebSocket等实时应用，性能最优。</li>
+<li><strong>总结</strong><br>
+Django：适合功能复杂、需要快速开发的项目。
+Flask：适合灵活定制的小型应用或微服务。
+Tornado：适合高并发、实时通讯的系统。</li>
+</ol>
+<h1 id="web服务器和web框架的区别">Web服务器和Web框架的区别
+</h1><p>Web服务器即用来接受客户端请求，建立连接，转发响应的程序。至于转发的内容是什么，交由Web框架来处理，即处理这些业务逻辑。如查询数据库、生成实时信息等。
+Nginx是一个Web服务器，Django或flask就是Web框架。</p>
+<h1 id="什么是wsgiuwsgiawsgi">什么是WSGI,uWSGI,aWSGI？
+</h1><ul>
+<li>WSGI，Web服务器网关接口，是一种Web服务器网关接口，它是一个Web服务器（如Nginx，uWSGI等服务器）与Web应用（如Flask框架写的程序）通信的一种规范。当前运行在WSGI协议之上的Web框架有Bottle，Flask，Django</li>
+<li>uWSGI，是实现了WSGI协议的一个Web服务器。即用来接受客户端请求，转发响应的程序。实际上，一个uWSGI的Web服务器，再加上Django这样的Web框架，就已经可以实现网站的功能了。</li>
+<li>aWSGI，异步网关协议接口，一个介于网络协议服务和Python应用之间的标准接口，能够处理多种通用的协议类型，包括HTTP，HTTP2和WebSocket。</li>
+</ul>
+<h2 id="wsgi和asgi的区别">WSGI和ASGI的区别
+</h2><p>WSGI是基于HTTP协议模式的，不支持WebSocket，而ASGI的诞生则是为了解决Python常用的WSGI不支持当前Web开发中的一些新的协议标准。同时，ASGI对于WSGI原有的模式的支持和WebSocket的扩展，即ASGI是WSGI的扩展。</p>
+<h1 id="django的生命周期">Django的生命周期
+</h1><ol>
+<li>wsgi,请求封装后交给web框架 （Flask、Django）</li>
+<li>中间件，对请求进行校验或在请求对象中添加其他相关数据，例如：csrf、request.session</li>
+<li>路由匹配,根据浏览器发送的不同url去匹配不同的视图函数</li>
+<li>视图函数，在视图函数中进行业务逻辑的处理，可能涉及到：orm、templates =&gt; 渲染</li>
+<li>中间件，对响应的数据进行处理。</li>
+<li>wsgi,将响应的内容发送给浏览器。</li>
+</ol>
+<h1 id="什么是fbv和cbv">什么是FBV和CBV？
+</h1><p>FBV（function base views）： 基于函数的视图，就是在视图里使用函数处理请求。
+CBV（class base views）： 基于类的视图，就是在视图里使用类处理请求。</p>
+<h2 id="fbv">FBV
+</h2><p>就是使用了函数来处理用户的请求，查看以下实例：<br>
+路由配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># urls.py</span>
+</span></span><span class="line"><span class="cl"><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="n">path</span><span class="p">(</span><span class="s2">&#34;login/&#34;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">login</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># views.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span><span class="n">HttpResponse</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">login</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&#34;GET&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&#34;GET 方法&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s2">&#34;POST&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;user&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pwd</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;pwd&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">user</span> <span class="o">==</span> <span class="s2">&#34;runoob&#34;</span> <span class="ow">and</span> <span class="n">pwd</span> <span class="o">==</span> <span class="s2">&#34;123456&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&#34;POST 方法&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&#34;POST 方法1&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="cbv">CBV
+</h2><p>基于类的视图，就是使用了类来处理用户的请求，不同的请求我们可以在类中使用不同方法来处理，这样大大的提高了代码的可读性。<br>
+定义的类要继承父类 View，所以需要先引入库：<br>
+<code>from django.views import View</code>
+执行对应请求的方法前会优先执行 dispatch 方法(在get/post/put&hellip;方法前执行)，dispatch() 方法会根据请求的不同调用相应的方法来处理。<br>
+其实，在我们前面学到的知识都知道 Django 的 url 是将一个请求分配给可调用的函数的，而不是一个类，那是如何实现基于类的视图的呢？ 主要还是通过父类 View 提供的一个静态方法 as_view() ，as_view 方法是基于类的外部接口， 他返回一个视图函数，调用后请求会传递给 dispatch 方法，dispatch 方法再根据不同请求来处理不同的方法。<br>
+路由配置：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># urls.py</span>
+</span></span><span class="line"><span class="cl"><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="n">path</span><span class="p">(</span><span class="s2">&#34;login/&#34;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">Login</span><span class="o">.</span><span class="n">as_view</span><span class="p">()),</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># views.py</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">render</span><span class="p">,</span><span class="n">HttpResponse</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.views</span> <span class="kn">import</span> <span class="n">View</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Login</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">request</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&#34;GET 方法&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">request</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;user&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pwd</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;pwd&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">user</span> <span class="o">==</span> <span class="s2">&#34;runoob&#34;</span> <span class="ow">and</span> <span class="n">pwd</span> <span class="o">==</span> <span class="s2">&#34;123456&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&#34;POST 方法&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&#34;POST 方法 1&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="如何给cbv的程序添加装饰器">如何给CBV的程序添加装饰器？
+</h1><ol>
+<li>对单个方法使用装饰器：使用@method_decorator装饰get、post等方法。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.utils.decorators</span> <span class="kn">import</span> <span class="n">method_decorator</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="kn">import</span> <span class="n">View</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyView</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@method_decorator</span><span class="p">(</span><span class="n">login_required</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&#34;This is a protected view&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li>对整个类视图使用装饰器：使用@method_decorator装饰dispatch方法，影响所有请求方法。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.utils.decorators</span> <span class="kn">import</span> <span class="n">method_decorator</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.contrib.auth.decorators</span> <span class="kn">import</span> <span class="n">login_required</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="kn">import</span> <span class="n">View</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponse</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@method_decorator</span><span class="p">(</span><span class="n">login_required</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;dispatch&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyView</span><span class="p">(</span><span class="n">View</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&#34;This is a protected view&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&#34;This is a protected view for POST request&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="简述mvc和mtv">简述MVC和MTV
+</h1><h2 id="mvcmodel-view-controller-模型-视图-控制器">MVC（Model View Controller 模型-视图-控制器）
+</h2><p>​ Web服务器开发领域里著名的MVC模式，所谓MVC就是把Web应用分为模型(M)，控制器(C)和视图(V)三层，他们之间以一种插件式的、松耦合的方式连接在一起，模型负责业务对象与数据库的映射(ORM)，视图负责与用户的交互(页面)，控制器接受用户的输入调用模型和视图完成用户的请求，其示意图如下所示：</p>
+<div align="center">
+    <figure>
+        <img src="pics/MVC.jpg" title="MVC模式示意图">
+        <figcaption>MVC模式示意图</figcaption>
+    </figure>
+</div>
+<ul>
+<li>M-&gt;Model:模型，主要负责在数据库中对数据的存取操作</li>
+<li>V-&gt;View:视图，负责显示数据，通常是前端界面，如HTML页面、UI元素等。它接收用户输入并将其传递给Controller。</li>
+<li>C-&gt;Controller:控制器，充当Model和View之间的桥梁。它处理来自View的用户请求，调用Model中的业务逻辑，返回结果给View进行显示。</li>
+</ul>
+<h2 id="mtvmodel-templates-view-模型-模板-视图">MTV（Model Templates View 模型-模板-视图）
+</h2><p>Django的MTV模式本质上与MVC是一样的，也是为了各组件之间保持松耦合关系，只是在定义上有些不同，Django的MTV分别是：</p>
+<ul>
+<li>M-&gt;模型(Model)：和MVC中的Model类似，处理与数据相关的内容，定义数据库的结构和操作方法</li>
+<li>T-&gt;模板(Template)：相当于MVC中的View，负责将数据呈现给用户。模板通过Django的模板语言生成动态HTML页面</li>
+<li>V-&gt;视图(View)：与MVC的Controller功能类似，负责处理用户请求和业务逻辑，调用Model获取数据，并将结果传递给Template进行渲染</li>
+</ul>
+<p>还需要一个URL分发器，它的作用是将一个个URL的页面请求分发给不同的View处理，View再调用相应的Model和Template，MTV的响应模式如下所示：</p>
+<div align="center">
+    <figure>
+        <img src="pics/MTV.png" title="MTV模式示意图">
+        <figcaption>MTV模式示意图</figcaption>
+    </figure>
+</div>
+<p>​ 一般是用户通过浏览器向我们的服务器发起一个请求(request)，这个请求回去访问视图函数，（如果不涉及到数据调用，那么这个时候视图函数返回一个模板也就是一个网页给用户），视图函数调用模型，模型去数据库查找数据，然后逐级返回，视图函数把返回的数据填充到模板中空格中，最后返回网页给用户。</p>
+<h2 id="mvc和mtv的区别">MVC和MTV的区别
+</h2><p>MVC中的V的目的是呈现那个数据，而MTV的V的目的是数据如何呈现<br>
+也就是把MVC中的View分成了视图（展现哪些数据）和模板（如何展现）2个部分，而Contorller这个要素由框架自己来实现了，我们需要做的就是把（带正则表达式的）URL对应到视图就可以了，通过这样的URL配置，系统将一个请求发送到一个合适的视图。</p>
+<h1 id="django框架中配置url路由时name的作用">Django框架中配置url路由时name的作用
+</h1><p>主要是通过name的值，来查找url地址，可以理解为反射作用（别名）。在html模板中使用name来反射url优势就是后期url规则发生改变之后，只需调整urls.py即可，所有的模板文件都不需要修改。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># urls.py</span>
+</span></span><span class="line"><span class="cl"><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;admin/&#39;</span><span class="p">,</span> <span class="n">admin</span><span class="o">.</span><span class="n">site</span><span class="o">.</span><span class="n">urls</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;sum/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">add</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;add&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;get_url/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">get_url</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&#34;test&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;index/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">index</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># views.py</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s1">&#39;你访问了第一个url路由&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_url</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># reverse()这个函数就是根据url路由的name参数，来反向获取url地址的方法</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 所以，url路由的name参数不仅仅可以在模板中使用{% url &#39;add&#39; %}，也可以在view.py中使用</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;add1&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="mi">123</span><span class="p">,</span> <span class="mi">456</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">    {# 上述使用name字段的url路由设置方法在html文件中的应用方式如下： #}
+</span></span><span class="line"><span class="cl">    {# url是固定写法，表示当前要加载的是url地址。&#39;add&#39;表示url路由对应的name参数值。 #}
+</span></span><span class="line"><span class="cl">    {# 要加载name=&#34;add&#34;的这个url地址。 #}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{% url &#39;add&#39; %}&#34;</span><span class="p">&gt;</span>第一个url路由<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    {# 通过name的值&#34;add1&#34;，反向获取带有参数的url地址 #}
+</span></span><span class="line"><span class="cl">    <span class="p">&lt;</span><span class="nt">a</span> <span class="na">href</span><span class="o">=</span><span class="s">&#34;{% url &#39;add1&#39; 10 25 %}&#34;</span><span class="p">&gt;</span>计算<span class="p">&lt;/</span><span class="nt">a</span><span class="p">&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="列举django的内置组件">列举django的内置组件？
+</h1><p>Django 是一个功能强大的全栈框架，提供了大量内置组件，帮助开发者快速构建和维护Web应用。这些内置组件涵盖了从数据管理、用户身份认证到安全性、性能优化等方面的需求。</p>
+<p>以下是 Django 的一些重要内置组件：</p>
+<h2 id="1-模型model">1. <strong>模型（Model）</strong>
+</h2><ul>
+<li><strong>ORM（Object-Relational Mapping）</strong>：Django 提供了内置的 ORM 系统，帮助开发者通过 Python 类定义数据库表结构，而不需要直接写 SQL。常用组件包括：
+<ul>
+<li><code>models.Model</code>：基础模型类。</li>
+<li>字段类型：<code>CharField</code>，<code>IntegerField</code>，<code>DateField</code> 等。</li>
+<li>关系字段：<code>ForeignKey</code>，<code>ManyToManyField</code>，<code>OneToOneField</code>。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-视图view">2. <strong>视图（View）</strong>
+</h2><ul>
+<li><strong>基于函数的视图（FBV）</strong>：使用普通的 Python 函数处理 HTTP 请求，例如：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">my_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="s2">&#34;Hello, world!&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li><strong>基于类的视图（CBV）</strong>：提供了一系列通用视图类，简化了开发常见的视图逻辑：
+<ul>
+<li><code>ListView</code>：用于展示对象列表。</li>
+<li><code>DetailView</code>：展示单个对象的详细信息。</li>
+<li><code>CreateView</code>，<code>UpdateView</code>，<code>DeleteView</code>：处理对象的创建、更新、删除操作。</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-模板引擎template-engine">3. <strong>模板引擎（Template Engine）</strong>
+</h2><ul>
+<li>Django 内置了一个模板系统，允许开发者使用模板语言生成动态 HTML 页面。常用的模板标签和过滤器包括：
+<ul>
+<li>变量输出：<code>{{ variable }}</code></li>
+<li>控制结构：<code>{% for item in list %} ... {% endfor %}</code>，<code>{% if condition %} ... {% endif %}</code></li>
+<li>过滤器：<code>{{ name|upper }}</code>，<code>{{ date|date:&quot;Y-m-d&quot; }}</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="4-url-路由url-routing">4. <strong>URL 路由（URL Routing）</strong>
+</h2><ul>
+<li>Django 提供了灵活的 URL 路由系统，允许开发者通过 <code>urls.py</code> 文件定义 URL 模式与视图函数的映射：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">views</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;home/&#39;</span><span class="p">,</span> <span class="n">views</span><span class="o">.</span><span class="n">home_view</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;home&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>支持正则表达式匹配和命名路由。</li>
+</ul>
+<h2 id="5-表单处理forms">5. <strong>表单处理（Forms）</strong>
+</h2><ul>
+<li>Django 提供了强大的表单处理组件，支持表单生成、验证、以及与模型的绑定。
+<ul>
+<li><code>forms.Form</code>：手动定义表单结构。</li>
+<li><code>forms.ModelForm</code>：自动生成与模型关联的表单。</li>
+<li>支持表单字段验证和错误处理。</li>
+</ul>
+</li>
+</ul>
+<h2 id="6-认证和授权系统authentication-and-authorization">6. <strong>认证和授权系统（Authentication and Authorization）</strong>
+</h2><ul>
+<li>Django 内置了完整的用户身份认证和权限管理系统：
+<ul>
+<li><code>django.contrib.auth</code>：提供用户模型、身份验证、权限、用户组等。</li>
+<li>常用组件：
+<ul>
+<li><code>User</code> 模型：用于用户注册、登录。</li>
+<li><code>LoginRequiredMixin</code>：用于限制用户访问某些视图。</li>
+<li><code>PermissionRequiredMixin</code>：基于权限控制视图的访问。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="7-管理界面admin">7. <strong>管理界面（Admin）</strong>
+</h2><ul>
+<li>Django 内置了强大的后台管理界面，无需额外开发即可管理模型数据。
+<ul>
+<li><code>django.contrib.admin</code>：自动生成管理后台，通过 <code>admin.site.register</code> 将模型注册到后台。</li>
+<li>支持自定义表单、过滤器、搜索等功能。</li>
+</ul>
+</li>
+</ul>
+<h2 id="8-中间件middleware">8. <strong>中间件（Middleware）</strong>
+</h2><ul>
+<li>Django 提供了中间件机制，可以在请求和响应的处理过程中添加额外的逻辑。
+<ul>
+<li>常见的内置中间件包括：
+<ul>
+<li><code>SecurityMiddleware</code>：处理安全相关的功能（如强制 HTTPS）。</li>
+<li><code>AuthenticationMiddleware</code>：处理用户的身份认证。</li>
+<li><code>SessionMiddleware</code>：启用会话支持。</li>
+<li><code>CommonMiddleware</code>：处理URL重定向、内容长度等。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="9-消息框架messages-framework">9. <strong>消息框架（Messages Framework）</strong>
+</h2><ul>
+<li>Django 的消息框架允许在不同请求之间传递一次性消息（如成功提示、错误消息）。
+<ul>
+<li><code>django.contrib.messages</code>：常用于提示用户操作结果，如表单提交成功。</li>
+<li>使用 <code>messages.add_message</code> 或 <code>messages.success</code>，<code>messages.error</code> 等方法显示消息。</li>
+</ul>
+</li>
+</ul>
+<h2 id="10-文件上传处理file-handling">10. <strong>文件上传处理（File Handling）</strong>
+</h2><ul>
+<li>Django 提供了简便的文件上传和处理机制。
+<ul>
+<li><code>FileField</code> 和 <code>ImageField</code>：用于在模型中定义文件上传字段。</li>
+<li><code>request.FILES</code>：处理上传的文件。</li>
+</ul>
+</li>
+</ul>
+<h2 id="11-信号signals">11. <strong>信号（Signals）</strong>
+</h2><ul>
+<li>Django 提供了信号机制，允许在某些事件发生时触发特定的回调函数。
+<ul>
+<li>常用信号：<code>pre_save</code>，<code>post_save</code>，<code>pre_delete</code>，<code>post_delete</code>。</li>
+<li>开发者可以使用信号来处理特定事件，如模型保存后执行额外逻辑。</li>
+</ul>
+</li>
+</ul>
+<h1 id="说一下djangomiddlewares中间件的作用和应用场景">说一下Django，MIDDLEWARES中间件的作用和应用场景？
+</h1><p>中间件是介于request与response处理之间的一道处理过程,用于在全局范围内改变Django的输入和输出。<br>
+简单的来说中间件是帮助我们在视图函数执行之前和执行之后都可以做一些额外的操作<br>
+例如：</p>
+<ul>
+<li>Django项目中默认启用了csrf保护,每次请求时通过CSRF中间件检查请求中是否有正确token值</li>
+<li>当用户在页面上发送请求时，通过自定义的认证中间件，判断用户是否已经登陆，未登陆就去登陆。</li>
+<li>当有用户请求过来时，判断用户是否在白名单或者在黑名单里</li>
+</ul>
+<h1 id="列举django中间件的5个方法">列举django中间件的5个方法？
+</h1><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">方法</th>
+          <th style="text-align: left">作用</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">process_request(self, request)</td>
+          <td style="text-align: left">主要方法。请求刚进来时，执行视图函数之前调用。(无return)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">process_view(self, request, callback, callback_args, callback_kwargs)</td>
+          <td style="text-align: left">URL路由匹配成功后，执行视图函数之前调用，拿到视图函数对象，及其所有参数。(无return)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">process_exception(self, request, exception)</td>
+          <td style="text-align: left">执行视图函数中遇到异常时调用。(无return)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">process_template_response(self, request, response)</td>
+          <td style="text-align: left">很少用。执行了render()渲染方法后调用。(有return)</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">process_response(self, request, response)</td>
+          <td style="text-align: left">主要方法。执行视图函数结束之后有响应时调用。(有return)</td>
+      </tr>
+  </tbody>
+</table></div>
+<h1 id="references">References
+</h1><ul>
+<li><a class="link" href="https://www.nowcoder.com/discuss/399679459568230400?sourceSSR=search"  target="_blank" rel="noopener"
+    >python web框架django面试题</a></li>
+<li><a class="link" href="https://www.runoob.com/django/django-views-fbv-cbv.html"  target="_blank" rel="noopener"
+    >https://www.runoob.com/django/django-views-fbv-cbv.html</a></li>
+<li><a class="link" href="https://gaojie.cc/2022/02/21/Django%E7%AE%80%E4%BB%8B%E4%B8%8EMTV%E6%A8%A1%E5%BC%8F/"  target="_blank" rel="noopener"
+    >Django简介与MTV模式</a></li>
+<li><a class="link" href="https://blog.csdn.net/zhouls007/article/details/83277841"  target="_blank" rel="noopener"
+    >Django框架中配置url路由时name的作用</a></li>
+<li><a class="link" href="https://developer.aliyun.com/ask/259507"  target="_blank" rel="noopener"
+    >列举django中间件的5个方法？以及django中间件的应用场景？</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2024 Lean Max
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.27.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
