@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="My First Blog\rJust memory my first blog. Nothing else~\n">
-<title>My First Post</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="django的request对象是在什么时候创建的？\r当请求一个页面时, Django会建立一个包含请求元数据的HttpRequest对象。\n当Django加载对应的视图时, HttpRequest对象将作为视图函数的第一个参数，另外每个视图会返回一个HttpResponse对象。\nDjango重定向是如何实现的？用的什么状态码？\r使用HttpResponseRedirect 1 2 3 4 5 6 7 from django.http import HttpResponseRedirect def update_time(request): # 表单处理 OR 逻辑处理 return HttpResponseRedirect(&#39;/&#39;) #跳转到主界面 # 如果需要传参数 # return HttpResponseRedirect(&#39;/commons/index/?message=error&#39;) redirect 和 reverse 1 2 3 4 5 6 7 8 9 10 11 from django.core.urlresolvers import reverse from django.shortcuts import redirect def update_time(request): # 进行要处理的逻辑 return redirect(reverse(&#39;test.views.invoice_return_index&#39;, args=[])) # 跳转到index界面 # redirect 类似HttpResponseRedirect的用法， # 也可以使用 字符串的url格式 /..index/？a=add # reverse 可以直接用views函数来指定重定向的处理函数，args是url匹配的值。 状态码：301和302\n">
+<title>Django面试题（二）</title>
 
-<link rel='canonical' href='http://localhost:1313/p/my-first-post/'>
+<link rel='canonical' href='http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/'>
 
-<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="My First Post">
-<meta property='og:description' content="My First Blog\rJust memory my first blog. Nothing else~\n">
-<meta property='og:url' content='http://localhost:1313/p/my-first-post/'>
+<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="Django面试题（二）">
+<meta property='og:description' content="django的request对象是在什么时候创建的？\r当请求一个页面时, Django会建立一个包含请求元数据的HttpRequest对象。\n当Django加载对应的视图时, HttpRequest对象将作为视图函数的第一个参数，另外每个视图会返回一个HttpResponse对象。\nDjango重定向是如何实现的？用的什么状态码？\r使用HttpResponseRedirect 1 2 3 4 5 6 7 from django.http import HttpResponseRedirect def update_time(request): # 表单处理 OR 逻辑处理 return HttpResponseRedirect(&#39;/&#39;) #跳转到主界面 # 如果需要传参数 # return HttpResponseRedirect(&#39;/commons/index/?message=error&#39;) redirect 和 reverse 1 2 3 4 5 6 7 8 9 10 11 from django.core.urlresolvers import reverse from django.shortcuts import redirect def update_time(request): # 进行要处理的逻辑 return redirect(reverse(&#39;test.views.invoice_return_index&#39;, args=[])) # 跳转到index界面 # redirect 类似HttpResponseRedirect的用法， # 也可以使用 字符串的url格式 /..index/？a=add # reverse 可以直接用views函数来指定重定向的处理函数，args是url匹配的值。 状态码：301和302\n">
+<meta property='og:url' content='http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/'>
 <meta property='og:site_name' content='Lean Max'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-10-11T21:03:48&#43;08:00'/><meta property='article:modified_time' content='2024-10-11T21:03:48&#43;08:00'/>
-<meta name="twitter:title" content="My First Post">
-<meta name="twitter:description" content="My First Blog\rJust memory my first blog. Nothing else~\n">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Django' /><meta property='article:tag' content='面试题' /><meta property='article:published_time' content='2024-10-14T20:21:44&#43;08:00'/><meta property='article:modified_time' content='2024-10-14T20:21:44&#43;08:00'/>
+<meta name="twitter:title" content="Django面试题（二）">
+<meta name="twitter:description" content="django的request对象是在什么时候创建的？\r当请求一个页面时, Django会建立一个包含请求元数据的HttpRequest对象。\n当Django加载对应的视图时, HttpRequest对象将作为视图函数的第一个参数，另外每个视图会返回一个HttpResponse对象。\nDjango重定向是如何实现的？用的什么状态码？\r使用HttpResponseRedirect 1 2 3 4 5 6 7 from django.http import HttpResponseRedirect def update_time(request): # 表单处理 OR 逻辑处理 return HttpResponseRedirect(&#39;/&#39;) #跳转到主界面 # 如果需要传参数 # return HttpResponseRedirect(&#39;/commons/index/?message=error&#39;) redirect 和 reverse 1 2 3 4 5 6 7 8 9 10 11 from django.core.urlresolvers import reverse from django.shortcuts import redirect def update_time(request): # 进行要处理的逻辑 return redirect(reverse(&#39;test.views.invoice_return_index&#39;, args=[])) # 跳转到index界面 # redirect 类似HttpResponseRedirect的用法， # 也可以使用 字符串的url格式 /..index/？a=add # reverse 可以直接用views函数来指定重定向的处理函数，args是url匹配的值。 状态码：301和302\n">
     </head>
     <body class="
     article-page
@@ -225,7 +225,12 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#my-first-blog">My First Blog</a></li>
+    <li><a href="#django的request对象是在什么时候创建的">django的request对象是在什么时候创建的？</a></li>
+    <li><a href="#django重定向是如何实现的用的什么状态码">Django重定向是如何实现的？用的什么状态码？</a></li>
+    <li><a href="#django中csrf的实现机制">django中csrf的实现机制</a></li>
+    <li><a href="#基于django使用ajax发送post请求时都可以使用哪种方法携带csrf-token">基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf token？</a></li>
+    <li><a href="#django本身提供了runserver为什么不能用来部署runserver与uwsgi的区别">Django本身提供了runserver，为什么不能用来部署？(runserver与uWSGI的区别)</a></li>
+    <li><a href="#references">References</a></li>
   </ol>
 </nav>
         </div>
@@ -242,10 +247,18 @@
 
     <div class="article-details">
     
+    <header class="article-category">
+        
+            <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" >
+                面试题
+            </a>
+        
+    </header>
+    
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/my-first-post/">My First Post</a>
+            <a href="/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/">Django面试题（二）</a>
         </h2>
     
         
@@ -267,7 +280,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Oct 11, 2024</time>
+                <time class="article-time--published">Oct 14, 2024</time>
             </div>
         
 
@@ -297,14 +310,115 @@
     <section class="article-content">
     
     
-    <h1 id="my-first-blog">My First Blog
-</h1><p>Just memory my first blog. Nothing else~</p>
+    <h1 id="django的request对象是在什么时候创建的">django的request对象是在什么时候创建的？
+</h1><p>当请求一个页面时, Django会建立一个包含请求元数据的HttpRequest对象。<br>
+当Django加载对应的视图时, HttpRequest对象将作为视图函数的第一个参数，另外每个视图会返回一个HttpResponse对象。</p>
+<h1 id="django重定向是如何实现的用的什么状态码">Django重定向是如何实现的？用的什么状态码？
+</h1><ol>
+<li>使用<code>HttpResponseRedirect</code></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.http</span> <span class="kn">import</span> <span class="n">HttpResponseRedirect</span>  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">update_time</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>  
+</span></span><span class="line"><span class="cl">    <span class="c1"># 表单处理 OR 逻辑处理  </span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">HttpResponseRedirect</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>  <span class="c1">#跳转到主界面  </span>
+</span></span><span class="line"><span class="cl">	<span class="c1"># 如果需要传参数</span>
+</span></span><span class="line"><span class="cl">	<span class="c1"># return HttpResponseRedirect(&#39;/commons/index/?message=error&#39;)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li><code>redirect</code> 和 <code>reverse</code></li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.core.urlresolvers</span> <span class="kn">import</span> <span class="n">reverse</span>  
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="kn">import</span> <span class="n">redirect</span>  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">update_time</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>  
+</span></span><span class="line"><span class="cl">    <span class="c1"># 进行要处理的逻辑  </span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">reverse</span><span class="p">(</span><span class="s1">&#39;test.views.invoice_return_index&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[]))</span>  
+</span></span><span class="line"><span class="cl">	<span class="c1"># 跳转到index界面  </span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># redirect 类似HttpResponseRedirect的用法，</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 也可以使用 字符串的url格式 /..index/？a=add</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># reverse 可以直接用views函数来指定重定向的处理函数，args是url匹配的值。</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>状态码：301和302</p>
+<ul>
+<li>相同点：都表示重定向，浏览器在拿到服务器返回的这个状态码后会自动跳转到一个新的URL地址</li>
+<li>不同点：
+<ul>
+<li>301比较常用的场景是使用域名跳转。比如，我们访问 <a class="link" href="http://www.baidu.com"  target="_blank" rel="noopener"
+    >http://www.baidu.com</a> 会跳转到 <a class="link" href="https://www.baidu.com"  target="_blank" rel="noopener"
+    >https://www.baidu.com</a>，表示旧地址A的资源已经被永久地移除了</li>
+<li>302用来做临时跳转，比如未登陆的用户访问用户中心重定向到登录页面。表示旧地址A的资源还在（仍然可以访问），这个重定向只是临时地从旧地址A跳转到地址B</li>
+</ul>
+</li>
+</ul>
+<h1 id="django中csrf的实现机制">django中csrf的实现机制
+</h1><p>跨站请求伪造（CSRF，Cross-Site Request Forgery）是一种攻击方式，攻击者诱导用户在已认证的网站上执行非授权操作。攻击者通常通过第三方网站发送恶意请求，让受害者在不知情的情况下使用其已登录的身份发起请求，执行操作。（攻击者可以利用Cookie但不能获取Cookie）<br>
+django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完成。<br>
+具体机制：</p>
+<ol>
+<li>用户第一次访问网站时，Django 在响应中生成一个 CSRF Token，并将其存储在 csrftoken Cookie 中。</li>
+<li>当用户提交表单时，CSRF Token 被嵌入到表单的隐藏字段中，同时被发送到服务器。</li>
+<li>Django 的 CSRF 中间件接收请求后，验证表单中的 Token 和 Cookie 中的 Token 是否匹配。<br>
+如果验证成功，请求通过；如果失败，返回 403 错误。</li>
+</ol>
+<h1 id="基于django使用ajax发送post请求时都可以使用哪种方法携带csrf-token">基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf token？
+</h1><ol>
+<li>将 CSRF Token 添加到请求头：推荐使用 <code>X-CSRFToken</code>，这种方式最常用且最安全。</li>
+<li>将 CSRF Token 作为 POST 数据的一部分：适用于需要通过 <code>FormData</code> 提交文件的场景。</li>
+</ol>
+<h1 id="django本身提供了runserver为什么不能用来部署runserver与uwsgi的区别">Django本身提供了runserver，为什么不能用来部署？(runserver与uWSGI的区别)
+</h1><p>runserver 是调试 Django 时经常用到的运行方式，它使用 Django 自带的 WSGI Server 运行，主要在测试和开发中使用，并且 runserver 开启的方式也是单进程。
+uWSGI 是一个 Web 服务器，它实现了WSGI，uWSGl，HTTP等协议。uWSGI 是一种通信协议，而 uWSGI 是实现 uwsgi 协议和 WSGI 协议的 Web 服务器。uWSGI 具有超快的性能、低内存占用等优点，并且搭配着 Nginx 组成项目的生产环境，能够将用户访问请求与项目应用隔离，实现真正的网站部署。相对来说，这种方式支持的并发量更高，方便管理多进程，发挥多核的优势，提升性能。</p>
+<h1 id="references">References
+</h1><ul>
+<li><a class="link" href="https://www.nowcoder.com/discuss/399679459568230400?sourceSSR=search"  target="_blank" rel="noopener"
+    >python web框架django面试题</a></li>
+<li><a class="link" href="https://www.cnblogs.com/xcbb/p/14855215.html"  target="_blank" rel="noopener"
+    >Django本身提供了runserver，为什么不能用来部署？</a></li>
+</ul>
 
 </section>
 
 
     <footer class="article-footer">
     
+    <section class="article-tags">
+        
+            <a href="/tags/django/">Django</a>
+        
+            <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>
+        
+    </section>
+
 
     
     <section class="article-copyright">
@@ -327,6 +441,28 @@
     
 
     
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Django面试题（一）</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
 
      
     
