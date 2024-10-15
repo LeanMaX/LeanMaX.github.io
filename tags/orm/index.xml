@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>ORM on Lean Max</title>
-        <link>http://localhost:1313/tags/orm/</link>
+        <link>https://leanmax.github.io/tags/orm/</link>
         <description>Recent content in ORM on Lean Max</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Lean Max</copyright>
-        <lastBuildDate>Tue, 15 Oct 2024 15:17:09 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/orm/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 15 Oct 2024 15:17:09 +0800</lastBuildDate><atom:link href="https://leanmax.github.io/tags/orm/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Django面试题（三）</title>
-        <link>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/</link>
+        <link>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/</link>
         <pubDate>Tue, 15 Oct 2024 15:17:09 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/</guid>
+        <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/</guid>
         <description>&lt;h1 id=&#34;django的form和modeform的作用&#34;&gt;django的Form和ModeForm的作用？
 &lt;/h1&gt;&lt;p&gt;Django的Form和ModelForm是框架中非常重要的两个组件，主要用于处理表单数据和数据模型。以下是它们的具体作用：&lt;/p&gt;
 &lt;h2 id=&#34;1-django-form&#34;&gt;1. Django Form：
@@ -943,6 +943,39 @@
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;h1 id=&#34;django中如何根据数据库表生成model中的类&#34;&gt;django中如何根据数据库表生成model中的类？
+&lt;/h1&gt;&lt;p&gt;在Django中，如果你已经有一个存在的数据库，并且想要根据数据库中的表来生成Django模型（model）类，你可以使用inspectdb命令。这个命令可以自动为你生成一个模型类的代码，该代码基于你的数据库表结构。&lt;br&gt;
+以下是如何使用inspectdb的步骤：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;打开命令行工具（例如Terminal或Command Prompt）。&lt;/li&gt;
+&lt;li&gt;切换到你的Django项目目录。&lt;/li&gt;
+&lt;li&gt;运行以下命令：&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;python manage.py inspectdb &amp;gt; app_name/models.py
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;这里的app_name应该替换成你想要在其中创建模型的应用程序的名称。注意，这个命令会将生成的代码直接输出到标准输出（stdout），所以我们使用&amp;gt;重定向符号将其保存到models.py文件中。&lt;br&gt;
+然而，直接重定向输出到models.py可能会覆盖你现有的文件内容。如果你不希望这样，你可以先将输出重定向到一个临时文件，然后手动将生成的代码复制到你的models.py文件中。&lt;br&gt;
+更好的做法是使用以下命令将输出重定向到一个新的文件中：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;python manage.py inspectdb &amp;gt; app_name/models_from_db.py
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;然后，你可以打开models_from_db.py文件，将生成的模型类复制并粘贴到你的models.py文件中。
+4. 打开models.py（或models_from_db.py，如果你选择了上面的第二种方法），检查并修改生成的模型类。通常，你需要做一些调整以适应Django的命名约定和你的项目需求。
+5. 在你的Django应用的admin.py文件中注册这些模型，如果你想要通过Django管理界面来管理它们的话。
+6. 运行&lt;code&gt;python manage.py makemigrations&lt;/code&gt;和&lt;code&gt;python manage.py migrate&lt;/code&gt;来创建和应用迁移，虽然这些模型是基于现有数据库表生成的，但这一步通常是不必要的，除非你计划对这些模型进行进一步的修改。&lt;br&gt;
+请注意，inspectdb生成的模型是只读的，意味着它们可以用于从数据库中检索数据，但Django不会为这些模型创建迁移来管理数据库模式的更改。如果你需要修改数据库结构，你应该手动创建迁移并指定所需的更改。&lt;br&gt;
+另外，inspectdb不支持所有类型的数据库特性，例如存储过程、触发器、视图、分区等。它主要用于生成基本的表结构模型。对于更复杂的数据库特性，你可能需要手动编写模型代码或寻找第三方工具来帮助你。&lt;/p&gt;
 &lt;h1 id=&#34;references&#34;&gt;References
 &lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.nowcoder.com/discuss/399679459568230400?sourceSSR=search&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
