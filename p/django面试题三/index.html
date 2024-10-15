@@ -1,0 +1,1562 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="django的Form和ModeForm的作用？\rDjango的Form和ModelForm是框架中非常重要的两个组件，主要用于处理表单数据和数据模型。以下是它们的具体作用：\n1. Django Form：\r生成页面可用的HTML标签：Form类可以自动生成HTML表单代码，使得在前端页面中能够方便地展示表单。 **对用户提交的数据进行校验：**Form类可以对用户提交的数据进行各种验证，确保数据的合法性和正确性。这可以防止恶意用户提交非法数据或进行攻击。 保留上次输入内容：如果用户提交的数据验证不通过，Form类可以保留用户上次输入的内容，方便用户进行修改后再次提交。 2. Django ModelForm：\r继承自Form类：ModelForm是Form的子类，因此它具有Form类的所有功能，包括生成HTML标签、数据验证等。 与数据模型进行绑定：ModelForm与Django的数据模型进行绑定，可以直接对数据库表进行操作。这使得在表单处理过程中，可以方便地读取、修改、删除数据库中的数据。 自动生成表单字段：根据绑定的数据模型，ModelForm可以自动生成对应的表单字段，无需手动定义。这大大简化了表单的开发过程。 django的Form组件中,如果字段中包含choices参数，请使用两种方式实现数据源实时更新。\r1. 重写Form类的__init__方法\r可以通过重写Form类的__init__方法来动态地设置字段的choices。这通常涉及到从数据库或其他外部源获取数据，并将其作为字段选项。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): my_field = forms.ChoiceField(choices=[]) # 初始为空，稍后在__init__中填充 def __init__(self, *args, **kwargs): super(MyForm, self).__init__(*args, **kwargs) # 从数据库或其他地方获取数据 choices = MyModel.objects.values_list(&#39;id&#39;, &#39;name&#39;) # 更新字段的choices self.fields[&#39;my_field&#39;].choices = choices 2. 使用ModelChoiceField\r如果你的选项来自于一个Django模型，你可以使用ModelChoiceField，它允许你指定一个查询集（QuerySet）作为选项。你可以在Form类中定义一个方法来返回查询集，并在ModelChoiceField中使用这个方法。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): def get_my_choices(): # 返回查询集 return MyModel.objects.all() my_field = forms.ModelChoiceField(queryset=get_my_choices()) # 注意：上面的代码片段有一个问题，即`get_my_choices`在类定义时被调用，而不是在实例化时。 # 正确的做法是使用lambda表达式或者将查询集定义在__init__方法中。 然而，上面的代码片段有一个问题：get_my_choices在类定义时就被调用了，而不是在实例化时。这会导致每次服务器启动时获取一次选项，而不是每次请求时。为了解决这个问题，你应该在__init__方法中设置查询集：\n">
+<title>Django面试题（三）</title>
+
+<link rel='canonical' href='http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/'>
+
+<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="Django面试题（三）">
+<meta property='og:description' content="django的Form和ModeForm的作用？\rDjango的Form和ModelForm是框架中非常重要的两个组件，主要用于处理表单数据和数据模型。以下是它们的具体作用：\n1. Django Form：\r生成页面可用的HTML标签：Form类可以自动生成HTML表单代码，使得在前端页面中能够方便地展示表单。 **对用户提交的数据进行校验：**Form类可以对用户提交的数据进行各种验证，确保数据的合法性和正确性。这可以防止恶意用户提交非法数据或进行攻击。 保留上次输入内容：如果用户提交的数据验证不通过，Form类可以保留用户上次输入的内容，方便用户进行修改后再次提交。 2. Django ModelForm：\r继承自Form类：ModelForm是Form的子类，因此它具有Form类的所有功能，包括生成HTML标签、数据验证等。 与数据模型进行绑定：ModelForm与Django的数据模型进行绑定，可以直接对数据库表进行操作。这使得在表单处理过程中，可以方便地读取、修改、删除数据库中的数据。 自动生成表单字段：根据绑定的数据模型，ModelForm可以自动生成对应的表单字段，无需手动定义。这大大简化了表单的开发过程。 django的Form组件中,如果字段中包含choices参数，请使用两种方式实现数据源实时更新。\r1. 重写Form类的__init__方法\r可以通过重写Form类的__init__方法来动态地设置字段的choices。这通常涉及到从数据库或其他外部源获取数据，并将其作为字段选项。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): my_field = forms.ChoiceField(choices=[]) # 初始为空，稍后在__init__中填充 def __init__(self, *args, **kwargs): super(MyForm, self).__init__(*args, **kwargs) # 从数据库或其他地方获取数据 choices = MyModel.objects.values_list(&#39;id&#39;, &#39;name&#39;) # 更新字段的choices self.fields[&#39;my_field&#39;].choices = choices 2. 使用ModelChoiceField\r如果你的选项来自于一个Django模型，你可以使用ModelChoiceField，它允许你指定一个查询集（QuerySet）作为选项。你可以在Form类中定义一个方法来返回查询集，并在ModelChoiceField中使用这个方法。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): def get_my_choices(): # 返回查询集 return MyModel.objects.all() my_field = forms.ModelChoiceField(queryset=get_my_choices()) # 注意：上面的代码片段有一个问题，即`get_my_choices`在类定义时被调用，而不是在实例化时。 # 正确的做法是使用lambda表达式或者将查询集定义在__init__方法中。 然而，上面的代码片段有一个问题：get_my_choices在类定义时就被调用了，而不是在实例化时。这会导致每次服务器启动时获取一次选项，而不是每次请求时。为了解决这个问题，你应该在__init__方法中设置查询集：\n">
+<meta property='og:url' content='http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/'>
+<meta property='og:site_name' content='Lean Max'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Django' /><meta property='article:tag' content='面试题' /><meta property='article:tag' content='ORM' /><meta property='article:published_time' content='2024-10-15T15:17:09&#43;08:00'/><meta property='article:modified_time' content='2024-10-15T15:17:09&#43;08:00'/>
+<meta name="twitter:title" content="Django面试题（三）">
+<meta name="twitter:description" content="django的Form和ModeForm的作用？\rDjango的Form和ModelForm是框架中非常重要的两个组件，主要用于处理表单数据和数据模型。以下是它们的具体作用：\n1. Django Form：\r生成页面可用的HTML标签：Form类可以自动生成HTML表单代码，使得在前端页面中能够方便地展示表单。 **对用户提交的数据进行校验：**Form类可以对用户提交的数据进行各种验证，确保数据的合法性和正确性。这可以防止恶意用户提交非法数据或进行攻击。 保留上次输入内容：如果用户提交的数据验证不通过，Form类可以保留用户上次输入的内容，方便用户进行修改后再次提交。 2. Django ModelForm：\r继承自Form类：ModelForm是Form的子类，因此它具有Form类的所有功能，包括生成HTML标签、数据验证等。 与数据模型进行绑定：ModelForm与Django的数据模型进行绑定，可以直接对数据库表进行操作。这使得在表单处理过程中，可以方便地读取、修改、删除数据库中的数据。 自动生成表单字段：根据绑定的数据模型，ModelForm可以自动生成对应的表单字段，无需手动定义。这大大简化了表单的开发过程。 django的Form组件中,如果字段中包含choices参数，请使用两种方式实现数据源实时更新。\r1. 重写Form类的__init__方法\r可以通过重写Form类的__init__方法来动态地设置字段的choices。这通常涉及到从数据库或其他外部源获取数据，并将其作为字段选项。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): my_field = forms.ChoiceField(choices=[]) # 初始为空，稍后在__init__中填充 def __init__(self, *args, **kwargs): super(MyForm, self).__init__(*args, **kwargs) # 从数据库或其他地方获取数据 choices = MyModel.objects.values_list(&#39;id&#39;, &#39;name&#39;) # 更新字段的choices self.fields[&#39;my_field&#39;].choices = choices 2. 使用ModelChoiceField\r如果你的选项来自于一个Django模型，你可以使用ModelChoiceField，它允许你指定一个查询集（QuerySet）作为选项。你可以在Form类中定义一个方法来返回查询集，并在ModelChoiceField中使用这个方法。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): def get_my_choices(): # 返回查询集 return MyModel.objects.all() my_field = forms.ModelChoiceField(queryset=get_my_choices()) # 注意：上面的代码片段有一个问题，即`get_my_choices`在类定义时被调用，而不是在实例化时。 # 正确的做法是使用lambda表达式或者将查询集定义在__init__方法中。 然而，上面的代码片段有一个问题：get_my_choices在类定义时就被调用了，而不是在实例化时。这会导致每次服务器启动时获取一次选项，而不是每次请求时。为了解决这个问题，你应该在__init__方法中设置查询集：\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu10645090171398504556.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🥥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Lean Max</a></h1>
+            <h2 class="site-description">Try to be better</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/LeanMaX/LeanMaX.github.io'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#django的form和modeform的作用">django的Form和ModeForm的作用？</a>
+      <ol>
+        <li><a href="#1-django-form">1. Django Form：</a></li>
+        <li><a href="#2-django-modelform">2. Django ModelForm：</a></li>
+      </ol>
+    </li>
+    <li><a href="#django的form组件中如果字段中包含choices参数请使用两种方式实现数据源实时更新">django的Form组件中,如果字段中包含choices参数，请使用两种方式实现数据源实时更新。</a>
+      <ol>
+        <li><a href="#1-重写form类的__init__方法">1. 重写Form类的__init__方法</a></li>
+        <li><a href="#2-使用modelchoicefield">2. 使用ModelChoiceField</a></li>
+      </ol>
+    </li>
+    <li><a href="#django的model中的foreignkey字段中的on_delete参数有什么作用">django的Model中的ForeignKey字段中的on_delete参数有什么作用？</a>
+      <ol>
+        <li><a href="#常见的-on_delete-行为选项">常见的 <code>on_delete</code> 行为选项</a></li>
+        <li><a href="#选择合适的-on_delete-选项">选择合适的 <code>on_delete</code> 选项</a></li>
+        <li><a href="#总结">总结</a></li>
+      </ol>
+    </li>
+    <li><a href="#列举django-orm中三种能写sql语句的方法">列举django orm中三种能写sql语句的方法。</a>
+      <ol>
+        <li><a href="#1-raw-方法">1. <strong><code>raw()</code> 方法</strong></a></li>
+        <li><a href="#2-managerraw-方法">2. <strong><code>Manager.raw()</code> 方法</strong></a></li>
+        <li><a href="#3-connectioncursor-方法">3. <strong><code>connection.cursor()</code> 方法</strong></a></li>
+        <li><a href="#总结表格">总结表格</a></li>
+      </ol>
+    </li>
+    <li><a href="#django-orm-中如何设置读写分离">django orm 中如何设置读写分离？</a>
+      <ol>
+        <li><a href="#实现读写分离的步骤">实现读写分离的步骤</a></li>
+        <li><a href="#小结">小结</a></li>
+      </ol>
+    </li>
+    <li><a href="#django中如何实现orm表中添加数据时创建一条日志记录">django中如何实现orm表中添加数据时创建一条日志记录。</a>
+      <ol>
+        <li><a href="#方案-1使用-django-信号-signals">方案 1：使用 Django 信号 (<code>signals</code>)</a>
+          <ol>
+            <li><a href="#步骤">步骤</a></li>
+          </ol>
+        </li>
+        <li><a href="#方案-2重写模型的-save-方法">方案 2：重写模型的 <code>save()</code> 方法</a>
+          <ol>
+            <li><a href="#步骤-1">步骤</a></li>
+          </ol>
+        </li>
+        <li><a href="#方案-3使用数据库表记录日志">方案 3：使用数据库表记录日志</a>
+          <ol>
+            <li><a href="#步骤-2">步骤</a></li>
+          </ol>
+        </li>
+        <li><a href="#总结-1">总结</a></li>
+      </ol>
+    </li>
+    <li><a href="#解释orm中-db-first-和-code-first的含义">解释orm中 db first 和 code first的含义？</a>
+      <ol>
+        <li><a href="#db-first数据库优先">db first（数据库优先）：</a></li>
+        <li><a href="#code-first代码优先">code first（代码优先）：</a></li>
+      </ol>
+    </li>
+    <li><a href="#使用orm和原生sql的优缺点">使用orm和原生sql的优缺点？</a></li>
+    <li><a href="#references">References</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" >
+                面试题
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/">Django面试题（三）</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 15, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    6 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="django的form和modeform的作用">django的Form和ModeForm的作用？
+</h1><p>Django的Form和ModelForm是框架中非常重要的两个组件，主要用于处理表单数据和数据模型。以下是它们的具体作用：</p>
+<h2 id="1-django-form">1. Django Form：
+</h2><ul>
+<li><strong>生成页面可用的HTML标签</strong>：Form类可以自动生成HTML表单代码，使得在前端页面中能够方便地展示表单。</li>
+<li>**对用户提交的数据进行校验：**Form类可以对用户提交的数据进行各种验证，确保数据的合法性和正确性。这可以防止恶意用户提交非法数据或进行攻击。</li>
+<li><strong>保留上次输入内容</strong>：如果用户提交的数据验证不通过，Form类可以保留用户上次输入的内容，方便用户进行修改后再次提交。</li>
+</ul>
+<h2 id="2-django-modelform">2. Django ModelForm：
+</h2><ul>
+<li><strong>继承自Form类</strong>：ModelForm是Form的子类，因此它具有Form类的所有功能，包括生成HTML标签、数据验证等。</li>
+<li><strong>与数据模型进行绑定</strong>：ModelForm与Django的数据模型进行绑定，可以直接对数据库表进行操作。这使得在表单处理过程中，可以方便地读取、修改、删除数据库中的数据。</li>
+<li><strong>自动生成表单字段</strong>：根据绑定的数据模型，ModelForm可以自动生成对应的表单字段，无需手动定义。这大大简化了表单的开发过程。</li>
+</ul>
+<h1 id="django的form组件中如果字段中包含choices参数请使用两种方式实现数据源实时更新">django的Form组件中,如果字段中包含choices参数，请使用两种方式实现数据源实时更新。
+</h1><h2 id="1-重写form类的__init__方法">1. 重写Form类的__init__方法
+</h2><p>可以通过重写<code>Form</code>类的<code>__init__</code>方法来动态地设置字段的<code>choices</code>。这通常涉及到从数据库或其他外部源获取数据，并将其作为字段选项。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">MyModel</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">my_field</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">ChoiceField</span><span class="p">(</span><span class="n">choices</span><span class="o">=</span><span class="p">[])</span>  <span class="c1"># 初始为空，稍后在__init__中填充</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">(</span><span class="n">MyForm</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 从数据库或其他地方获取数据</span>
+</span></span><span class="line"><span class="cl">        <span class="n">choices</span> <span class="o">=</span> <span class="n">MyModel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 更新字段的choices</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;my_field&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">choices</span> <span class="o">=</span> <span class="n">choices</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="2-使用modelchoicefield">2. 使用ModelChoiceField
+</h2><p>如果你的选项来自于一个Django模型，你可以使用<code>ModelChoiceField</code>，它允许你指定一个查询集（QuerySet）作为选项。你可以在<code>Form</code>类中定义一个方法来返回查询集，并在<code>ModelChoiceField</code>中使用这个方法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">MyModel</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">get_my_choices</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 返回查询集</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">MyModel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">my_field</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">ModelChoiceField</span><span class="p">(</span><span class="n">queryset</span><span class="o">=</span><span class="n">get_my_choices</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 注意：上面的代码片段有一个问题，即`get_my_choices`在类定义时被调用，而不是在实例化时。</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 正确的做法是使用lambda表达式或者将查询集定义在__init__方法中。</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然而，上面的代码片段有一个问题：get_my_choices在类定义时就被调用了，而不是在实例化时。这会导致每次服务器启动时获取一次选项，而不是每次请求时。为了解决这个问题，你应该在__init__方法中设置查询集：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">forms</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">MyModel</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyForm</span><span class="p">(</span><span class="n">forms</span><span class="o">.</span><span class="n">Form</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">my_field</span> <span class="o">=</span> <span class="n">forms</span><span class="o">.</span><span class="n">ModelChoiceField</span><span class="p">(</span><span class="n">queryset</span><span class="o">=</span><span class="n">MyModel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">none</span><span class="p">())</span>  <span class="c1"># 初始设置为空的查询集</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">(</span><span class="n">MyForm</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 在实例化时更新查询集</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">fields</span><span class="p">[</span><span class="s1">&#39;my_field&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">queryset</span> <span class="o">=</span> <span class="n">MyModel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在这个修正后的例子中，MyModel.objects.none()创建了一个空的查询集，它在数据库中没有匹配任何记录。然后，在__init__方法中，我们根据实际需要更新了查询集。<br>
+推荐使用第二种方式，因为它直接与Django的ORM集成，可以更容易地处理数据库查询和相关的优化。同时，确保在__init__方法中设置或更新查询集，以确保每次表单实例化时都能获取到最新的数据。</p>
+<h1 id="django的model中的foreignkey字段中的on_delete参数有什么作用">django的Model中的ForeignKey字段中的on_delete参数有什么作用？
+</h1><p>在 Django 的 <code>Model</code> 中，<code>ForeignKey</code> 字段的 <code>on_delete</code> 参数用于指定当<strong>关联的外键对象</strong>被删除时，<strong>当前对象</strong>应该如何处理。这是为了确保在外键引用被删除时，数据库的完整性得到维护。</p>
+<h2 id="常见的-on_delete-行为选项">常见的 <code>on_delete</code> 行为选项
+</h2><p>以下是 <code>on_delete</code> 参数的几种常见选项，它们对应不同的处理方式：</p>
+<ol>
+<li>
+<p><strong><code>CASCADE</code></strong>：</p>
+<ul>
+<li><strong>行为</strong>：级联删除。当外键关联的对象被删除时，所有引用该对象的记录也会被删除。</li>
+<li><strong>使用场景</strong>：适用于依赖外键对象存在的子对象。比如：订单删除时，同时删除所有相关的订单明细。</li>
+<li><strong>示例</strong>：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Author</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Author</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>如果某个 <code>Author</code> 被删除，那么所有与该 <code>Author</code> 相关联的 <code>Book</code> 记录也会被删除。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>PROTECT</code></strong>：</p>
+<ul>
+<li><strong>行为</strong>：阻止删除。当尝试删除外键对象时，抛出 <code>ProtectedError</code> 异常，从而阻止删除操作。</li>
+<li><strong>使用场景</strong>：适用于你希望确保外键引用的对象不会被删除，除非先删除所有相关的依赖对象。</li>
+<li><strong>示例</strong>：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Author</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">PROTECT</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>如果某个 <code>Author</code> 关联了 <code>Book</code>，试图删除该 <code>Author</code> 会抛出异常，阻止删除操作。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>SET_NULL</code></strong>：</p>
+<ul>
+<li><strong>行为</strong>：将外键字段设置为 <code>NULL</code>。需要指定 <code>null=True</code>，否则会引发错误。</li>
+<li><strong>使用场景</strong>：当外键对象被删除时，当前对象的外键字段可以为空，保持记录存在但移除外键关联。</li>
+<li><strong>示例</strong>：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Author</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">SET_NULL</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>如果某个 <code>Author</code> 被删除，相关的 <code>Book</code> 记录不会被删除，但 <code>author</code> 字段会被设置为 <code>NULL</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>SET_DEFAULT</code></strong>：</p>
+<ul>
+<li><strong>行为</strong>：将外键字段设置为默认值。需要设置 <code>default</code> 参数。</li>
+<li><strong>使用场景</strong>：当外键对象被删除时，当前对象的外键字段被重置为一个默认值。</li>
+<li><strong>示例</strong>：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Author</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">SET_DEFAULT</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>如果某个 <code>Author</code> 被删除，相关的 <code>Book</code> 的 <code>author</code> 字段会被设置为默认值（比如 <code>id=1</code> 的 <code>Author</code>）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>SET()</code></strong>：</p>
+<ul>
+<li><strong>行为</strong>：调用传入的函数或指定的值来设置外键字段。可以自定义字段的设置行为。</li>
+<li><strong>使用场景</strong>：适用于复杂的场景，当你需要更灵活的方式来处理删除外键时的字段设置。</li>
+<li><strong>示例</strong>：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Author</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">SET</span><span class="p">(</span><span class="n">some_function</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>当 <code>Author</code> 被删除时，<code>some_function</code> 会被调用来设置 <code>author</code> 字段。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong><code>DO_NOTHING</code></strong>：</p>
+<ul>
+<li><strong>行为</strong>：不做任何处理。Django 不会干预，但可能会违反数据库的外键约束，导致数据库层抛出错误。</li>
+<li><strong>使用场景</strong>：适用于你在数据库层面手动处理删除外键的逻辑。</li>
+<li><strong>示例</strong>：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Author</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">DO_NOTHING</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>如果 <code>Author</code> 被删除，<code>Book</code> 不会有任何变化，但如果数据库有外键约束，可能会抛出错误。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="选择合适的-on_delete-选项">选择合适的 <code>on_delete</code> 选项
+</h2><ul>
+<li><strong>级联删除 (CASCADE)</strong>：适合父子关系，删除父对象时自动删除所有子对象。</li>
+<li><strong>阻止删除 (PROTECT)</strong>：适合不允许删除父对象的场景。</li>
+<li><strong>设置为 <code>NULL</code> (SET_NULL)</strong>：适合允许子对象存在但取消外键关系的场景。</li>
+<li><strong>设置为默认值 (SET_DEFAULT)</strong>：适合需要重置外键字段为默认值的情况。</li>
+<li><strong>自定义设置 (SET())</strong>：适合需要灵活控制字段的更新逻辑时。</li>
+<li><strong>不做处理 (DO_NOTHING)</strong>：适合手动控制外键删除逻辑，通常需要自己处理异常。</li>
+</ul>
+<h2 id="总结">总结
+</h2><p><code>on_delete</code> 参数为你提供了多种处理外键删除的方式。选择合适的方式取决于你希望当外键对象被删除时，数据库中的相关数据如何处理，从而确保数据的完整性和业务逻辑的正确性。</p>
+<h1 id="列举django-orm中三种能写sql语句的方法">列举django orm中三种能写sql语句的方法。
+</h1><p>在 Django ORM 中，虽然 ORM 提供了高级的查询接口，但有时需要直接执行 SQL 语句。Django 提供了三种常见的方式可以编写和执行 SQL 语句：</p>
+<h2 id="1-raw-方法">1. <strong><code>raw()</code> 方法</strong>
+</h2><ul>
+<li>
+<p><strong>描述</strong>：用于执行原生 SQL 查询，并返回模型实例。可以将原生 SQL 语句与 Django 模型结合使用。</p>
+</li>
+<li>
+<p><strong>适用场景</strong>：适用于复杂的查询或无法通过 ORM 生成的 SQL 查询。</p>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">author</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">Author</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用 raw() 执行原生 SQL 查询</span>
+</span></span><span class="line"><span class="cl"><span class="n">books</span> <span class="o">=</span> <span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM myapp_book WHERE author_id = </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">books</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">book</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>注意</strong>：<code>raw()</code> 返回的对象是模型实例，但不能使用 <code>raw()</code> 来进行插入、更新或删除操作。</p>
+</li>
+</ul>
+<h2 id="2-managerraw-方法">2. <strong><code>Manager.raw()</code> 方法</strong>
+</h2><ul>
+<li><strong>描述</strong>：从模型管理器执行原生 SQL 查询。类似于 <code>raw()</code>，但是在模型的 <code>Manager</code> 上调用，返回查询结果集。</li>
+<li><strong>适用场景</strong>：当你想在模型管理器中定义自定义查询时使用（可用作默认查询）。</li>
+<li><strong>示例</strong>：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">BookManager</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">with_custom_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM myapp_book WHERE title LIKE </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;%Django%&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Book</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">objects</span> <span class="o">=</span> <span class="n">BookManager</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用自定义的 Manager 来执行 SQL 查询</span>
+</span></span><span class="line"><span class="cl"><span class="n">books</span> <span class="o">=</span> <span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">with_custom_sql</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">book</span> <span class="ow">in</span> <span class="n">books</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">book</span><span class="o">.</span><span class="n">title</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="3-connectioncursor-方法">3. <strong><code>connection.cursor()</code> 方法</strong>
+</h2><ul>
+<li>
+<p><strong>描述</strong>：直接使用数据库游标执行任意 SQL 语句。可以执行 <code>SELECT</code>、<code>INSERT</code>、<code>UPDATE</code>、<code>DELETE</code> 等操作，返回结果集或影响的行数。</p>
+</li>
+<li>
+<p><strong>适用场景</strong>：适合需要执行任意 SQL 语句，或者执行不返回模型实例的操作（如批量插入、更新、删除等）。</p>
+</li>
+<li>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">connection</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用 cursor() 执行自定义 SQL 语句</span>
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM myapp_book WHERE author_id = </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>  <span class="c1"># 返回所有查询结果</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">rows</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>注意</strong>：<code>cursor()</code> 提供了直接操作数据库的能力，但需要手动处理返回的数据，查询结果不会映射为模型实例。</p>
+</li>
+</ul>
+<h2 id="总结表格">总结表格
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">方法</th>
+          <th style="text-align: left">作用</th>
+          <th style="text-align: left">场景</th>
+          <th style="text-align: left">示例</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>raw()</code></td>
+          <td style="text-align: left">执行原生 SQL 并返回模型实例</td>
+          <td style="text-align: left">查询复杂的或无法通过 ORM 实现的查询</td>
+          <td style="text-align: left"><code>Book.objects.raw('SELECT * FROM myapp_book')</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>Manager.raw()</code></td>
+          <td style="text-align: left">在模型管理器中自定义查询</td>
+          <td style="text-align: left">自定义模型管理器中的复杂 SQL 查询</td>
+          <td style="text-align: left"><code>Book.objects.with_custom_sql()</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>connection.cursor()</code></td>
+          <td style="text-align: left">使用游标执行任意 SQL</td>
+          <td style="text-align: left">执行任意 SQL（包括查询、插入、更新、删除等操作）</td>
+          <td style="text-align: left"><code>cursor.execute('SELECT * FROM myapp_book')</code></td>
+      </tr>
+  </tbody>
+</table></div>
+<p>这三种方式允许开发者根据需求灵活执行原生 SQL 语句，尤其是在 ORM 难以实现或性能要求较高的场景下，显得尤为重要。</p>
+<h1 id="django-orm-中如何设置读写分离">django orm 中如何设置读写分离？
+</h1><p>在 Django 中实现读写分离（即将读操作与写操作分离到不同的数据库实例）通常通过配置多个数据库、并根据操作类型（读或写）路由请求到相应的数据库。Django 的数据库路由机制允许开发者自定义逻辑来决定某个查询应该发送到哪个数据库。</p>
+<h2 id="实现读写分离的步骤">实现读写分离的步骤
+</h2><ol>
+<li>
+<p><strong>配置多个数据库</strong></p>
+<ul>
+<li>在 <code>settings.py</code> 文件中配置多个数据库。通常，一个主数据库用于写操作（<code>default</code>），一个或多个从数据库用于读操作。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">DATABASES</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;django.db.backends.postgresql&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;NAME&#39;</span><span class="p">:</span> <span class="s1">&#39;main_db&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;USER&#39;</span><span class="p">:</span> <span class="s1">&#39;db_user&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;PASSWORD&#39;</span><span class="p">:</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;HOST&#39;</span><span class="p">:</span> <span class="s1">&#39;main_db_host&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;PORT&#39;</span><span class="p">:</span> <span class="s1">&#39;5432&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;replica&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;ENGINE&#39;</span><span class="p">:</span> <span class="s1">&#39;django.db.backends.postgresql&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;NAME&#39;</span><span class="p">:</span> <span class="s1">&#39;replica_db&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;USER&#39;</span><span class="p">:</span> <span class="s1">&#39;db_user&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;PASSWORD&#39;</span><span class="p">:</span> <span class="s1">&#39;password&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;HOST&#39;</span><span class="p">:</span> <span class="s1">&#39;replica_db_host&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;PORT&#39;</span><span class="p">:</span> <span class="s1">&#39;5432&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>自定义数据库路由</strong></p>
+<ul>
+<li>使用数据库路由来确定读请求（<code>SELECT</code>）应该发送到从数据库，而写请求（<code>INSERT</code>、<code>UPDATE</code>、<code>DELETE</code>）发送到主数据库。通过创建一个自定义路由器类来实现该逻辑。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">DatabaseRouter</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    A router to control all database operations on models.
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">db_for_read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">hints</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Attempts to read go to the replica.
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s1">&#39;replica&#39;</span>  <span class="c1"># 所有读操作都路由到从数据库</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">db_for_write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="o">**</span><span class="n">hints</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Attempts to write go to the default database.
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s1">&#39;default&#39;</span>  <span class="c1"># 所有写操作都路由到主数据库</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">allow_relation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj1</span><span class="p">,</span> <span class="n">obj2</span><span class="p">,</span> <span class="o">**</span><span class="n">hints</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Allow relations if a model in the default or replica database is involved.
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">db_list</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="s1">&#39;replica&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">obj1</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">db</span> <span class="ow">in</span> <span class="n">db_list</span> <span class="ow">and</span> <span class="n">obj2</span><span class="o">.</span><span class="n">_state</span><span class="o">.</span><span class="n">db</span> <span class="ow">in</span> <span class="n">db_list</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">True</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">allow_migrate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db</span><span class="p">,</span> <span class="n">app_label</span><span class="p">,</span> <span class="n">model_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">hints</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        Ensure that all models end up in the default database.
+</span></span></span><span class="line"><span class="cl"><span class="s2">        &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">db</span> <span class="o">==</span> <span class="s1">&#39;default&#39;</span>  <span class="c1"># 迁移只在主数据库上进行</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>然后，在 <code>settings.py</code> 中注册该路由器。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">DATABASE_ROUTERS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;path.to.DatabaseRouter&#39;</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>选择性地使用数据库</strong></p>
+<ul>
+<li>Django ORM 默认使用路由规则来决定数据库，但在某些情况下，开发者可能想显式指定使用哪个数据库。可以通过 <code>using()</code> 方法选择数据库。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 从数据库中读取</span>
+</span></span><span class="line"><span class="cl"><span class="n">books</span> <span class="o">=</span> <span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">using</span><span class="p">(</span><span class="s1">&#39;replica&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 向主数据库中写入</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_book</span> <span class="o">=</span> <span class="n">Book</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&#34;Django Tips&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">new_book</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">using</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>读写事务管理</strong></p>
+<ul>
+<li>在使用多个数据库时，需要确保事务是按照操作类型在正确的数据库上进行。例如，读事务应该发生在从库，写事务应该发生在主库。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">transaction</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 在主数据库上执行写操作</span>
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">(</span><span class="n">using</span><span class="o">=</span><span class="s1">&#39;default&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&#34;New Book&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 在从数据库上执行读操作</span>
+</span></span><span class="line"><span class="cl"><span class="k">with</span> <span class="n">transaction</span><span class="o">.</span><span class="n">atomic</span><span class="p">(</span><span class="n">using</span><span class="o">=</span><span class="s1">&#39;replica&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">books</span> <span class="o">=</span> <span class="n">Book</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>多数据库一致性问题</strong></p>
+<ul>
+<li>在读写分离的架构中，由于主从复制的延迟，可能存在主库写入的数据还未同步到从库的情况。这时，从库的读操作可能读不到最新的数据。</li>
+<li>解决方案之一是使用某种机制确保特定情况下（如立即读取刚刚写入的数据）从主库读取，或者通过更复杂的路由逻辑来处理这些场景。</li>
+</ul>
+</li>
+</ol>
+<h2 id="小结">小结
+</h2><p>通过配置多个数据库并自定义数据库路由，Django 可以实现读写分离。读操作通常路由到从库，而写操作路由到主库，从而分散数据库负载并提高系统的可扩展性。在实现读写分离时，需要注意主从数据库的同步延迟问题，并根据实际应用场景调整数据库路由的逻辑。</p>
+<h1 id="django中如何实现orm表中添加数据时创建一条日志记录">django中如何实现orm表中添加数据时创建一条日志记录。
+</h1><p>在 Django 中，你可以通过多种方式在 ORM 表中添加数据时创建一条日志记录。一个常见的解决方案是使用 <strong>Django 的信号</strong> 或 <strong>重写模型的 <code>save()</code> 方法</strong>，在数据创建或更新时自动记录日志。</p>
+<h2 id="方案-1使用-django-信号-signals">方案 1：使用 Django 信号 (<code>signals</code>)
+</h2><p>Django 提供了 <code>signals</code>，你可以监听模型的 <code>post_save</code> 信号来在数据保存后记录日志。</p>
+<h3 id="步骤">步骤
+</h3><ol>
+<li>
+<p><strong>定义信号处理器</strong>：
+你可以定义一个信号处理器，在模型保存时触发日志记录。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.db.models.signals</span> <span class="kn">import</span> <span class="n">post_save</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.dispatch</span> <span class="kn">import</span> <span class="n">receiver</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">logging</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">MyModel</span>  <span class="c1"># 导入你的模型</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置日志记录器</span>
+</span></span><span class="line"><span class="cl"><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@receiver</span><span class="p">(</span><span class="n">post_save</span><span class="p">,</span> <span class="n">sender</span><span class="o">=</span><span class="n">MyModel</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">log_model_save</span><span class="p">(</span><span class="n">sender</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="n">created</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">created</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;New record created: </span><span class="si">{</span><span class="n">instance</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Record updated: </span><span class="si">{</span><span class="n">instance</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>连接信号</strong>：
+在应用的 <code>apps.py</code> 中连接信号，确保应用启动时加载信号处理器。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.apps</span> <span class="kn">import</span> <span class="n">AppConfig</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyAppConfig</span><span class="p">(</span><span class="n">AppConfig</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;myapp&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">ready</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="kn">import</span> <span class="nn">myapp.signals</span>  <span class="c1"># 确保 signals.py 文件被加载</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>配置日志</strong>：
+确保你的 Django 项目中已经正确配置了日志功能，通常是在 <code>settings.py</code> 中。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">LOGGING</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;version&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;disable_existing_loggers&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;console&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;logging.StreamHandler&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;loggers&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;django&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;myapp&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;handlers&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;console&#39;</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;propagate&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>效果</strong>：
+当你在数据库中创建或更新 <code>MyModel</code> 的实例时，Django 会自动在日志中记录一条新创建或更新的消息。</p>
+</li>
+</ol>
+<hr>
+<h2 id="方案-2重写模型的-save-方法">方案 2：重写模型的 <code>save()</code> 方法
+</h2><p>另一种方式是直接在模型的 <code>save()</code> 方法中加入日志记录逻辑，每次调用 <code>save()</code> 时记录日志。</p>
+<h3 id="步骤-1">步骤
+</h3><ol>
+<li>
+<p><strong>重写模型的 <code>save()</code> 方法</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">logging</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 判断是创建还是更新</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Creating new record: </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Updating record: </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 调用父类的 save 方法，确保数据保存</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">(</span><span class="n">MyModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>在每次保存时，<code>save()</code> 方法都会被调用。日志记录器会自动判断当前操作是创建新记录还是更新已有记录，并相应地写入日志。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="方案-3使用数据库表记录日志">方案 3：使用数据库表记录日志
+</h2><p>如果你希望将日志存储在数据库中，而不是日志文件中，你可以创建一个日志模型，手动在 <code>save()</code> 方法或信号中记录每次操作的详细信息。</p>
+<h3 id="步骤-2">步骤
+</h3><ol>
+<li>
+<p><strong>创建日志模型</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.db</span> <span class="kn">import</span> <span class="n">models</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">LogEntry</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">action</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">model_name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">object_id</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">timestamp</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">details</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">action</span><span class="si">}</span><span class="s1"> on </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">model_name</span><span class="si">}</span><span class="s1"> (ID: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">object_id</span><span class="si">}</span><span class="s1">) at </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">timestamp</span><span class="si">}</span><span class="s1">&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>在 <code>save()</code> 方法中创建日志记录</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyModel</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">description</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 判断创建还是更新</span>
+</span></span><span class="line"><span class="cl">        <span class="n">action</span> <span class="o">=</span> <span class="s1">&#39;Created&#39;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pk</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="s1">&#39;Updated&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">(</span><span class="n">MyModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  <span class="c1"># 保存模型数据</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 创建日志记录</span>
+</span></span><span class="line"><span class="cl">        <span class="n">LogEntry</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">action</span><span class="o">=</span><span class="n">action</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">model_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">object_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pk</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">details</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">action</span><span class="si">}</span><span class="s1"> record: </span><span class="si">{</span><span class="bp">self</span><span class="si">}</span><span class="s1">&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>效果</strong>：</p>
+<ul>
+<li>每次模型保存时，日志模型会保存一条记录，记录操作类型（创建或更新）、模型名称、对象 ID 以及详细信息。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="总结-1">总结
+</h2><ul>
+<li><strong>使用 Django 信号</strong>：适合解耦逻辑的方式，不需要修改模型类代码，可以针对所有模型统一记录日志。</li>
+<li><strong>重写 <code>save()</code> 方法</strong>：直接在模型中控制日志记录，简单且有效，适合某些特定模型的日志需求。</li>
+<li><strong>数据库日志</strong>：如果希望在数据库中保存操作日志，使用一个日志模型可以轻松管理所有记录。</li>
+</ul>
+<p>你可以根据实际需求选择合适的方法来实现 Django ORM 表数据变更时的日志记录。</p>
+<h1 id="解释orm中-db-first-和-code-first的含义">解释orm中 db first 和 code first的含义？
+</h1><p>在ORM（Object Relational Mapping，对象关系映射）中，“db first”和“code first”是两种开发模式，用于处理数据库和应用程序代码之间的关系。</p>
+<h2 id="db-first数据库优先">db first（数据库优先）：
+</h2><ul>
+<li><strong>含义</strong>：这种模式首先从设计数据库开始。开发者会先创建数据库，包括定义表、字段、关系等，然后使用ORM工具根据已存在的数据库结构生成相应的数据模型类。这种方式的好处是数据库设计可以独立于应用程序代码，数据库管理员（DBA）可以专注于优化数据库性能，而开发者可以专注于编写应用程序逻辑。</li>
+<li><strong>应用</strong>：适用于那些数据库已经存在，且需要在其上构建应用程序的场景。例如，企业可能已经有了一个经过优化的数据库，现在需要开发一个新的Web应用程序来访问这个数据库。</li>
+</ul>
+<h2 id="code-first代码优先">code first（代码优先）：
+</h2><ul>
+<li><strong>含义</strong>：与“db first”相反，“code first”模式强调从编写代码开始。开发者首先定义数据模型类（通常是C#、Java等语言的类），然后使用ORM工具根据这些类自动生成数据库结构。这种方式的好处是开发者可以专注于编写面向对象的代码，而不需要过多关注数据库的具体实现细节。ORM工具会自动处理数据库结构的创建和更新。</li>
+<li><strong>应用</strong>：适用于从零开始开发应用程序，且需要快速迭代和灵活调整数据库结构的场景。例如，初创公司可能需要快速开发一个MVP（最小可行产品），并根据用户反馈不断调整数据库结构。</li>
+</ul>
+<p>在实际开发中，选择“db first”还是“code first”取决于具体需求和团队偏好。有些项目可能会混合使用这两种模式，以获得最佳的开发效率和数据库性能。</p>
+<h1 id="使用orm和原生sql的优缺点">使用orm和原生sql的优缺点？
+</h1><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">类别</th>
+          <th style="text-align: left">优点</th>
+          <th style="text-align: left">缺点</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">ORM</td>
+          <td style="text-align: left"><strong>简化开发流程</strong>：ORM框架使得开发者无需编写复杂的SQL语句，从而简化了开发流程。<br><strong>提高代码可读性</strong>：ORM框架隐藏了底层数据库的实现细节，使得代码更加清晰易懂。<br><strong>易用性</strong>：可以有效减少重复SQL，提供了基础的CRUD操作、多表关联查询、事务控制、钩子函数等功能。<br><strong>移植性好</strong>：ORM框架可以轻松地切换不同的数据库，而无需修改大量的SQL语句。</td>
+          <td style="text-align: left"><strong>学习成本高</strong>：需要掌握ORM框架的API和概念，有一定的学习成本。<br><strong>可能影响查询性能</strong>：ORM框架在查询数据时可能会产生额外的开销，导致查询性能下降。<br><strong>复杂数据模型处理有限</strong>：对于复杂的数据模型，ORM框架的性能和可靠性可能受到限制。<br></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">原生SQL</td>
+          <td style="text-align: left"><strong>灵活性</strong>：原生SQL提供了灵活的查询语法，可以精确控制数据访问，满足各种复杂查询需求。<br><strong>性能优势</strong>：对于大量数据的处理，原生SQL的性能通常优于ORM框架。<br><strong>直接操作数据库</strong>：原生SQL可以直接操作数据库，避免ORM框架可能产生的额外开销。</td>
+          <td style="text-align: left"><strong>编写和维护成本高</strong>：需要手写SQL语句，并对其进行维护，有一定的编写和维护成本。<br><strong>数据库依赖性</strong>：SQL语句通常针对特定的数据库编写，切换数据库时需要修改SQL语句。<br><strong>代码可读性差</strong>：相比ORM框架，原生SQL的代码可读性较差，不易于理解和维护。</td>
+      </tr>
+  </tbody>
+</table></div>
+<ol>
+<li>django内置的缓存机制？</li>
+<li>django的缓存能使用redis吗？如果可以的话，如何配置？</li>
+<li>django的模板中filter和simple_tag的区别？</li>
+<li>django-debug-toolbar的作用？</li>
+<li>django中如何实现单元测试？</li>
+<li>django中如何根据数据库表生成model中的类？</li>
+<li>django的contenttype组件的作用？</li>
+<li>谈谈你对restful规范的认识？</li>
+<li>接口的幂等性是什么意思？</li>
+<li>什么是RPC？</li>
+<li>为什么要使用API</li>
+<li>为什么要使用django rest framework框架？</li>
+<li>django rest framework框架中都有那些组件？</li>
+<li>django rest framework框架中的视图都可以继承哪些类？</li>
+<li>简述 django rest framework框架的认证流程</li>
+<li>django rest framework如何实现的用户访问频率控制</li>
+<li>rest_framework序列化组件的作用,以及一些外键关系的钩子方法</li>
+<li>给用户提供一个接口之前需要提前做什么</li>
+<li>PV和UV</li>
+<li>什么是跨域以及解决方法:</li>
+<li>如何实现用户的登陆认证</li>
+<li>如何将dict转换成url的格式：</li>
+</ol>
+<h1 id="references">References
+</h1><ul>
+<li><a class="link" href="https://www.nowcoder.com/discuss/399679459568230400?sourceSSR=search"  target="_blank" rel="noopener"
+    >python web框架django面试题</a></li>
+<li><a class="link" href="https://www.iamshuaidi.com/28518.html"  target="_blank" rel="noopener"
+    >Django的Form和ModeForm的作用？</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/django/">Django</a>
+        
+            <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>
+        
+            <a href="/tags/orm/">ORM</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Django面试题（二）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Django面试题（一）</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2024 Lean Max
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.27.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
