@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" django内置的缓存机制？ django的缓存能使用redis吗？如果可以的话，如何配置？ django的模板中filter和simple_tag的区别？ django-debug-toolbar的作用？ django中如何实现单元测试？ django中如何根据数据库表生成model中的类？ django的contenttype组件的作用？ 谈谈你对restful规范的认识？ 接口的幂等性是什么意思？ 什么是RPC？ 为什么要使用API 为什么要使用django rest framework框架？ django rest framework框架中都有那些组件？ django rest framework框架中的视图都可以继承哪些类？ 简述 django rest framework框架的认证流程 django rest framework如何实现的用户访问频率控制 rest_framework序列化组件的作用,以及一些外键关系的钩子方法 给用户提供一个接口之前需要提前做什么 PV和UV 什么是跨域以及解决方法: 如何实现用户的登陆认证 如何将dict转换成url的格式： ">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="django内置的缓存机制？\rDjango 提供了一个内置的缓存框架，可以通过多种方式缓存页面、视图、查询结果或其他数据，以提高性能和减少数据库访问。Django 的缓存机制非常灵活，支持多种缓存后端，如内存、文件系统、数据库等。下面是 Django 内置缓存机制的主要部分：\n1. 缓存后端\rDjango 支持多种缓存后端，常见的包括：\n内存缓存（MemoryCache）：使用本地内存作为缓存存储，适合单机部署的小型项目。\n1 2 3 4 5 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.locmem.LocMemCache&#39;, } } 文件系统缓存（FileBasedCache）：将缓存存储在文件系统中，适合需要跨进程共享的缓存。\n1 2 3 4 5 6 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.filebased.FileBasedCache&#39;, &#39;LOCATION&#39;: &#39;/var/tmp/django_cache&#39;, } } 数据库缓存（DatabaseCache）：将缓存存储在数据库中，需要预先创建缓存表。\n1 2 3 4 5 6 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.db.DatabaseCache&#39;, &#39;LOCATION&#39;: &#39;my_cache_table&#39;, } } 创建缓存表：\n1 python manage.py createcachetable Memcached：一个高效的内存缓存系统，适合大规模部署的项目。\n1 2 3 4 5 6 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.memcached.MemcachedCache&#39;, &#39;LOCATION&#39;: &#39;127.0.0.1:11211&#39;, } } Redis：流行的键值存储，支持复杂的数据结构，适合高并发项目。\n">
 <title>Django面试题（四）</title>
 
 <link rel='canonical' href='http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/'>
 
 <link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="Django面试题（四）">
-<meta property='og:description' content=" django内置的缓存机制？ django的缓存能使用redis吗？如果可以的话，如何配置？ django的模板中filter和simple_tag的区别？ django-debug-toolbar的作用？ django中如何实现单元测试？ django中如何根据数据库表生成model中的类？ django的contenttype组件的作用？ 谈谈你对restful规范的认识？ 接口的幂等性是什么意思？ 什么是RPC？ 为什么要使用API 为什么要使用django rest framework框架？ django rest framework框架中都有那些组件？ django rest framework框架中的视图都可以继承哪些类？ 简述 django rest framework框架的认证流程 django rest framework如何实现的用户访问频率控制 rest_framework序列化组件的作用,以及一些外键关系的钩子方法 给用户提供一个接口之前需要提前做什么 PV和UV 什么是跨域以及解决方法: 如何实现用户的登陆认证 如何将dict转换成url的格式： ">
+<meta property='og:description' content="django内置的缓存机制？\rDjango 提供了一个内置的缓存框架，可以通过多种方式缓存页面、视图、查询结果或其他数据，以提高性能和减少数据库访问。Django 的缓存机制非常灵活，支持多种缓存后端，如内存、文件系统、数据库等。下面是 Django 内置缓存机制的主要部分：\n1. 缓存后端\rDjango 支持多种缓存后端，常见的包括：\n内存缓存（MemoryCache）：使用本地内存作为缓存存储，适合单机部署的小型项目。\n1 2 3 4 5 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.locmem.LocMemCache&#39;, } } 文件系统缓存（FileBasedCache）：将缓存存储在文件系统中，适合需要跨进程共享的缓存。\n1 2 3 4 5 6 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.filebased.FileBasedCache&#39;, &#39;LOCATION&#39;: &#39;/var/tmp/django_cache&#39;, } } 数据库缓存（DatabaseCache）：将缓存存储在数据库中，需要预先创建缓存表。\n1 2 3 4 5 6 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.db.DatabaseCache&#39;, &#39;LOCATION&#39;: &#39;my_cache_table&#39;, } } 创建缓存表：\n1 python manage.py createcachetable Memcached：一个高效的内存缓存系统，适合大规模部署的项目。\n1 2 3 4 5 6 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.memcached.MemcachedCache&#39;, &#39;LOCATION&#39;: &#39;127.0.0.1:11211&#39;, } } Redis：流行的键值存储，支持复杂的数据结构，适合高并发项目。\n">
 <meta property='og:url' content='http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/'>
 <meta property='og:site_name' content='Lean Max'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Django' /><meta property='article:tag' content='面试题' /><meta property='article:tag' content='缓存' /><meta property='article:tag' content='Redis' /><meta property='article:published_time' content='2024-10-15T17:48:09&#43;08:00'/><meta property='article:modified_time' content='2024-10-15T17:48:09&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Django' /><meta property='article:tag' content='面试' /><meta property='article:tag' content='缓存' /><meta property='article:tag' content='Redis' /><meta property='article:published_time' content='2024-10-15T17:48:09&#43;08:00'/><meta property='article:modified_time' content='2024-10-15T17:48:09&#43;08:00'/>
 <meta name="twitter:title" content="Django面试题（四）">
-<meta name="twitter:description" content=" django内置的缓存机制？ django的缓存能使用redis吗？如果可以的话，如何配置？ django的模板中filter和simple_tag的区别？ django-debug-toolbar的作用？ django中如何实现单元测试？ django中如何根据数据库表生成model中的类？ django的contenttype组件的作用？ 谈谈你对restful规范的认识？ 接口的幂等性是什么意思？ 什么是RPC？ 为什么要使用API 为什么要使用django rest framework框架？ django rest framework框架中都有那些组件？ django rest framework框架中的视图都可以继承哪些类？ 简述 django rest framework框架的认证流程 django rest framework如何实现的用户访问频率控制 rest_framework序列化组件的作用,以及一些外键关系的钩子方法 给用户提供一个接口之前需要提前做什么 PV和UV 什么是跨域以及解决方法: 如何实现用户的登陆认证 如何将dict转换成url的格式： ">
+<meta name="twitter:description" content="django内置的缓存机制？\rDjango 提供了一个内置的缓存框架，可以通过多种方式缓存页面、视图、查询结果或其他数据，以提高性能和减少数据库访问。Django 的缓存机制非常灵活，支持多种缓存后端，如内存、文件系统、数据库等。下面是 Django 内置缓存机制的主要部分：\n1. 缓存后端\rDjango 支持多种缓存后端，常见的包括：\n内存缓存（MemoryCache）：使用本地内存作为缓存存储，适合单机部署的小型项目。\n1 2 3 4 5 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.locmem.LocMemCache&#39;, } } 文件系统缓存（FileBasedCache）：将缓存存储在文件系统中，适合需要跨进程共享的缓存。\n1 2 3 4 5 6 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.filebased.FileBasedCache&#39;, &#39;LOCATION&#39;: &#39;/var/tmp/django_cache&#39;, } } 数据库缓存（DatabaseCache）：将缓存存储在数据库中，需要预先创建缓存表。\n1 2 3 4 5 6 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.db.DatabaseCache&#39;, &#39;LOCATION&#39;: &#39;my_cache_table&#39;, } } 创建缓存表：\n1 python manage.py createcachetable Memcached：一个高效的内存缓存系统，适合大规模部署的项目。\n1 2 3 4 5 6 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.memcached.MemcachedCache&#39;, &#39;LOCATION&#39;: &#39;127.0.0.1:11211&#39;, } } Redis：流行的键值存储，支持复杂的数据结构，适合高并发项目。\n">
     </head>
     <body class="
     article-page
@@ -203,7 +203,98 @@
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#django内置的缓存机制">django内置的缓存机制？</a>
+      <ol>
+        <li><a href="#1-缓存后端">1. <strong>缓存后端</strong></a></li>
+        <li><a href="#2-缓存的使用方式">2. <strong>缓存的使用方式</strong></a>
+          <ol>
+            <li><a href="#1整个网站的缓存">（1）<strong>整个网站的缓存</strong></a></li>
+            <li><a href="#2视图级缓存">（2）<strong>视图级缓存</strong></a></li>
+            <li><a href="#3模板片段缓存">（3）<strong>模板片段缓存</strong></a></li>
+            <li><a href="#4手动缓存控制">（4）<strong>手动缓存控制</strong></a></li>
+          </ol>
+        </li>
+        <li><a href="#3-缓存失效和超时">3. <strong>缓存失效和超时</strong></a></li>
+        <li><a href="#4-缓存版本控制">4. <strong>缓存版本控制</strong></a></li>
+        <li><a href="#5-基于数据库查询的缓存">5. <strong>基于数据库查询的缓存</strong></a></li>
+        <li><a href="#6-session-缓存">6. <strong>SESSION 缓存</strong></a></li>
+        <li><a href="#总结">总结</a></li>
+      </ol>
+    </li>
+    <li><a href="#django的缓存能使用redis吗如果可以的话如何配置">django的缓存能使用redis吗？如果可以的话，如何配置？</a>
+      <ol>
+        <li><a href="#配置步骤如下">配置步骤如下：</a>
+          <ol>
+            <li><a href="#1-安装依赖包">1. <strong>安装依赖包</strong></a></li>
+            <li><a href="#2-修改-django-的缓存配置">2. <strong>修改 Django 的缓存配置</strong></a>
+              <ol>
+                <li><a href="#配置选项解释">配置选项解释：</a></li>
+              </ol>
+            </li>
+            <li><a href="#3-测试-redis-缓存">3. <strong>测试 Redis 缓存</strong></a></li>
+          </ol>
+        </li>
+        <li><a href="#4-额外选项">4. <strong>额外选项</strong></a>
+          <ol>
+            <li><a href="#5-session-缓存">5. <strong>Session 缓存</strong></a></li>
+          </ol>
+        </li>
+        <li><a href="#总结-1">总结</a></li>
+      </ol>
+    </li>
+    <li><a href="#django的模板中filter和simple_tag的区别">django的模板中filter和simple_tag的区别？</a>
+      <ol>
+        <li><a href="#1-filter过滤器">1. <strong>filter（过滤器）</strong></a>
+          <ol>
+            <li><a href="#例子">例子：</a></li>
+            <li><a href="#创建自定义过滤器">创建自定义过滤器：</a></li>
+          </ol>
+        </li>
+        <li><a href="#2-simple_tag简单标签">2. <strong>simple_tag（简单标签）</strong></a>
+          <ol>
+            <li><a href="#例子-1">例子：</a></li>
+            <li><a href="#创建自定义-simple_tag">创建自定义 <code>simple_tag</code>：</a></li>
+          </ol>
+        </li>
+        <li><a href="#3-总结对比">3. <strong>总结对比</strong></a></li>
+        <li><a href="#4-何时使用">4. <strong>何时使用</strong></a></li>
+      </ol>
+    </li>
+    <li><a href="#django-debug-toolbar的作用">django-debug-toolbar的作用？</a></li>
+    <li><a href="#django中如何实现单元测试">django中如何实现单元测试？</a></li>
+    <li><a href="#django如何实现websocket">Django如何实现websocket？</a></li>
+    <li><a href="#references">References</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
     <article class="main-article">
@@ -259,7 +350,7 @@
 
 
                 <time class="article-time--reading">
-                    1 minute read
+                    5 minute read
                 </time>
             </div>
         
@@ -274,30 +365,846 @@
     <section class="article-content">
     
     
-    <ol>
-<li>django内置的缓存机制？</li>
-<li>django的缓存能使用redis吗？如果可以的话，如何配置？</li>
-<li>django的模板中filter和simple_tag的区别？</li>
-<li>django-debug-toolbar的作用？</li>
-<li>django中如何实现单元测试？</li>
-<li>django中如何根据数据库表生成model中的类？</li>
-<li>django的contenttype组件的作用？</li>
-<li>谈谈你对restful规范的认识？</li>
-<li>接口的幂等性是什么意思？</li>
-<li>什么是RPC？</li>
-<li>为什么要使用API</li>
-<li>为什么要使用django rest framework框架？</li>
-<li>django rest framework框架中都有那些组件？</li>
-<li>django rest framework框架中的视图都可以继承哪些类？</li>
-<li>简述 django rest framework框架的认证流程</li>
-<li>django rest framework如何实现的用户访问频率控制</li>
-<li>rest_framework序列化组件的作用,以及一些外键关系的钩子方法</li>
-<li>给用户提供一个接口之前需要提前做什么</li>
-<li>PV和UV</li>
-<li>什么是跨域以及解决方法:</li>
-<li>如何实现用户的登陆认证</li>
-<li>如何将dict转换成url的格式：</li>
+    <h1 id="django内置的缓存机制">django内置的缓存机制？
+</h1><p>Django 提供了一个内置的缓存框架，可以通过多种方式缓存页面、视图、查询结果或其他数据，以提高性能和减少数据库访问。Django 的缓存机制非常灵活，支持多种缓存后端，如内存、文件系统、数据库等。下面是 Django 内置缓存机制的主要部分：</p>
+<h2 id="1-缓存后端">1. <strong>缓存后端</strong>
+</h2><p>Django 支持多种缓存后端，常见的包括：</p>
+<ul>
+<li>
+<p><strong>内存缓存（MemoryCache）</strong>：使用本地内存作为缓存存储，适合单机部署的小型项目。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">CACHES</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;BACKEND&#39;</span><span class="p">:</span> <span class="s1">&#39;django.core.cache.backends.locmem.LocMemCache&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>文件系统缓存（FileBasedCache）</strong>：将缓存存储在文件系统中，适合需要跨进程共享的缓存。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">CACHES</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;BACKEND&#39;</span><span class="p">:</span> <span class="s1">&#39;django.core.cache.backends.filebased.FileBasedCache&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;LOCATION&#39;</span><span class="p">:</span> <span class="s1">&#39;/var/tmp/django_cache&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>数据库缓存（DatabaseCache）</strong>：将缓存存储在数据库中，需要预先创建缓存表。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">CACHES</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;BACKEND&#39;</span><span class="p">:</span> <span class="s1">&#39;django.core.cache.backends.db.DatabaseCache&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;LOCATION&#39;</span><span class="p">:</span> <span class="s1">&#39;my_cache_table&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>创建缓存表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">python manage.py createcachetable
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>Memcached</strong>：一个高效的内存缓存系统，适合大规模部署的项目。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">CACHES</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;BACKEND&#39;</span><span class="p">:</span> <span class="s1">&#39;django.core.cache.backends.memcached.MemcachedCache&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;LOCATION&#39;</span><span class="p">:</span> <span class="s1">&#39;127.0.0.1:11211&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>Redis</strong>：流行的键值存储，支持复杂的数据结构，适合高并发项目。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">CACHES</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;BACKEND&#39;</span><span class="p">:</span> <span class="s1">&#39;django_redis.cache.RedisCache&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;LOCATION&#39;</span><span class="p">:</span> <span class="s1">&#39;redis://127.0.0.1:6379/1&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="2-缓存的使用方式">2. <strong>缓存的使用方式</strong>
+</h2><p>Django 提供了多种级别的缓存控制方式，包括：</p>
+<h3 id="1整个网站的缓存">（1）<strong>整个网站的缓存</strong>
+</h3><p>通过 <code>CACHE_MIDDLEWARE_ALIAS</code> 中间件配置，可以为整个网站启用缓存。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">MIDDLEWARE</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;django.middleware.cache.UpdateCacheMiddleware&#39;</span><span class="p">,</span>  <span class="c1"># 在视图执行前缓存页面</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 其他中间件</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;django.middleware.cache.FetchCacheMiddleware&#39;</span><span class="p">,</span>  <span class="c1"># 从缓存中获取页面</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACHE_MIDDLEWARE_SECONDS</span> <span class="o">=</span> <span class="mi">600</span>  <span class="c1"># 缓存600秒</span>
+</span></span><span class="line"><span class="cl"><span class="n">CACHE_MIDDLEWARE_ALIAS</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>  <span class="c1"># 使用默认的缓存配置</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2视图级缓存">（2）<strong>视图级缓存</strong>
+</h3><p>你可以为某个视图单独设置缓存，使用 <code>@cache_page</code> 装饰器。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.views.decorators.cache</span> <span class="kn">import</span> <span class="n">cache_page</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@cache_page</span><span class="p">(</span><span class="mi">60</span> <span class="o">*</span> <span class="mi">15</span><span class="p">)</span>  <span class="c1"># 缓存15分钟</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">my_view</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 视图逻辑</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;my_template.html&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="3模板片段缓存">（3）<strong>模板片段缓存</strong>
+</h3><p>对于一些昂贵的计算或数据库查询，你可以缓存模板的某个片段，而不是整个页面。使用 <code>cache</code> 模板标签。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl">{% load cache %}
+</span></span><span class="line"><span class="cl">{% cache 600 sidebar %}
+</span></span><span class="line"><span class="cl">    <span class="c">&lt;!-- 这里是一些昂贵的查询和模板渲染逻辑 --&gt;</span>
+</span></span><span class="line"><span class="cl">{% endcache %}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="4手动缓存控制">（4）<strong>手动缓存控制</strong>
+</h3><p>你可以使用 Django 的 <code>cache</code> 模块手动控制缓存的存取。常见操作包括：</p>
+<ul>
+<li>
+<p><strong>设置缓存</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.core.cache</span> <span class="kn">import</span> <span class="n">cache</span>
+</span></span><span class="line"><span class="cl"><span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;my_key&#39;</span><span class="p">,</span> <span class="s1">&#39;my_value&#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>  <span class="c1"># 缓存60秒</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>获取缓存</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">value</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;my_key&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>删除缓存</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">cache</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s1">&#39;my_key&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong>检查缓存是否存在</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">if</span> <span class="n">cache</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s1">&#39;my_key&#39;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 做某些操作</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="3-缓存失效和超时">3. <strong>缓存失效和超时</strong>
+</h2><ul>
+<li>
+<p><strong>Timeout（超时）</strong>：你可以为缓存设置超时，当超时到期后，缓存内容会自动失效并删除。通过 <code>timeout</code> 参数设置缓存时长，默认为全局的超时时间，也可以在 <code>set()</code> 方法中单独指定。</p>
+</li>
+<li>
+<p><strong>Key-based Invalidations（基于键的失效）</strong>：当你需要主动失效缓存时，可以通过 <code>delete()</code> 方法手动删除缓存条目。</p>
+</li>
+</ul>
+<h2 id="4-缓存版本控制">4. <strong>缓存版本控制</strong>
+</h2><p>Django 还支持缓存的版本控制功能，这在你想要统一刷新缓存时很有用。通过 <code>cache.set()</code> 和 <code>cache.get()</code> 的 <code>version</code> 参数可以指定缓存版本。</p>
+<h2 id="5-基于数据库查询的缓存">5. <strong>基于数据库查询的缓存</strong>
+</h2><p>Django ORM 通过缓存框架可以缓存某些昂贵的数据库查询结果。比如，手动缓存查询结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 缓存查询结果</span>
+</span></span><span class="line"><span class="cl"><span class="n">results</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;my_query&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="ow">not</span> <span class="n">results</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">results</span> <span class="o">=</span> <span class="n">MyModel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">field</span><span class="o">=</span><span class="s1">&#39;value&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;my_query&#39;</span><span class="p">,</span> <span class="n">results</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="6-session-缓存">6. <strong>SESSION 缓存</strong>
+</h2><p>Django 也支持将用户的 session 存储在缓存中，提升 session 的读写性能。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">SESSION_ENGINE</span> <span class="o">=</span> <span class="s1">&#39;django.contrib.sessions.backends.cache&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">SESSION_CACHE_ALIAS</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>  <span class="c1"># 使用默认缓存配置</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="总结">总结
+</h2><ul>
+<li>Django 内置缓存框架支持多种缓存后端（内存、文件、数据库、Memcached、Redis等）。</li>
+<li>提供了全局、视图、模板片段和手动缓存控制方式。</li>
+<li>可以通过信号和钩子函数实现缓存的自动化管理。</li>
+<li>缓存超时、失效和版本控制使得缓存机制更加灵活。</li>
+</ul>
+<h1 id="django的缓存能使用redis吗如果可以的话如何配置">django的缓存能使用redis吗？如果可以的话，如何配置？
+</h1><p>是的，Django 支持使用 Redis 作为缓存后端。Redis 是一个高性能的键值数据库，广泛用于缓存、消息队列等场景。Django 内置的缓存框架可以轻松配置为使用 Redis 来存储缓存数据。</p>
+<h2 id="配置步骤如下">配置步骤如下：
+</h2><h3 id="1-安装依赖包">1. <strong>安装依赖包</strong>
+</h3><p>首先，你需要安装 <code>django-redis</code> 这个库，它是 Django 使用 Redis 作为缓存后端的常用库。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install django-redis
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="2-修改-django-的缓存配置">2. <strong>修改 Django 的缓存配置</strong>
+</h3><p>在 <code>settings.py</code> 文件中，配置缓存使用 Redis 作为后端。以下是一个常见的 Redis 缓存配置示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">CACHES</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;BACKEND&#39;</span><span class="p">:</span> <span class="s1">&#39;django_redis.cache.RedisCache&#39;</span><span class="p">,</span>  <span class="c1"># 使用django-redis提供的RedisCache后端</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;LOCATION&#39;</span><span class="p">:</span> <span class="s1">&#39;redis://127.0.0.1:6379/1&#39;</span><span class="p">,</span>      <span class="c1"># Redis的连接地址，IP、端口和数据库编号</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;OPTIONS&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;CLIENT_CLASS&#39;</span><span class="p">:</span> <span class="s1">&#39;django_redis.client.DefaultClient&#39;</span><span class="p">,</span>  <span class="c1"># 客户端类</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># 其他可选配置，例如序列化器</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;SERIALIZER&#39;</span><span class="p">:</span> <span class="s1">&#39;django_redis.serializers.json.JSONSerializer&#39;</span><span class="p">,</span>  <span class="c1"># 使用JSON序列化</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># &#39;PASSWORD&#39;: &#39;your_redis_password&#39;,  # 如果Redis设置了密码，可以在这里添加</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;TIMEOUT&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>  <span class="c1"># 默认缓存过期时间，单位为秒</span>
+</span></span><span class="line"><span class="cl">        <span class="s1">&#39;KEY_PREFIX&#39;</span><span class="p">:</span> <span class="s1">&#39;myapp&#39;</span><span class="p">,</span>  <span class="c1"># 缓存键的前缀，避免键冲突</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="配置选项解释">配置选项解释：
+</h4><ul>
+<li><code>BACKEND</code>: 指定缓存后端为 <code>django_redis.cache.RedisCache</code>，这是 <code>django-redis</code> 提供的缓存后端。</li>
+<li><code>LOCATION</code>: 指定 Redis 的连接地址，例如 <code>redis://127.0.0.1:6379/1</code> 表示连接到本地的 Redis，使用数据库编号 1。</li>
+<li><code>OPTIONS</code>:
+<ul>
+<li><code>CLIENT_CLASS</code>: 使用 <code>django_redis.client.DefaultClient</code> 来处理 Redis 的客户端连接。</li>
+<li><code>SERIALIZER</code>: 指定序列化器，例如这里使用 JSON 序列化器。默认情况下使用 <code>pickle</code> 序列化器。</li>
+<li><code>PASSWORD</code>: 如果 Redis 服务器设置了密码，可以在此指定密码。</li>
+</ul>
+</li>
+<li><code>TIMEOUT</code>: 设置缓存过期时间（单位：秒），可以根据需求调整。</li>
+<li><code>KEY_PREFIX</code>: 在 Redis 缓存的键名之前加上前缀，防止不同项目间的缓存键冲突。</li>
+</ul>
+<h3 id="3-测试-redis-缓存">3. <strong>测试 Redis 缓存</strong>
+</h3><p>你可以在项目中测试缓存是否正常工作，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.core.cache</span> <span class="kn">import</span> <span class="n">cache</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 设置缓存</span>
+</span></span><span class="line"><span class="cl"><span class="n">cache</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s1">&#39;my_key&#39;</span><span class="p">,</span> <span class="s1">&#39;my_value&#39;</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>  <span class="c1"># 缓存60秒</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 获取缓存</span>
+</span></span><span class="line"><span class="cl"><span class="n">value</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;my_key&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  <span class="c1"># 输出：my_value</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果配置正确，Redis 将开始存储和管理缓存数据。你可以使用 Redis CLI 工具查看缓存的键值：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">redis-cli
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在 Redis CLI 中，执行 <code>KEYS *</code> 查看 Redis 中所有的缓存键。</p>
+<h2 id="4-额外选项">4. <strong>额外选项</strong>
+</h2><ul>
+<li>
+<p><strong>集群</strong>：如果你使用的是 Redis 集群，可以使用 <code>django_redis.client.HerdClient</code> 或 <code>ShardedClient</code> 作为 <code>CLIENT_CLASS</code>。</p>
+</li>
+<li>
+<p><strong>持久化连接</strong>：可以通过 <code>OPTIONS</code> 配置持久化连接来提升性能，例如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="s1">&#39;OPTIONS&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;CONNECTION_POOL_KWARGS&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;max_connections&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;CONNECTION_TIMEOUT&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h3 id="5-session-缓存">5. <strong>Session 缓存</strong>
+</h3><p>你也可以将用户会话存储在 Redis 中，提高会话读写性能。配置如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">SESSION_ENGINE</span> <span class="o">=</span> <span class="s1">&#39;django.contrib.sessions.backends.cache&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">SESSION_CACHE_ALIAS</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span>  <span class="c1"># 使用上面配置的Redis缓存</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="总结-1">总结
+</h2><p>通过 <code>django-redis</code> 库，Django 能够轻松使用 Redis 作为缓存后端。只需在 <code>settings.py</code> 中配置 <code>CACHES</code> 变量，并确保安装了 <code>django-redis</code> 和 <code>redis</code> 服务器。</p>
+<h1 id="django的模板中filter和simple_tag的区别">django的模板中filter和simple_tag的区别？
+</h1><p>在 Django 的模板系统中，<code>filter</code> 和 <code>simple_tag</code> 都是用于扩展模板语言功能的模板标签，但它们的功能和用途有所不同。下面对它们的区别进行详细说明：</p>
+<h2 id="1-filter过滤器">1. <strong>filter（过滤器）</strong>
+</h2><ul>
+<li><strong>用途</strong>：用于对模板变量进行简单的处理或转换，类似于 Unix 命令中的管道符。过滤器通常接收一个输入值，对其进行转换，并返回结果。过滤器是最常用于对单一值进行修改或格式化的工具。</li>
+<li><strong>输入</strong>：通常只接收一个模板变量作为输入，部分过滤器还支持传递一个额外的参数。</li>
+<li><strong>使用场景</strong>：过滤字符串、列表、数字等简单数据类型，常用于字符串格式化、数据转换等操作。</li>
+</ul>
+<h3 id="例子">例子：
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-django" data-lang="django"><span class="line"><span class="cl"><span class="cp">{{</span> <span class="s2">&#34;hello world&#34;</span><span class="o">|</span><span class="nf">upper</span> <span class="cp">}}</span><span class="x">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>上面的例子会将字符串 <code>&quot;hello world&quot;</code> 转换为大写字母，结果为 <code>&quot;HELLO WORLD&quot;</code>。</p>
+<h3 id="创建自定义过滤器">创建自定义过滤器：
+</h3><p>你可以通过 <code>@register.filter</code> 来定义自定义的过滤器。例如，创建一个将字符串反转的过滤器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">template</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">register</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">Library</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@register.filter</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">reverse_string</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">value</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在模板中使用自定义过滤器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-django" data-lang="django"><span class="line"><span class="cl"><span class="cp">{{</span> <span class="s2">&#34;hello&#34;</span><span class="o">|</span><span class="nf">reverse_string</span> <span class="cp">}}</span><span class="x">  # 输出: &#34;olleh&#34;
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="2-simple_tag简单标签">2. <strong>simple_tag（简单标签）</strong>
+</h2><ul>
+<li><strong>用途</strong>：<code>simple_tag</code> 是 Django 模板标签中更强大的工具，用于执行复杂的逻辑、操作多个参数，甚至可以处理和返回动态内容。相比于过滤器，它的功能更加灵活。</li>
+<li><strong>输入</strong>：可以接收多个参数，甚至关键字参数，允许返回任何内容（字符串、HTML 片段、变量等）。</li>
+<li><strong>使用场景</strong>：当需要在模板中进行更复杂的处理，或者需要返回动态数据时使用，如渲染动态 HTML、获取模型数据等。</li>
+</ul>
+<h3 id="例子-1">例子：
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">template</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">register</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">Library</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@register.simple_tag</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="sa">f</span><span class="s2">&#34;Hello, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">!&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在模板中使用这个标签：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-django" data-lang="django"><span class="line"><span class="cl"><span class="cp">{%</span> <span class="k">greet</span> <span class="s2">&#34;Django&#34;</span> <span class="cp">%}</span><span class="x">  # 输出: Hello, Django!
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="创建自定义-simple_tag">创建自定义 <code>simple_tag</code>：
+</h3><p><code>simple_tag</code> 比过滤器更适合需要多参数或者处理更复杂逻辑的场景。例如，创建一个自定义标签来计算两个数的乘积：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django</span> <span class="kn">import</span> <span class="n">template</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">register</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">Library</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@register.simple_tag</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">multiply</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在模板中使用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-django" data-lang="django"><span class="line"><span class="cl"><span class="cp">{%</span> <span class="k">multiply</span> <span class="m">3</span> <span class="m">5</span> <span class="cp">%}</span><span class="x">  # 输出: 15
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="3-总结对比">3. <strong>总结对比</strong>
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">功能</th>
+          <th style="text-align: left">过滤器（filter）</th>
+          <th style="text-align: left">简单标签（simple_tag）</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong>使用场景</strong></td>
+          <td style="text-align: left">对模板变量进行简单转换或格式化</td>
+          <td style="text-align: left">需要执行复杂逻辑、处理多个参数或返回动态数据</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>输入</strong></td>
+          <td style="text-align: left">接收一个输入值，可选传递一个参数</td>
+          <td style="text-align: left">支持多个参数，包括关键字参数</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>返回值</strong></td>
+          <td style="text-align: left">只能返回处理后的结果值</td>
+          <td style="text-align: left">可以返回字符串、HTML、任何复杂数据</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>复杂性</strong></td>
+          <td style="text-align: left">适合简单数据处理</td>
+          <td style="text-align: left">适合复杂逻辑和动态内容生成</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>定义方式</strong></td>
+          <td style="text-align: left"><code>@register.filter</code></td>
+          <td style="text-align: left"><code>@register.simple_tag</code></td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>典型用例</strong></td>
+          <td style="text-align: left">字符串处理、格式化、数据转换等简单任务</td>
+          <td style="text-align: left">处理多参数、动态生成内容、复杂业务逻辑等</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="4-何时使用">4. <strong>何时使用</strong>
+</h2><ul>
+<li><strong>使用 <code>filter</code></strong>：当你只需要对模板变量做简单操作（如字符串操作、数据转换）时，使用过滤器最合适。</li>
+<li><strong>使用 <code>simple_tag</code></strong>：当你需要在模板中执行较复杂的业务逻辑、操作多个参数、或返回动态内容时，应该选择 <code>simple_tag</code>。</li>
+</ul>
+<h1 id="django-debug-toolbar的作用">django-debug-toolbar的作用？
+</h1><p>Django-debug-toolbar是一个开源的第三方Django应用程序，为开发人员提供了许多实用的调试工具。以下是Django-debug-toolbar的主要作用：</p>
+<ul>
+<li><strong>性能调优</strong>：Django-debug-toolbar可以显示关于页面生成的所有SQL查询，包括每个查询所用的时间。这有助于开发人员轻松检测到潜在的性能问题和瓶颈，并提供了一些解决这些问题的方法。此外，它还可以报告缓存性能和模板呈现时间，帮助开发人员优化应用程序的性能。</li>
+<li><strong>系统调试</strong>：Django-debug-toolbar提供了一个可扩展的面板系统，支持对SQL查询、CORS请求、邀请码等功能的调试。它还可以显示调试概览、请求和响应头等信息，帮助开发人员深入了解代码正在做什么以及花费了多少时间。
+总的来说，Django-debug-toolbar是一个方便的工具，可以帮助Django开发人员更好地理解和优化他们的应用程序。请注意，使用Django-debug-toolbar时，应确保只在开发环境中使用，避免在生产环境中暴露敏感信息。</li>
+</ul>
+<h1 id="django中如何实现单元测试">django中如何实现单元测试？
+</h1><p>在Django中实现单元测试主要依赖于Django自带的测试框架，它提供了一系列工具和约定来帮助你编写和执行测试。以下是在Django中实现单元测试的基本步骤：</p>
+<ol>
+<li><strong>创建测试文件</strong>：在Django应用中，通常会在应用的tests.py文件中编写单元测试。如果该文件不存在，你需要创建一个。你也可以为不同的功能或模型创建多个测试文件，只需确保它们以test_开头，这样Django的测试运行器就能自动发现它们。</li>
+<li><strong>编写测试类</strong>：在测试文件中，你需要定义一个或多个测试类。每个测试类应该继承自django.test.TestCase，这个类提供了很多用于测试Django应用的工具和方法。</li>
+<li><strong>编写测试方法</strong>：在测试类中，你可以定义多个以test_开头的方法来编写具体的测试用例。每个测试方法都应该测试应用的一个特定方面或功能。</li>
+<li><strong>使用Django测试客户端</strong>：Django提供了一个测试客户端，可以用来模拟用户请求并检查应用的响应。你可以在测试方法中使用这个客户端来发送GET、POST等请求，并检查返回的响应内容、状态码等。</li>
+<li><strong>使用断言</strong>：在测试方法中，你需要使用断言来验证应用的行为是否符合预期。Django的TestCase类提供了很多断言方法，比如assertEqual、assertTrue等，可以用来比较值、检查条件等。</li>
+<li><strong>运行测试</strong>：在命令行中，你可以使用python manage.py test命令来运行测试。Django会自动发现并执行所有以test_开头的测试方法和类。</li>
 </ol>
+<p>以下是一个简单的Django单元测试示例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.test</span> <span class="kn">import</span> <span class="n">TestCase</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">.models</span> <span class="kn">import</span> <span class="n">MyModel</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyModelTests</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">test_create_my_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 创建一个实例并保存到数据库中</span>
+</span></span><span class="line"><span class="cl">        <span class="n">MyModel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Test Name&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 从数据库中获取该实例</span>
+</span></span><span class="line"><span class="cl">        <span class="n">my_model</span> <span class="o">=</span> <span class="n">MyModel</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Test Name&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="c1"># 验证实例的名称属性是否正确</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">assertEqual</span><span class="p">(</span><span class="n">my_model</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s1">&#39;Test Name&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在实际项目中，你可能会编写更多的测试用例来覆盖应用的各个方面，并使用更复杂的断言来验证应用的行为。此外，Django还提供了很多其他的测试工具和功能，比如fixtures、transaction management等，可以帮助你更好地进行测试。</p>
+<h1 id="django如何实现websocket">Django如何实现websocket？
+</h1><p>Django本身并不直接支持WebSocket，但你可以通过第三方库如channels来为Django添加WebSocket功能。channels库是一个为Django提供实时、双向通信能力的库，它扩展了Django的视图和URL路由系统来处理WebSocket、HTTP2和其他协议。<br>
+下面是一个简单的步骤，展示如何使用channels在Django中实现WebSocket：</p>
+<ol>
+<li><strong>安装channels库</strong>：
+首先，你需要安装<code>channels</code>库。你可以使用pip来安装：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install channels
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>另外，channels通常需要与channels_redis或daphne/uvicorn等一起使用，作为消息传递的后端或ASGI服务器。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install channels_redis
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>或者如果你想使用daphne作为ASGI服务器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install daphne
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="2">
+<li><strong>配置Django项目</strong>：
+修改你的Django项目的settings.py文件来添加<code>channels</code>的配置。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">   <span class="c1"># ... 其他应用</span>
+</span></span><span class="line"><span class="cl">   <span class="s1">&#39;channels&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ASGI_APPLICATION</span> <span class="o">=</span> <span class="s1">&#39;&lt;your_project_name&gt;.asgi.application&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Channels配置</span>
+</span></span><span class="line"><span class="cl"><span class="n">CHANNEL_LAYERS</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">   <span class="s1">&#39;default&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">       <span class="s1">&#39;BACKEND&#39;</span><span class="p">:</span> <span class="s1">&#39;channels_redis.core.RedisChannelLayer&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">       <span class="s1">&#39;CONFIG&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">           <span class="s1">&#39;hosts&#39;</span><span class="p">:</span> <span class="p">[(</span><span class="s1">&#39;127.0.0.1&#39;</span><span class="p">,</span> <span class="mi">6379</span><span class="p">)],</span>
+</span></span><span class="line"><span class="cl">       <span class="p">},</span>
+</span></span><span class="line"><span class="cl">   <span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="3">
+<li><strong>创建ASGI应用</strong>：
+在你的Django项目根目录下，创建一个名为asgi.py的文件，内容大致如下：</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.core.asgi</span> <span class="kn">import</span> <span class="n">get_asgi_application</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">channels.routing</span> <span class="kn">import</span> <span class="n">ProtocolTypeRouter</span><span class="p">,</span> <span class="n">URLRouter</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">channels.auth</span> <span class="kn">import</span> <span class="n">AuthMiddlewareStack</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="o">&lt;</span><span class="n">your_app_name</span><span class="o">&gt;.</span><span class="n">routing</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;DJANGO_SETTINGS_MODULE&#39;</span><span class="p">,</span> <span class="s1">&#39;&lt;your_project_name&gt;.settings&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">application</span> <span class="o">=</span> <span class="n">ProtocolTypeRouter</span><span class="p">({</span>
+</span></span><span class="line"><span class="cl">   <span class="s2">&#34;http&#34;</span><span class="p">:</span> <span class="n">get_asgi_application</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">   <span class="s2">&#34;websocket&#34;</span><span class="p">:</span> <span class="n">AuthMiddlewareStack</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">       <span class="n">URLRouter</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">           <span class="o">&lt;</span><span class="n">your_app_name</span><span class="o">&gt;.</span><span class="n">routing</span><span class="o">.</span><span class="n">websocket_urlpatterns</span>
+</span></span><span class="line"><span class="cl">       <span class="p">)</span>
+</span></span><span class="line"><span class="cl">   <span class="p">),</span>
+</span></span><span class="line"><span class="cl"><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>请确保将<code>&lt;your_project_name&gt;</code>和<code>&lt;your_app_name&gt;</code>替换成你的项目名和应用名。</p>
+<ol start="4">
+<li><strong>定义WebSocket路由</strong>：
+在你的Django应用目录下，创建一个名为routing.py的文件，并在其中定义你的WebSocket路由。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">re_path</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">consumers</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">websocket_urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">   <span class="n">re_path</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;ws/some_endpoint/&#39;</span><span class="p">,</span> <span class="n">consumers</span><span class="o">.</span><span class="n">SomeConsumer</span><span class="o">.</span><span class="n">as_asgi</span><span class="p">()),</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ol start="5">
+<li>创建WebSocket消费者：
+在你的Django应用目录下，创建一个名为consumers.py的文件，并在其中定义WebSocket消费者。</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">channels.generic.websocket</span> <span class="kn">import</span> <span class="n">AsyncWebsocketConsumer</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">SomeConsumer</span><span class="p">(</span><span class="n">AsyncWebsocketConsumer</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">   <span class="k">async</span> <span class="k">def</span> <span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">       <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">async</span> <span class="k">def</span> <span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">close_code</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">       <span class="k">pass</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">async</span> <span class="k">def</span> <span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text_data</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">       <span class="c1"># 处理接收到的消息</span>
+</span></span><span class="line"><span class="cl">       <span class="k">pass</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="k">async</span> <span class="k">def</span> <span class="nf">send_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">       <span class="c1"># 发送消息到WebSocket</span>
+</span></span><span class="line"><span class="cl">       <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意：上面的消费者类是基于异步的，如果你想要使用同步代码，你应该从<code>WebsocketConsumer</code>而不是<code>AsyncWebsocketConsumer</code>继承，并相应地调整你的方法。
+6. 运行你的WebSocket服务器：
+你可以使用daphne或uvicorn来运行你的ASGI应用。
+使用daphne：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">daphne &lt;your_project_name&gt;.asgi:application
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>或使用uvicorn（需要先安装uvicorn）：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">uvicorn &lt;your_project_name&gt;.asgi:application --port <span class="m">8000</span> --protocol websockets
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>注意：确保将<code>&lt;your_project_name&gt;</code>替换成你的Django项目名。</p>
+<p>现在，你的Django项目应该已经配置好了WebSocket支持，你可以通过客户端连接到WebSocket端点并与服务器进行实时通信了。</p>
+<h1 id="references">References
+</h1><ul>
+<li><a class="link" href="https://www.nowcoder.com/discuss/399679459568230400?sourceSSR=search"  target="_blank" rel="noopener"
+    >python web框架django面试题</a></li>
+</ul>
 
 </section>
 
@@ -308,7 +1215,7 @@
         
             <a href="/tags/django/">Django</a>
         
-            <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/">面试题</a>
+            <a href="/tags/%E9%9D%A2%E8%AF%95/">面试</a>
         
             <a href="/tags/%E7%BC%93%E5%AD%98/">缓存</a>
         
@@ -548,6 +1455,7 @@
         document.head.appendChild(customFont);
     }());
 </script>
+<script defer src="https://cn.vercount.one/js"></script>
 
     </body>
 </html>
