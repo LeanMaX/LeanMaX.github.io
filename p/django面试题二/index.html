@@ -230,6 +230,115 @@
     <li><a href="#django中csrf的实现机制">django中csrf的实现机制</a></li>
     <li><a href="#基于django使用ajax发送post请求时都可以使用哪种方法携带csrf-token">基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf token？</a></li>
     <li><a href="#django本身提供了runserver为什么不能用来部署runserver与uwsgi的区别">Django本身提供了runserver，为什么不能用来部署？(runserver与uWSGI的区别)</a></li>
+    <li><a href="#cookie和session的区别">cookie和session的区别</a>
+      <ol>
+        <li><a href="#1-存储位置与数据安全性">1. 存储位置与数据安全性</a></li>
+        <li><a href="#2-存取方式与数据类型">2. 存取方式与数据类型</a></li>
+        <li><a href="#3-有效期与生命周期">3. 有效期与生命周期</a></li>
+        <li><a href="#4-跨域请求与分布式处理">4. 跨域请求与分布式处理</a></li>
+      </ol>
+    </li>
+    <li><a href="#列举django-orm-中所有的方法queryset对象的所有方法">列举django orm 中所有的方法（QuerySet对象的所有方法）</a>
+      <ol>
+        <li><a href="#1-查询方法">1. <strong>查询方法</strong></a></li>
+        <li><a href="#2-排序与限制">2. <strong>排序与限制</strong></a></li>
+        <li><a href="#3-聚合与注解">3. <strong>聚合与注解</strong></a></li>
+        <li><a href="#4-更新与删除">4. <strong>更新与删除</strong></a></li>
+        <li><a href="#5-高级查询">5. <strong>高级查询</strong></a></li>
+        <li><a href="#6-缓存与清空">6. <strong>缓存与清空</strong></a></li>
+        <li><a href="#7-复合查询">7. <strong>复合查询</strong></a></li>
+        <li><a href="#总结">总结</a></li>
+      </ol>
+    </li>
+    <li><a href="#only和defer的区别">only和defer的区别？</a>
+      <ol>
+        <li><a href="#1-only">1. <strong><code>only()</code></strong></a></li>
+        <li><a href="#2-defer">2. <strong><code>defer()</code></strong></a></li>
+        <li><a href="#only-和-defer-的对比"><strong><code>only()</code> 和 <code>defer()</code> 的对比</strong></a></li>
+        <li><a href="#总结-1">总结</a></li>
+      </ol>
+    </li>
+    <li><a href="#select_related和prefetch_related的区别">select_related和prefetch_related的区别？</a>
+      <ol>
+        <li><a href="#1-适用的关系类型">1. <strong>适用的关系类型</strong></a></li>
+        <li><a href="#2-查询次数">2. <strong>查询次数</strong></a></li>
+        <li><a href="#3-性能对比">3. <strong>性能对比</strong></a></li>
+        <li><a href="#4-示例">4. <strong>示例</strong></a>
+          <ol>
+            <li><a href="#使用-select_related外键关系">使用 <code>select_related</code>（外键关系）</a></li>
+            <li><a href="#使用-prefetch_related多对多关系">使用 <code>prefetch_related</code>（多对多关系）</a></li>
+          </ol>
+        </li>
+        <li><a href="#5-总结">5. <strong>总结</strong></a></li>
+      </ol>
+    </li>
+    <li><a href="#filter和exclude的区别">filter和exclude的区别？</a>
+      <ol>
+        <li><a href="#1-filter">1. <strong><code>filter()</code></strong>：</a>
+          <ol>
+            <li><a href="#示例">示例：</a></li>
+          </ol>
+        </li>
+        <li><a href="#2-exclude">2. <strong><code>exclude()</code></strong>：</a>
+          <ol>
+            <li><a href="#示例-1">示例：</a></li>
+          </ol>
+        </li>
+        <li><a href="#区别总结">区别总结：</a></li>
+        <li><a href="#对比示例">对比示例：</a></li>
+        <li><a href="#返回结果">返回结果：</a></li>
+      </ol>
+    </li>
+    <li><a href="#f和q的作用">F和Q的作用?</a>
+      <ol>
+        <li><a href="#1-f-对象">1. <strong><code>F</code> 对象</strong>：</a>
+          <ol>
+            <li><a href="#主要作用">主要作用：</a></li>
+            <li><a href="#示例-2">示例：</a>
+              <ol>
+                <li><a href="#a-字段间比较">a) <strong>字段间比较</strong>：</a></li>
+                <li><a href="#b-原子更新">b) <strong>原子更新</strong>：</a></li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li><a href="#2-q-对象">2. <strong><code>Q</code> 对象</strong>：</a>
+          <ol>
+            <li><a href="#主要作用-1">主要作用：</a></li>
+            <li><a href="#示例-3">示例：</a>
+              <ol>
+                <li><a href="#a-or-查询">a) <strong>OR 查询</strong>：</a></li>
+                <li><a href="#b-and-查询">b) <strong>AND 查询</strong>：</a></li>
+                <li><a href="#c-not-查询">c) <strong>NOT 查询</strong>：</a></li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li><a href="#3-f-和-q-结合使用">3. <strong><code>F</code> 和 <code>Q</code> 结合使用</strong>：</a></li>
+        <li><a href="#总结-2">总结：</a></li>
+      </ol>
+    </li>
+    <li><a href="#values和values_list的区别">values和values_list的区别？</a>
+      <ol>
+        <li><a href="#1-values">1. <strong><code>values()</code></strong>：</a>
+          <ol>
+            <li><a href="#示例-4">示例：</a></li>
+          </ol>
+        </li>
+        <li><a href="#2-values_list">2. <strong><code>values_list()</code></strong>：</a>
+          <ol>
+            <li><a href="#示例-5">示例：</a>
+              <ol>
+                <li><a href="#a-获取多个字段">a) 获取多个字段：</a></li>
+                <li><a href="#b-获取单个字段">b) 获取单个字段：</a></li>
+              </ol>
+            </li>
+          </ol>
+        </li>
+        <li><a href="#区别总结-1">区别总结：</a></li>
+        <li><a href="#总结-3">总结：</a></li>
+      </ol>
+    </li>
     <li><a href="#references">References</a></li>
   </ol>
 </nav>
@@ -295,7 +404,7 @@
 
 
                 <time class="article-time--reading">
-                    1 minute read
+                    6 minute read
                 </time>
             </div>
         
@@ -396,8 +505,1012 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <li>将 CSRF Token 作为 POST 数据的一部分：适用于需要通过 <code>FormData</code> 提交文件的场景。</li>
 </ol>
 <h1 id="django本身提供了runserver为什么不能用来部署runserver与uwsgi的区别">Django本身提供了runserver，为什么不能用来部署？(runserver与uWSGI的区别)
-</h1><p>runserver 是调试 Django 时经常用到的运行方式，它使用 Django 自带的 WSGI Server 运行，主要在测试和开发中使用，并且 runserver 开启的方式也是单进程。
-uWSGI 是一个 Web 服务器，它实现了WSGI，uWSGl，HTTP等协议。uWSGI 是一种通信协议，而 uWSGI 是实现 uwsgi 协议和 WSGI 协议的 Web 服务器。uWSGI 具有超快的性能、低内存占用等优点，并且搭配着 Nginx 组成项目的生产环境，能够将用户访问请求与项目应用隔离，实现真正的网站部署。相对来说，这种方式支持的并发量更高，方便管理多进程，发挥多核的优势，提升性能。</p>
+</h1><ul>
+<li>runserver 是调试 Django 时经常用到的运行方式，它使用 Django 自带的 WSGI Server 运行，主要在测试和开发中使用，并且 runserver 开启的方式也是单进程。</li>
+<li>uWSGI 是一个 Web 服务器，它实现了WSGI，uwsgi，HTTP等协议。uwsgi 是一种通信协议，而 uWSGI 是实现 uwsgi 协议和 WSGI 协议的 Web 服务器。uWSGI 具有超快的性能、低内存占用等优点，并且搭配着 Nginx 组成项目的生产环境，能够将用户访问请求与项目应用隔离，实现真正的网站部署。相对来说，这种方式支持的并发量更高，方便管理多进程，发挥多核的优势，提升性能。</li>
+</ul>
+<h1 id="cookie和session的区别">cookie和session的区别
+</h1><h2 id="1-存储位置与数据安全性">1. 存储位置与数据安全性
+</h2><ul>
+<li>Cookie：存储在客户端浏览器中，数据安全性相对较差。因为数据保存在客户端浏览器中，如果用户或第三方工具非法获取Cookie内容，可能导致数据泄露或身份冒用。</li>
+<li>Session：数据保存在服务器端，安全性相对较高。因为数据存储在服务器端，可以有效防止数据被非法获取或篡改。</li>
+</ul>
+<h2 id="2-存取方式与数据类型">2. 存取方式与数据类型
+</h2><ul>
+<li>Cookie：只能保存ASCII字符，因此无法直接存储复杂数据类型，通常用于存储简单的标识信息，如会话ID、用户偏好等。</li>
+<li>Session：可以保存任意数据类型，如字符串、数字、对象等。因此，Session可以用于存储更复杂的用户数据，如用户购物车信息、个性化设置等。</li>
+</ul>
+<h2 id="3-有效期与生命周期">3. 有效期与生命周期
+</h2><ul>
+<li>Cookie：有效期取决于设置的Expires属性或Max-Age属性，通常在浏览器会话结束时过期（即关闭浏览器时）。另外，用户也可以通过禁用Cookie来影响Cookie的有效期。</li>
+<li>Session：有效期通常由服务器配置决定，Session的生命周期通常由服务器清理过期或未活动的会话来管理。</li>
+</ul>
+<h2 id="4-跨域请求与分布式处理">4. 跨域请求与分布式处理
+</h2><ul>
+<li>Cookie：由于同源策略的限制，Cookie无法在跨域请求中使用。这意味着如果一个网站需要从其他域获取资源或服务，将无法使用Cookie进行身份验证或会话管理。</li>
+<li>Session：在跨域请求中，可以通过将Session存储在中央服务器或使用分布式Session来处理。这样可以在多个域之间共享用户会话信息，实现跨域认证和资源共享。</li>
+</ul>
+<h1 id="列举django-orm-中所有的方法queryset对象的所有方法">列举django orm 中所有的方法（QuerySet对象的所有方法）
+</h1><h2 id="1-查询方法">1. <strong>查询方法</strong>
+</h2><p>这些方法用于检索和获取数据。</p>
+<ul>
+<li>
+<p><strong><code>all()</code></strong>：返回所有对象的 <code>QuerySet</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>get()</code></strong>：根据条件返回单个对象，如果找不到对象或有多个对象匹配条件，则会抛出异常。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>filter()</code></strong>：根据条件过滤数据，返回一个新的 <code>QuerySet</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">age__gte</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>exclude()</code></strong>：排除符合条件的对象，返回一个新的 <code>QuerySet</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">age__lt</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>first()</code></strong>：返回 <code>QuerySet</code> 中的第一个对象，如果没有对象则返回 <code>None</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">age__gte</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span><span class="o">.</span><span class="n">first</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>last()</code></strong>：返回 <code>QuerySet</code> 中的最后一个对象，如果没有对象则返回 <code>None</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">age__gte</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span><span class="o">.</span><span class="n">last</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>latest()</code></strong>：根据日期字段获取最新的对象（需要指定 <code>get_latest_by</code>）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">latest</span><span class="p">(</span><span class="s1">&#39;created_at&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>earliest()</code></strong>：根据日期字段获取最早的对象。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">earliest</span><span class="p">(</span><span class="s1">&#39;created_at&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>exists()</code></strong>：检查是否存在符合条件的对象，返回 <code>True</code> 或 <code>False</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">age__gte</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>count()</code></strong>：返回查询集中的对象数量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">age__gte</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span><span class="o">.</span><span class="n">count</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="2-排序与限制">2. <strong>排序与限制</strong>
+</h2><p>这些方法用于排序和限制返回的结果。</p>
+<ul>
+<li>
+<p><strong><code>order_by()</code></strong>：对查询结果进行排序。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>  <span class="c1"># 升序</span>
+</span></span><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-name&#39;</span><span class="p">)</span>  <span class="c1"># 降序</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>distinct()</code></strong>：去除查询结果中的重复记录。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">distinct</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>reverse()</code></strong>：对查询集的结果进行反转。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>values()</code></strong>：返回字典形式的查询结果（只返回指定字段）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>values_list()</code></strong>：返回元组形式的查询结果。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>none()</code></strong>：返回一个空的 <code>QuerySet</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">none</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>select_related()</code></strong>：用于<strong>一对多</strong>和<strong>一对一</strong>关系的表连接，减少查询次数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">select_related</span><span class="p">(</span><span class="s1">&#39;profile&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>prefetch_related()</code></strong>：用于<strong>多对多</strong>和<strong>反向查询</strong>的表连接。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">prefetch_related</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>only()</code></strong>：只加载指定的字段。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>defer()</code></strong>：延迟加载指定的字段。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">defer</span><span class="p">(</span><span class="s1">&#39;bio&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>select_for_update()</code></strong>：对数据行加锁（用于事务中）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">select_for_update</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="3-聚合与注解">3. <strong>聚合与注解</strong>
+</h2><p>这些方法用于统计和计算。</p>
+<ul>
+<li>
+<p><strong><code>aggregate()</code></strong>：执行聚合查询（例如 <code>Sum</code>、<code>Avg</code> 等）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Avg</span>
+</span></span><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">aggregate</span><span class="p">(</span><span class="n">Avg</span><span class="p">(</span><span class="s1">&#39;age&#39;</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>annotate()</code></strong>：在 <code>QuerySet</code> 中添加额外的计算字段。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Count</span>
+</span></span><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="n">num_books</span><span class="o">=</span><span class="n">Count</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="4-更新与删除">4. <strong>更新与删除</strong>
+</h2><p>这些方法用于修改或删除数据库中的对象。</p>
+<ul>
+<li>
+<p><strong><code>update()</code></strong>：对符合条件的对象进行批量更新。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">age__lt</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>delete()</code></strong>：删除符合条件的对象。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">age__lt</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>bulk_create()</code></strong>：批量创建对象，避免多次数据库写入。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">([</span><span class="n">Person</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Alice&#39;</span><span class="p">),</span> <span class="n">Person</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Bob&#39;</span><span class="p">)])</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>bulk_update()</code></strong>：批量更新对象。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_update</span><span class="p">([</span><span class="n">person1</span><span class="p">,</span> <span class="n">person2</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">])</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="5-高级查询">5. <strong>高级查询</strong>
+</h2><p>这些方法用于执行更复杂的查询。</p>
+<ul>
+<li>
+<p><strong><code>extra()</code></strong>：执行自定义的 SQL 查询（不推荐使用，未来版本将弃用）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">extra</span><span class="p">(</span><span class="n">select</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;is_adult&#39;</span><span class="p">:</span> <span class="s1">&#39;age &gt;= 18&#39;</span><span class="p">})</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>raw()</code></strong>：执行原生 SQL 查询。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">raw</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM myapp_person WHERE age &gt;= </span><span class="si">%s</span><span class="s1">&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">18</span><span class="p">])</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>union()</code></strong>：联合多个 <code>QuerySet</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">qs1</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">age__gte</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">qs2</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">age__lt</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">qs1</span><span class="o">.</span><span class="n">union</span><span class="p">(</span><span class="n">qs2</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>intersection()</code></strong>：取多个 <code>QuerySet</code> 的交集。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">qs1</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">age__gte</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">qs2</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">age__lt</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">qs1</span><span class="o">.</span><span class="n">intersection</span><span class="p">(</span><span class="n">qs2</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>difference()</code></strong>：取多个 <code>QuerySet</code> 的差集。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">qs1</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">age__gte</span><span class="o">=</span><span class="mi">18</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">qs2</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">age__lt</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">qs1</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="n">qs2</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="6-缓存与清空">6. <strong>缓存与清空</strong>
+</h2><ul>
+<li>
+<p><strong><code>iterator()</code></strong>：逐个获取对象，避免一次性加载所有对象（有助于处理大量数据）。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">iterator</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">person</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><strong><code>as_manager()</code></strong>：将一个类方法转换为模型管理器方法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MyManager</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Manager</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">with_age</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="n">age</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">MyManager</span><span class="o">.</span><span class="n">as_manager</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="7-复合查询">7. <strong>复合查询</strong>
+</h2><ul>
+<li><strong><code>or_</code> 和 <code>and_</code></strong>：通过 <code>Q</code> 对象进行复杂的查询条件组合。
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Q</span>
+</span></span><span class="line"><span class="cl"><span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;Alice&#39;</span><span class="p">)</span> <span class="o">|</span> <span class="n">Q</span><span class="p">(</span><span class="n">age__gte</span><span class="o">=</span><span class="mi">18</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="总结">总结
+</h2><p>Django ORM 提供了丰富的 <code>QuerySet</code> 方法，涵盖从简单到复杂的查询、排序、过滤、聚合、更新等功能。合理使用这些方法，可以极大地提升数据查询和操作的效率。</p>
+<h1 id="only和defer的区别">only和defer的区别？
+</h1><p>在 Django 的查询集（QuerySet）中，<code>only()</code> 和 <code>defer()</code> 是两种优化查询性能的方法，目的是减少从数据库中获取的数据量，提升查询速度。但它们的工作方式和适用场景有所不同。</p>
+<h2 id="1-only">1. <strong><code>only()</code></strong>
+</h2><p><code>only()</code> 用于告诉 Django <strong>只从数据库中获取特定字段的数据</strong>，其余字段将不会在查询时一同获取。如果访问了未加载的字段，Django 会在访问该字段时进行额外的数据库查询。</p>
+<p><strong>工作原理</strong>：</p>
+<ul>
+<li>当使用 <code>only()</code> 时，Django 只会从数据库中查询你指定的字段，其他字段将在实际访问时通过额外的查询获取。</li>
+<li>适用于只需要某些字段的场景，避免加载不必要的数据。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 只获取 &#39;name&#39; 和 &#39;age&#39; 字段</span>
+</span></span><span class="line"><span class="cl"><span class="n">queryset</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">queryset</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">person</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>  <span class="c1"># 不会触发额外的查询</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">person</span><span class="o">.</span><span class="n">age</span><span class="p">)</span>   <span class="c1"># 不会触发额外的查询</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">person</span><span class="o">.</span><span class="n">address</span><span class="p">)</span>  <span class="c1"># 访问未指定的字段，触发额外的数据库查询</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>特点</strong>：</p>
+<ul>
+<li><strong>加载指定字段</strong>：只加载 <code>only()</code> 中指定的字段，其他字段延迟加载。</li>
+<li><strong>可能导致额外查询</strong>：当访问未加载的字段时，Django 会进行额外的查询获取该字段的值（N+1 查询问题）。</li>
+</ul>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>适合只需要部分字段的场景，尤其是查询结果中有很多字段但并不都需要立即使用时，可以通过 <code>only()</code> 提前减少数据库负担。</li>
+</ul>
+<h2 id="2-defer">2. <strong><code>defer()</code></strong>
+</h2><p><code>defer()</code> 与 <code>only()</code> 相反，<strong>它告诉 Django 延迟加载某些字段</strong>。即在查询时获取所有字段，除了你指定的字段之外，其他字段将在实际访问时进行额外的查询。</p>
+<p><strong>工作原理</strong>：</p>
+<ul>
+<li>使用 <code>defer()</code> 时，Django 会查询除指定字段以外的所有字段。访问被延迟加载的字段时，会触发额外的数据库查询。</li>
+</ul>
+<p><strong>示例</strong>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 延迟加载 &#39;bio&#39; 字段，其他字段会立即加载</span>
+</span></span><span class="line"><span class="cl"><span class="n">queryset</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">defer</span><span class="p">(</span><span class="s1">&#39;bio&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">person</span> <span class="ow">in</span> <span class="n">queryset</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">person</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>  <span class="c1"># 不会触发额外的查询</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">person</span><span class="o">.</span><span class="n">age</span><span class="p">)</span>   <span class="c1"># 不会触发额外的查询</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">person</span><span class="o">.</span><span class="n">bio</span><span class="p">)</span>   <span class="c1"># 访问延迟加载的字段，触发额外的数据库查询</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>特点</strong>：</p>
+<ul>
+<li><strong>延迟指定字段的加载</strong>：在查询时加载所有字段，除了 <code>defer()</code> 中指定的字段，访问这些字段时才会进行数据库查询。</li>
+<li><strong>减少初次查询的数据量</strong>：通过延迟不需要立即使用的字段，减少初次查询中的数据量。</li>
+</ul>
+<p><strong>适用场景</strong>：</p>
+<ul>
+<li>当你需要大部分字段，但有一些字段不经常使用时，可以使用 <code>defer()</code> 延迟这些字段的加载，以减少初次查询的开销。</li>
+</ul>
+<h2 id="only-和-defer-的对比"><strong><code>only()</code> 和 <code>defer()</code> 的对比</strong>
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">特性</th>
+          <th style="text-align: left"><code>only()</code></th>
+          <th style="text-align: left"><code>defer()</code></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong>目的</strong></td>
+          <td style="text-align: left">只加载指定字段</td>
+          <td style="text-align: left">延迟加载指定字段</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>初次查询的字段</strong></td>
+          <td style="text-align: left">只查询指定的字段，其余字段延迟加载</td>
+          <td style="text-align: left">查询所有字段，除了被延迟的字段</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>额外查询</strong></td>
+          <td style="text-align: left">访问未加载的字段时，触发额外的数据库查询</td>
+          <td style="text-align: left">访问延迟加载的字段时，触发额外的数据库查询</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>适用场景</strong></td>
+          <td style="text-align: left">只关心某些字段，其他字段可以延迟加载</td>
+          <td style="text-align: left">大部分字段需要立即使用，但部分字段可以延迟加载</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="总结-1">总结
+</h2><ul>
+<li><strong><code>only()</code></strong>：告诉 Django 只查询指定字段，其他字段延迟加载。适合在只需要少数几个字段的场景中使用。</li>
+<li><strong><code>defer()</code></strong>：告诉 Django 查询所有字段，除了那些被延迟加载的字段。适合需要大部分字段但不需要立即使用某些字段的情况。</li>
+</ul>
+<h1 id="select_related和prefetch_related的区别">select_related和prefetch_related的区别？
+</h1><p><code>select_related</code> 和 <code>prefetch_related</code> 都用于优化查询并减少数据库查询次数，但它们的作用机制和适用场景有所不同。下面详细介绍它们的区别：</p>
+<h2 id="1-适用的关系类型">1. <strong>适用的关系类型</strong>
+</h2><ul>
+<li>
+<p><strong><code>select_related</code></strong>：用于<strong>一对一</strong>和外键（一对多）关系。</p>
+<ul>
+<li>它会使用 SQL 的 <code>JOIN</code> 操作，将相关对象的数据一次性从数据库中取出，减少查询次数。</li>
+<li>适用于对象之间有直接的外键或一对一关系的情况。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>prefetch_related</code></strong>：用于<strong>多对多</strong>和<strong>反向外键查询</strong>（即从“多”查“1”）。</p>
+<ul>
+<li>它会执行<strong>额外的查询</strong>来获取相关对象的数据，并在 Python 层面将这些查询结果与主查询的结果进行合并。</li>
+<li>适用于多对多关系或外键的反向关系。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-查询次数">2. <strong>查询次数</strong>
+</h2><ul>
+<li>
+<p><strong><code>select_related</code></strong>：使用 SQL 的 <code>JOIN</code> 操作，只需要<strong>一次数据库查询</strong>就能获取主对象和相关对象的数据。</p>
+<ul>
+<li>比如，如果你有一个 <code>Person</code> 表和一个与之相关的 <code>Profile</code> 表（外键关系），使用 <code>select_related</code> 会在一次查询中把 <code>Person</code> 和对应的 <code>Profile</code> 数据一起获取。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>prefetch_related</code></strong>：会执行<strong>多个数据库查询</strong>，先查询主对象，再执行额外的查询来获取相关对象的数据。然后在内存中将结果进行匹配。</p>
+<ul>
+<li>比如，当你有 <code>Person</code> 表和 <code>Book</code> 表（多对多关系），使用 <code>prefetch_related</code> 会先查询 <code>Person</code>，然后进行第二次查询来获取 <code>Book</code> 的数据。</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-性能对比">3. <strong>性能对比</strong>
+</h2><ul>
+<li>
+<p><strong><code>select_related</code></strong>：由于使用了 SQL <code>JOIN</code>，在处理一对一或外键关系时性能通常更好，因为只需要一次查询。但是如果涉及到太多的表 <code>JOIN</code> 操作，查询变得复杂时，性能可能会下降。</p>
+</li>
+<li>
+<p><strong><code>prefetch_related</code></strong>：在多对多关系或反向外键关系下，使用 <code>select_related</code> 不能达到优化的效果，因为 <code>JOIN</code> 复杂的多对多表会产生大量重复数据。此时，<code>prefetch_related</code> 更合适，因为它在 Python 中处理数据，避免了复杂的 <code>JOIN</code>，能更好地减少冗余数据。</p>
+</li>
+</ul>
+<h2 id="4-示例">4. <strong>示例</strong>
+</h2><h3 id="使用-select_related外键关系">使用 <code>select_related</code>（外键关系）
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Person 表有一个外键指向 Profile 表</span>
+</span></span><span class="line"><span class="cl"><span class="n">persons</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">select_related</span><span class="p">(</span><span class="s1">&#39;profile&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 这只需要一次查询，获取 Person 和 Profile 的数据。</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="使用-prefetch_related多对多关系">使用 <code>prefetch_related</code>（多对多关系）
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># Person 表和 Book 表是多对多关系</span>
+</span></span><span class="line"><span class="cl"><span class="n">persons</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">prefetch_related</span><span class="p">(</span><span class="s1">&#39;books&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 这会执行两次查询：一次查询 Person，一次查询 Person 对应的 Book 数据。</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="5-总结">5. <strong>总结</strong>
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">特性</th>
+          <th style="text-align: left"><code>select_related</code></th>
+          <th style="text-align: left"><code>prefetch_related</code></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><strong>适用关系</strong></td>
+          <td style="text-align: left">一对一、外键（多对一）</td>
+          <td style="text-align: left">多对多、反向外键</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>数据库查询次数</strong></td>
+          <td style="text-align: left">只执行一次查询</td>
+          <td style="text-align: left">执行多次查询</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>工作原理</strong></td>
+          <td style="text-align: left">使用 SQL <code>JOIN</code> 在一次查询中获取所有相关数据</td>
+          <td style="text-align: left">进行多个查询，并在 Python 层面将结果合并</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>性能表现</strong></td>
+          <td style="text-align: left">适用于简单的关系；太多 <code>JOIN</code> 操作时性能可能下降</td>
+          <td style="text-align: left">适用于复杂关系（特别是多对多），避免大量重复数据</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><strong>示例场景</strong></td>
+          <td style="text-align: left">Person 和 Profile（外键/一对一）</td>
+          <td style="text-align: left">Person 和 Book（多对多）</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>根据关系类型和性能需求，选择合适的方法可以有效优化 Django ORM 的数据库查询效率。</p>
+<h1 id="filter和exclude的区别">filter和exclude的区别？
+</h1><p>在 Django ORM 中，<code>filter()</code> 和 <code>exclude()</code> 都用于查询数据，但它们的作用相反：</p>
+<h2 id="1-filter">1. <strong><code>filter()</code></strong>：
+</h2><ul>
+<li>用于筛选出符合条件的记录。</li>
+<li>返回满足条件的对象集（<code>QuerySet</code>）。</li>
+</ul>
+<h3 id="示例">示例：
+</h3><p>假设你有一个 <code>User</code> 模型，想要筛选出所有 <code>age=30</code> 的用户：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">users</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<ul>
+<li>返回 <code>age</code> 为 30 的所有用户。</li>
+</ul>
+<h2 id="2-exclude">2. <strong><code>exclude()</code></strong>：
+</h2><ul>
+<li>用于排除不符合条件的记录。</li>
+<li>返回<strong>不满足</strong>条件的对象集（<code>QuerySet</code>）。</li>
+</ul>
+<h3 id="示例-1">示例：
+</h3><p>想要查询所有 <code>age != 30</code> 的用户：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">users</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<ul>
+<li>返回<strong>不是</strong> 30 岁的用户。</li>
+</ul>
+<h2 id="区别总结">区别总结：
+</h2><ul>
+<li><strong><code>filter()</code></strong>：选出符合条件的记录。</li>
+<li><strong><code>exclude()</code></strong>：排除符合条件的记录，返回其余不满足条件的记录。</li>
+</ul>
+<h2 id="对比示例">对比示例：
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 查找年龄为 30 岁的用户</span>
+</span></span><span class="line"><span class="cl"><span class="n">users_filtered</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 查找年龄不是 30 岁的用户</span>
+</span></span><span class="line"><span class="cl"><span class="n">users_excluded</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="返回结果">返回结果：
+</h2><ul>
+<li><code>filter()</code> 返回的 <code>users_filtered</code> 包含所有年龄为 30 岁的用户。</li>
+<li><code>exclude()</code> 返回的 <code>users_excluded</code> 包含所有<strong>不</strong>是 30 岁的用户。</li>
+</ul>
+<p>两个方法可以结合使用，比如你可以先使用 <code>filter()</code> 来细化查询范围，再使用 <code>exclude()</code> 来排除某些结果。</p>
+<h1 id="f和q的作用">F和Q的作用?
+</h1><p>在 Django ORM 中，<code>F</code> 和 <code>Q</code> 是两个强大的查询表达式工具，用于构建更加灵活和复杂的查询条件。</p>
+<h2 id="1-f-对象">1. <strong><code>F</code> 对象</strong>：
+</h2><p><code>F</code> 对象允许在查询中引用模型字段本身，特别适合需要比较字段之间的值或者对字段进行原子更新的场景。</p>
+<h3 id="主要作用">主要作用：
+</h3><ul>
+<li><strong>字段之间的比较</strong>：可以在查询中比较一个字段与另一个字段的值。</li>
+<li><strong>原子更新</strong>：在更新操作中可以直接基于现有字段值进行计算（如递增、递减）。</li>
+</ul>
+<h3 id="示例-2">示例：
+</h3><h4 id="a-字段间比较">a) <strong>字段间比较</strong>：
+</h4><p>假设你有一个 <code>Product</code> 模型，包含 <code>price</code> 和 <code>discount_price</code> 两个字段，想要查询 <code>price</code> 大于 <code>discount_price</code> 的产品。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">F</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">products</span> <span class="o">=</span> <span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">price__gt</span><span class="o">=</span><span class="n">F</span><span class="p">(</span><span class="s1">&#39;discount_price&#39;</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<ul>
+<li>返回 <code>price</code> 大于 <code>discount_price</code> 的所有产品。</li>
+</ul>
+<h4 id="b-原子更新">b) <strong>原子更新</strong>：
+</h4><p>假设你想要将某个字段的值基于其现有值增加一定数量，比如增加库存数量。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">stock</span><span class="o">=</span><span class="n">F</span><span class="p">(</span><span class="s1">&#39;stock&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">10</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<ul>
+<li>将 <code>id=1</code> 的产品库存增加 10。Django 会直接在数据库层面进行更新，避免了取出、修改再保存的额外步骤。</li>
+</ul>
+<h2 id="2-q-对象">2. <strong><code>Q</code> 对象</strong>：
+</h2><p><code>Q</code> 对象用于构建更加复杂的查询条件，尤其是需要在查询中使用<strong>逻辑运算符</strong>（如 AND、OR、NOT）时非常有用。</p>
+<h3 id="主要作用-1">主要作用：
+</h3><ul>
+<li><strong>组合复杂的条件</strong>：可以通过 <code>&amp;</code>（AND）、<code>|</code>（OR）、<code>~</code>（NOT）操作符组合查询条件。</li>
+<li><strong>处理条件之间的逻辑关系</strong>：特别是在你需要做 OR 查询或排除某些条件时非常有用。</li>
+</ul>
+<h3 id="示例-3">示例：
+</h3><h4 id="a-or-查询">a) <strong>OR 查询</strong>：
+</h4><p>假设你想查询 <code>age=30</code> 或 <code>name=&quot;John&quot;</code> 的用户。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.db.models</span> <span class="kn">import</span> <span class="n">Q</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">users</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="o">|</span> <span class="n">Q</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;John&#39;</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<ul>
+<li>返回年龄为 30 岁的用户或名字为 &ldquo;John&rdquo; 的用户。</li>
+</ul>
+<h4 id="b-and-查询">b) <strong>AND 查询</strong>：
+</h4><p>默认情况下，<code>filter()</code> 使用 AND 操作符，但你可以显式使用 <code>&amp;</code> 来构建复杂的 AND 查询。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">users</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">Q</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;John&#39;</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<ul>
+<li>返回年龄为 30 且名字为 &ldquo;John&rdquo; 的用户。</li>
+</ul>
+<h4 id="c-not-查询">c) <strong>NOT 查询</strong>：
+</h4><p>可以使用 <code>~</code> 运算符来表示逻辑 NOT。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">users</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="o">~</span><span class="n">Q</span><span class="p">(</span><span class="n">age</span><span class="o">=</span><span class="mi">30</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<ul>
+<li>返回年龄不是 30 岁的用户。</li>
+</ul>
+<h2 id="3-f-和-q-结合使用">3. <strong><code>F</code> 和 <code>Q</code> 结合使用</strong>：
+</h2><p><code>F</code> 和 <code>Q</code> 可以一起使用来构建更复杂的查询。例如，查找所有 <code>price &gt; discount_price</code> 或 <code>stock &lt; 10</code> 的产品：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">products</span> <span class="o">=</span> <span class="n">Product</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">price__gt</span><span class="o">=</span><span class="n">F</span><span class="p">(</span><span class="s1">&#39;discount_price&#39;</span><span class="p">))</span> <span class="o">|</span> <span class="n">Q</span><span class="p">(</span><span class="n">stock__lt</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<ul>
+<li>返回 <code>price</code> 大于 <code>discount_price</code> 或者库存小于 10 的产品。</li>
+</ul>
+<h2 id="总结-2">总结：
+</h2><ul>
+<li><strong><code>F</code> 对象</strong>：用于在查询或更新时引用模型字段本身，支持字段之间的比较和原子更新操作。</li>
+<li><strong><code>Q</code> 对象</strong>：用于构建复杂的查询条件，支持逻辑运算（AND、OR、NOT）来组合不同的条件。</li>
+</ul>
+<h1 id="values和values_list的区别">values和values_list的区别？
+</h1><p>在 Django ORM 中，<code>values()</code> 和 <code>values_list()</code> 都用于从数据库中提取特定字段的数据，但它们的返回结果形式不同：</p>
+<h2 id="1-values">1. <strong><code>values()</code></strong>：
+</h2><ul>
+<li>返回一个<strong>字典</strong>（<code>dictionary</code>）的 <code>QuerySet</code>，其中每个字典的键是字段名，值是字段的值。</li>
+<li>通常用于获取一组对象的特定字段及其对应值，结果类似于字典的列表。</li>
+</ul>
+<h3 id="示例-4">示例：
+</h3><p>假设有一个 <code>User</code> 模型，包含字段 <code>id</code>、<code>username</code> 和 <code>email</code>。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">users</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="s1">&#39;JohnDoe&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">:</span> <span class="s1">&#39;JaneDoe&#39;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># ...</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>结果中每个条目是一个字典，包含 <code>id</code> 和 <code>username</code> 字段。</li>
+</ul>
+<h2 id="2-values_list">2. <strong><code>values_list()</code></strong>：
+</h2><ul>
+<li>返回一个<strong>元组</strong>（<code>tuple</code>）的 <code>QuerySet</code>，其中每个元组包含所查询字段的值。</li>
+<li>如果只查询一个字段，则可以设置 <code>flat=True</code> 来获取一个简单的列表。</li>
+<li>通常用于获取字段值的列表或元组形式，效率上略优于 <code>values()</code>，因为它避免了字典构造的开销。</li>
+</ul>
+<h3 id="示例-5">示例：
+</h3><h4 id="a-获取多个字段">a) 获取多个字段：
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">users</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;JohnDoe&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s1">&#39;JaneDoe&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># ...</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>结果是一个元组的列表，每个元组对应 <code>id</code> 和 <code>username</code> 的值。</li>
+</ul>
+<h4 id="b-获取单个字段">b) 获取单个字段：
+</h4><p>使用 <code>flat=True</code> 时，只返回一个字段的平铺列表。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">usernames</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">values_list</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">,</span> <span class="n">flat</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="p">[</span><span class="s1">&#39;JohnDoe&#39;</span><span class="p">,</span> <span class="s1">&#39;JaneDoe&#39;</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>结果是一个简单的列表，包含所有用户的 <code>username</code> 字段。</li>
+</ul>
+<h2 id="区别总结-1">区别总结：
+</h2><div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th style="text-align: left">方法</th>
+          <th style="text-align: left">返回类型</th>
+          <th style="text-align: left">示例结果</th>
+          <th style="text-align: left">适用场景</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>values()</code></td>
+          <td style="text-align: left">字典的 <code>QuerySet</code></td>
+          <td style="text-align: left"><code>[{'id': 1, 'username': 'JohnDoe'}, ...]</code></td>
+          <td style="text-align: left">需要键值对时</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>values_list()</code></td>
+          <td style="text-align: left">元组的 <code>QuerySet</code></td>
+          <td style="text-align: left"><code>[(1, 'JohnDoe'), (2, 'JaneDoe')]</code></td>
+          <td style="text-align: left">需要字段值的列表或元组时</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>values_list(flat=True)</code></td>
+          <td style="text-align: left">列表（单个字段）</td>
+          <td style="text-align: left"><code>['JohnDoe', 'JaneDoe']</code></td>
+          <td style="text-align: left">只需要某个字段的简单列表时</td>
+      </tr>
+  </tbody>
+</table></div>
+<h2 id="总结-3">总结：
+</h2><ul>
+<li><strong><code>values()</code></strong>：返回包含字段名和对应值的字典列表，适合需要字段名与值一一对应的场景。</li>
+<li><strong><code>values_list()</code></strong>：返回字段值的元组列表，如果只查询一个字段且使用 <code>flat=True</code>，返回平铺列表，适合只关心字段值本身的场景。</li>
+</ul>
 <h1 id="references">References
 </h1><ul>
 <li><a class="link" href="https://www.nowcoder.com/discuss/399679459568230400?sourceSSR=search"  target="_blank" rel="noopener"

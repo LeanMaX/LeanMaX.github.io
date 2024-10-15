@@ -42,10 +42,11 @@ Tornado：适合高并发、实时通讯的系统。&lt;/li&gt;
 &lt;h1 id=&#34;web服务器和web框架的区别&#34;&gt;Web服务器和Web框架的区别
 &lt;/h1&gt;&lt;p&gt;Web服务器即用来接受客户端请求，建立连接，转发响应的程序。至于转发的内容是什么，交由Web框架来处理，即处理这些业务逻辑。如查询数据库、生成实时信息等。
 Nginx是一个Web服务器，Django或flask就是Web框架。&lt;/p&gt;
-&lt;h1 id=&#34;什么是wsgiuwsgiawsgi&#34;&gt;什么是WSGI,uWSGI,aWSGI？
+&lt;h1 id=&#34;什么是wsgiuwsgiuwsgiawsgi&#34;&gt;什么是WSGI,uWSGI,uwsgi,aWSGI？
 &lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;WSGI，Web服务器网关接口，是一种Web服务器网关接口，它是一个Web服务器（如Nginx，uWSGI等服务器）与Web应用（如Flask框架写的程序）通信的一种规范。当前运行在WSGI协议之上的Web框架有Bottle，Flask，Django&lt;/li&gt;
 &lt;li&gt;uWSGI，是实现了WSGI协议的一个Web服务器。即用来接受客户端请求，转发响应的程序。实际上，一个uWSGI的Web服务器，再加上Django这样的Web框架，就已经可以实现网站的功能了。&lt;/li&gt;
+&lt;li&gt;uwsgi，uwsgi 是一个与 uWSGI 服务器相关的协议。uwsgi 协议是一种二进制协议，它定义了 uWSGI 服务器与应用程序之间的通信协议。使用 uwsgi 协议，uWSGI 服务器可以与 Python 应用程序通信&lt;/li&gt;
 &lt;li&gt;aWSGI，异步网关协议接口，一个介于网络协议服务和Python应用之间的标准接口，能够处理多种通用的协议类型，包括HTTP，HTTP2和WebSocket。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;wsgi和asgi的区别&#34;&gt;WSGI和ASGI的区别

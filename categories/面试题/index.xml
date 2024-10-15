@@ -83,6 +83,32 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
+&lt;h1 id=&#34;django中csrf的实现机制&#34;&gt;django中csrf的实现机制
+&lt;/h1&gt;&lt;p&gt;跨站请求伪造（CSRF，Cross-Site Request Forgery）是一种攻击方式，攻击者诱导用户在已认证的网站上执行非授权操作。攻击者通常通过第三方网站发送恶意请求，让受害者在不知情的情况下使用其已登录的身份发起请求，执行操作。（攻击者可以利用Cookie但不能获取Cookie）&lt;br&gt;
+django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完成。&lt;br&gt;
+具体机制：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;用户第一次访问网站时，Django 在响应中生成一个 CSRF Token，并将其存储在 csrftoken Cookie 中。&lt;/li&gt;
+&lt;li&gt;当用户提交表单时，CSRF Token 被嵌入到表单的隐藏字段中，同时被发送到服务器。&lt;/li&gt;
+&lt;li&gt;Django 的 CSRF 中间件接收请求后，验证表单中的 Token 和 Cookie 中的 Token 是否匹配。&lt;br&gt;
+如果验证成功，请求通过；如果失败，返回 403 错误。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;基于django使用ajax发送post请求时都可以使用哪种方法携带csrf-token&#34;&gt;基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf token？
+&lt;/h1&gt;&lt;ol&gt;
+&lt;li&gt;将 CSRF Token 添加到请求头：推荐使用 &lt;code&gt;X-CSRFToken&lt;/code&gt;，这种方式最常用且最安全。&lt;/li&gt;
+&lt;li&gt;将 CSRF Token 作为 POST 数据的一部分：适用于需要通过 &lt;code&gt;FormData&lt;/code&gt; 提交文件的场景。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;django本身提供了runserver为什么不能用来部署runserver与uwsgi的区别&#34;&gt;Django本身提供了runserver，为什么不能用来部署？(runserver与uWSGI的区别)
+&lt;/h1&gt;&lt;p&gt;runserver 是调试 Django 时经常用到的运行方式，它使用 Django 自带的 WSGI Server 运行，主要在测试和开发中使用，并且 runserver 开启的方式也是单进程。
+uWSGI 是一个 Web 服务器，它实现了WSGI，uwsgi，HTTP等协议。uwsgi 是一种通信协议，而 uWSGI 是实现 uwsgi 协议和 WSGI 协议的 Web 服务器。uWSGI 具有超快的性能、低内存占用等优点，并且搭配着 Nginx 组成项目的生产环境，能够将用户访问请求与项目应用隔离，实现真正的网站部署。相对来说，这种方式支持的并发量更高，方便管理多进程，发挥多核的优势，提升性能。&lt;/p&gt;
+&lt;h1 id=&#34;heading&#34;&gt;
+&lt;/h1&gt;&lt;h1 id=&#34;references&#34;&gt;References
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.nowcoder.com/discuss/399679459568230400?sourceSSR=search&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;python web框架django面试题&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/xcbb/p/14855215.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Django本身提供了runserver，为什么不能用来部署？&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         <item>
@@ -120,10 +146,11 @@ Tornado：适合高并发、实时通讯的系统。&lt;/li&gt;
 &lt;h1 id=&#34;web服务器和web框架的区别&#34;&gt;Web服务器和Web框架的区别
 &lt;/h1&gt;&lt;p&gt;Web服务器即用来接受客户端请求，建立连接，转发响应的程序。至于转发的内容是什么，交由Web框架来处理，即处理这些业务逻辑。如查询数据库、生成实时信息等。
 Nginx是一个Web服务器，Django或flask就是Web框架。&lt;/p&gt;
-&lt;h1 id=&#34;什么是wsgiuwsgiawsgi&#34;&gt;什么是WSGI,uWSGI,aWSGI？
+&lt;h1 id=&#34;什么是wsgiuwsgiuwsgiawsgi&#34;&gt;什么是WSGI,uWSGI,uwsgi,aWSGI？
 &lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;WSGI，Web服务器网关接口，是一种Web服务器网关接口，它是一个Web服务器（如Nginx，uWSGI等服务器）与Web应用（如Flask框架写的程序）通信的一种规范。当前运行在WSGI协议之上的Web框架有Bottle，Flask，Django&lt;/li&gt;
 &lt;li&gt;uWSGI，是实现了WSGI协议的一个Web服务器。即用来接受客户端请求，转发响应的程序。实际上，一个uWSGI的Web服务器，再加上Django这样的Web框架，就已经可以实现网站的功能了。&lt;/li&gt;
+&lt;li&gt;uwsgi，uwsgi 是一个与 uWSGI 服务器相关的协议。uwsgi 协议是一种二进制协议，它定义了 uWSGI 服务器与应用程序之间的通信协议。使用 uwsgi 协议，uWSGI 服务器可以与 Python 应用程序通信&lt;/li&gt;
 &lt;li&gt;aWSGI，异步网关协议接口，一个介于网络协议服务和Python应用之间的标准接口，能够处理多种通用的协议类型，包括HTTP，HTTP2和WebSocket。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;wsgi和asgi的区别&#34;&gt;WSGI和ASGI的区别
