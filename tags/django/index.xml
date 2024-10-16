@@ -1802,7 +1802,7 @@ Django REST Framework 的认证流程通过提取请求中的凭据、验证这�
 &lt;h2 id=&#34;1-django-form&#34;&gt;1. Django Form：
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;生成页面可用的HTML标签&lt;/strong&gt;：Form类可以自动生成HTML表单代码，使得在前端页面中能够方便地展示表单。&lt;/li&gt;
-&lt;li&gt;**对用户提交的数据进行校验：**Form类可以对用户提交的数据进行各种验证，确保数据的合法性和正确性。这可以防止恶意用户提交非法数据或进行攻击。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;对用户提交的数据进行校验&lt;/strong&gt;：Form类可以对用户提交的数据进行各种验证，确保数据的合法性和正确性。这可以防止恶意用户提交非法数据或进行攻击。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;保留上次输入内容&lt;/strong&gt;：如果用户提交的数据验证不通过，Form类可以保留用户上次输入的内容，方便用户进行修改后再次提交。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;2-django-modelform&#34;&gt;2. Django ModelForm：
