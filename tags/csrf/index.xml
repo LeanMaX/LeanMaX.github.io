@@ -13,10 +13,10 @@
         <pubDate>Mon, 14 Oct 2024 20:21:44 +0800</pubDate>
         
         <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/</guid>
-        <description>&lt;h1 id=&#34;django的request对象是在什么时候创建的&#34;&gt;django的request对象是在什么时候创建的？
+        <description>&lt;h1 id=&#34;一django的request对象是在什么时候创建的&#34;&gt;&lt;strong&gt;一、django的request对象是在什么时候创建的？&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;当请求一个页面时, Django会建立一个包含请求元数据的HttpRequest对象。&lt;br&gt;
 当Django加载对应的视图时, HttpRequest对象将作为视图函数的第一个参数，另外每个视图会返回一个HttpResponse对象。&lt;/p&gt;
-&lt;h1 id=&#34;django重定向是如何实现的用的什么状态码&#34;&gt;Django重定向是如何实现的？用的什么状态码？
+&lt;h1 id=&#34;二django重定向是如何实现的用的什么状态码&#34;&gt;&lt;strong&gt;二、Django重定向是如何实现的？用的什么状态码？&lt;/strong&gt;
 &lt;/h1&gt;&lt;ol&gt;
 &lt;li&gt;使用&lt;code&gt;HttpResponseRedirect&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
@@ -83,7 +83,7 @@
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&#34;django中csrf的实现机制&#34;&gt;django中csrf的实现机制
+&lt;h1 id=&#34;三django中csrf的实现机制&#34;&gt;&lt;strong&gt;三、django中csrf的实现机制&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;跨站请求伪造（CSRF，Cross-Site Request Forgery）是一种攻击方式，攻击者诱导用户在已认证的网站上执行非授权操作。攻击者通常通过第三方网站发送恶意请求，让受害者在不知情的情况下使用其已登录的身份发起请求，执行操作。（攻击者可以利用Cookie但不能获取Cookie）&lt;br&gt;
 django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完成。&lt;br&gt;
 具体机制：&lt;/p&gt;
@@ -93,17 +93,17 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;li&gt;Django 的 CSRF 中间件接收请求后，验证表单中的 Token 和 Cookie 中的 Token 是否匹配。&lt;br&gt;
 如果验证成功，请求通过；如果失败，返回 403 错误。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h1 id=&#34;基于django使用ajax发送post请求时都可以使用哪种方法携带csrf-token&#34;&gt;基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf token？
+&lt;h1 id=&#34;四基于django使用ajax发送post请求时都可以使用哪种方法携带csrf-token&#34;&gt;&lt;strong&gt;四、基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf token？&lt;/strong&gt;
 &lt;/h1&gt;&lt;ol&gt;
 &lt;li&gt;将 CSRF Token 添加到请求头：推荐使用 &lt;code&gt;X-CSRFToken&lt;/code&gt;，这种方式最常用且最安全。&lt;/li&gt;
 &lt;li&gt;将 CSRF Token 作为 POST 数据的一部分：适用于需要通过 &lt;code&gt;FormData&lt;/code&gt; 提交文件的场景。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h1 id=&#34;django本身提供了runserver为什么不能用来部署runserver与uwsgi的区别&#34;&gt;Django本身提供了runserver，为什么不能用来部署？(runserver与uWSGI的区别)
+&lt;h1 id=&#34;五django本身提供了runserver为什么不能用来部署runserver与uwsgi的区别&#34;&gt;&lt;strong&gt;五、Django本身提供了runserver，为什么不能用来部署？(runserver与uWSGI的区别)&lt;/strong&gt;
 &lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;runserver 是调试 Django 时经常用到的运行方式，它使用 Django 自带的 WSGI Server 运行，主要在测试和开发中使用，并且 runserver 开启的方式也是单进程。&lt;/li&gt;
 &lt;li&gt;uWSGI 是一个 Web 服务器，它实现了WSGI，uwsgi，HTTP等协议。uwsgi 是一种通信协议，而 uWSGI 是实现 uwsgi 协议和 WSGI 协议的 Web 服务器。uWSGI 具有超快的性能、低内存占用等优点，并且搭配着 Nginx 组成项目的生产环境，能够将用户访问请求与项目应用隔离，实现真正的网站部署。相对来说，这种方式支持的并发量更高，方便管理多进程，发挥多核的优势，提升性能。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&#34;cookie和session的区别&#34;&gt;cookie和session的区别
+&lt;h1 id=&#34;六cookie和session的区别&#34;&gt;&lt;strong&gt;六、cookie和session的区别&lt;/strong&gt;
 &lt;/h1&gt;&lt;h2 id=&#34;1-存储位置与数据安全性&#34;&gt;1. 存储位置与数据安全性
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Cookie：存储在客户端浏览器中，数据安全性相对较差。因为数据保存在客户端浏览器中，如果用户或第三方工具非法获取Cookie内容，可能导致数据泄露或身份冒用。&lt;/li&gt;
@@ -124,8 +124,8 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;li&gt;Cookie：由于同源策略的限制，Cookie无法在跨域请求中使用。这意味着如果一个网站需要从其他域获取资源或服务，将无法使用Cookie进行身份验证或会话管理。&lt;/li&gt;
 &lt;li&gt;Session：在跨域请求中，可以通过将Session存储在中央服务器或使用分布式Session来处理。这样可以在多个域之间共享用户会话信息，实现跨域认证和资源共享。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&#34;列举django-orm-中所有的方法queryset对象的所有方法&#34;&gt;列举django orm 中所有的方法（QuerySet对象的所有方法）
-&lt;/h1&gt;&lt;h2 id=&#34;1-查询方法&#34;&gt;1. &lt;strong&gt;查询方法&lt;/strong&gt;
+&lt;h1 id=&#34;七列举django-orm-中所有的方法queryset对象的所有方法&#34;&gt;&lt;strong&gt;七、列举django orm 中所有的方法（QuerySet对象的所有方法）&lt;/strong&gt;
+&lt;/h1&gt;&lt;h2 id=&#34;1-查询方法&#34;&gt;1. 查询方法
 &lt;/h2&gt;&lt;p&gt;这些方法用于检索和获取数据。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -239,7 +239,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;2-排序与限制&#34;&gt;2. &lt;strong&gt;排序与限制&lt;/strong&gt;
+&lt;h2 id=&#34;2-排序与限制&#34;&gt;2. 排序与限制
 &lt;/h2&gt;&lt;p&gt;这些方法用于排序和限制返回的结果。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -366,7 +366,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;3-聚合与注解&#34;&gt;3. &lt;strong&gt;聚合与注解&lt;/strong&gt;
+&lt;h2 id=&#34;3-聚合与注解&#34;&gt;3. 聚合与注解
 &lt;/h2&gt;&lt;p&gt;这些方法用于统计和计算。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -396,7 +396,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;4-更新与删除&#34;&gt;4. &lt;strong&gt;更新与删除&lt;/strong&gt;
+&lt;h2 id=&#34;4-更新与删除&#34;&gt;4. 更新与删除
 &lt;/h2&gt;&lt;p&gt;这些方法用于修改或删除数据库中的对象。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -444,7 +444,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;5-高级查询&#34;&gt;5. &lt;strong&gt;高级查询&lt;/strong&gt;
+&lt;h2 id=&#34;5-高级查询&#34;&gt;5. 高级查询
 &lt;/h2&gt;&lt;p&gt;这些方法用于执行更复杂的查询。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -515,7 +515,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;6-缓存与清空&#34;&gt;6. &lt;strong&gt;缓存与清空&lt;/strong&gt;
+&lt;h2 id=&#34;6-缓存与清空&#34;&gt;6. 缓存与清空
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;&lt;code&gt;iterator()&lt;/code&gt;&lt;/strong&gt;：逐个获取对象，避免一次性加载所有对象（有助于处理大量数据）。&lt;/p&gt;
@@ -550,7 +550,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;/div&gt;
 &lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;7-复合查询&#34;&gt;7. &lt;strong&gt;复合查询&lt;/strong&gt;
+&lt;h2 id=&#34;7-复合查询&#34;&gt;7. 复合查询
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;or_&lt;/code&gt; 和 &lt;code&gt;and_&lt;/code&gt;&lt;/strong&gt;：通过 &lt;code&gt;Q&lt;/code&gt; 对象进行复杂的查询条件组合。
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -567,9 +567,9 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;/ul&gt;
 &lt;h2 id=&#34;总结&#34;&gt;总结
 &lt;/h2&gt;&lt;p&gt;Django ORM 提供了丰富的 &lt;code&gt;QuerySet&lt;/code&gt; 方法，涵盖从简单到复杂的查询、排序、过滤、聚合、更新等功能。合理使用这些方法，可以极大地提升数据查询和操作的效率。&lt;/p&gt;
-&lt;h1 id=&#34;only和defer的区别&#34;&gt;only和defer的区别？
+&lt;h1 id=&#34;八only和defer的区别&#34;&gt;&lt;strong&gt;八、only和defer的区别？&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;在 Django 的查询集（QuerySet）中，&lt;code&gt;only()&lt;/code&gt; 和 &lt;code&gt;defer()&lt;/code&gt; 是两种优化查询性能的方法，目的是减少从数据库中获取的数据量，提升查询速度。但它们的工作方式和适用场景有所不同。&lt;/p&gt;
-&lt;h2 id=&#34;1-only&#34;&gt;1. &lt;strong&gt;&lt;code&gt;only()&lt;/code&gt;&lt;/strong&gt;
+&lt;h2 id=&#34;1-only&#34;&gt;1. &lt;code&gt;only()&lt;/code&gt;
 &lt;/h2&gt;&lt;p&gt;&lt;code&gt;only()&lt;/code&gt; 用于告诉 Django &lt;strong&gt;只从数据库中获取特定字段的数据&lt;/strong&gt;，其余字段将不会在查询时一同获取。如果访问了未加载的字段，Django 会在访问该字段时进行额外的数据库查询。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;工作原理&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -606,7 +606,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;ul&gt;
 &lt;li&gt;适合只需要部分字段的场景，尤其是查询结果中有很多字段但并不都需要立即使用时，可以通过 &lt;code&gt;only()&lt;/code&gt; 提前减少数据库负担。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;2-defer&#34;&gt;2. &lt;strong&gt;&lt;code&gt;defer()&lt;/code&gt;&lt;/strong&gt;
+&lt;h2 id=&#34;2-defer&#34;&gt;2. &lt;code&gt;defer()&lt;/code&gt;
 &lt;/h2&gt;&lt;p&gt;&lt;code&gt;defer()&lt;/code&gt; 与 &lt;code&gt;only()&lt;/code&gt; 相反，&lt;strong&gt;它告诉 Django 延迟加载某些字段&lt;/strong&gt;。即在查询时获取所有字段，除了你指定的字段之外，其他字段将在实际访问时进行额外的查询。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;工作原理&lt;/strong&gt;：&lt;/p&gt;
 &lt;ul&gt;
@@ -642,7 +642,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;ul&gt;
 &lt;li&gt;当你需要大部分字段，但有一些字段不经常使用时，可以使用 &lt;code&gt;defer()&lt;/code&gt; 延迟这些字段的加载，以减少初次查询的开销。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;only-和-defer-的对比&#34;&gt;&lt;strong&gt;&lt;code&gt;only()&lt;/code&gt; 和 &lt;code&gt;defer()&lt;/code&gt; 的对比&lt;/strong&gt;
+&lt;h2 id=&#34;only-和-defer-的对比&#34;&gt;&lt;code&gt;only()&lt;/code&gt; 和 &lt;code&gt;defer()&lt;/code&gt; 的对比
 &lt;/h2&gt;&lt;table&gt;
   &lt;thead&gt;
       &lt;tr&gt;
@@ -679,9 +679,9 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;only()&lt;/code&gt;&lt;/strong&gt;：告诉 Django 只查询指定字段，其他字段延迟加载。适合在只需要少数几个字段的场景中使用。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;defer()&lt;/code&gt;&lt;/strong&gt;：告诉 Django 查询所有字段，除了那些被延迟加载的字段。适合需要大部分字段但不需要立即使用某些字段的情况。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&#34;select_related和prefetch_related的区别&#34;&gt;select_related和prefetch_related的区别？
+&lt;h1 id=&#34;九select_related和prefetch_related的区别&#34;&gt;&lt;strong&gt;九、select_related和prefetch_related的区别？&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;&lt;code&gt;select_related&lt;/code&gt; 和 &lt;code&gt;prefetch_related&lt;/code&gt; 都用于优化查询并减少数据库查询次数，但它们的作用机制和适用场景有所不同。下面详细介绍它们的区别：&lt;/p&gt;
-&lt;h2 id=&#34;1-适用的关系类型&#34;&gt;1. &lt;strong&gt;适用的关系类型&lt;/strong&gt;
+&lt;h2 id=&#34;1-适用的关系类型&#34;&gt;1. 适用的关系类型
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;&lt;code&gt;select_related&lt;/code&gt;&lt;/strong&gt;：用于&lt;strong&gt;一对一&lt;/strong&gt;和外键（一对多）关系。&lt;/p&gt;
@@ -698,7 +698,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;2-查询次数&#34;&gt;2. &lt;strong&gt;查询次数&lt;/strong&gt;
+&lt;h2 id=&#34;2-查询次数&#34;&gt;2. 查询次数
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;&lt;code&gt;select_related&lt;/code&gt;&lt;/strong&gt;：使用 SQL 的 &lt;code&gt;JOIN&lt;/code&gt; 操作，只需要&lt;strong&gt;一次数据库查询&lt;/strong&gt;就能获取主对象和相关对象的数据。&lt;/p&gt;
@@ -713,7 +713,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;3-性能对比&#34;&gt;3. &lt;strong&gt;性能对比&lt;/strong&gt;
+&lt;h2 id=&#34;3-性能对比&#34;&gt;3. 性能对比
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;&lt;code&gt;select_related&lt;/code&gt;&lt;/strong&gt;：由于使用了 SQL &lt;code&gt;JOIN&lt;/code&gt;，在处理一对一或外键关系时性能通常更好，因为只需要一次查询。但是如果涉及到太多的表 &lt;code&gt;JOIN&lt;/code&gt; 操作，查询变得复杂时，性能可能会下降。&lt;/p&gt;
@@ -722,7 +722,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;p&gt;&lt;strong&gt;&lt;code&gt;prefetch_related&lt;/code&gt;&lt;/strong&gt;：在多对多关系或反向外键关系下，使用 &lt;code&gt;select_related&lt;/code&gt; 不能达到优化的效果，因为 &lt;code&gt;JOIN&lt;/code&gt; 复杂的多对多表会产生大量重复数据。此时，&lt;code&gt;prefetch_related&lt;/code&gt; 更合适，因为它在 Python 中处理数据，避免了复杂的 &lt;code&gt;JOIN&lt;/code&gt;，能更好地减少冗余数据。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;4-示例&#34;&gt;4. &lt;strong&gt;示例&lt;/strong&gt;
+&lt;h2 id=&#34;4-示例&#34;&gt;4. 示例
 &lt;/h2&gt;&lt;h3 id=&#34;使用-select_related外键关系&#34;&gt;使用 &lt;code&gt;select_related&lt;/code&gt;（外键关系）
 &lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -753,7 +753,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 这会执行两次查询：一次查询 Person，一次查询 Person 对应的 Book 数据。&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h2 id=&#34;5-总结&#34;&gt;5. &lt;strong&gt;总结&lt;/strong&gt;
+&lt;/div&gt;&lt;h2 id=&#34;5-总结&#34;&gt;5. 总结
 &lt;/h2&gt;&lt;table&gt;
   &lt;thead&gt;
       &lt;tr&gt;
@@ -791,9 +791,9 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
   &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;p&gt;根据关系类型和性能需求，选择合适的方法可以有效优化 Django ORM 的数据库查询效率。&lt;/p&gt;
-&lt;h1 id=&#34;filter和exclude的区别&#34;&gt;filter和exclude的区别？
+&lt;h1 id=&#34;十filter和exclude的区别&#34;&gt;&lt;strong&gt;十、filter和exclude的区别？&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;在 Django ORM 中，&lt;code&gt;filter()&lt;/code&gt; 和 &lt;code&gt;exclude()&lt;/code&gt; 都用于查询数据，但它们的作用相反：&lt;/p&gt;
-&lt;h2 id=&#34;1-filter&#34;&gt;1. &lt;strong&gt;&lt;code&gt;filter()&lt;/code&gt;&lt;/strong&gt;：
+&lt;h2 id=&#34;1-filter&#34;&gt;1. &lt;code&gt;filter()&lt;/code&gt;：
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;用于筛选出符合条件的记录。&lt;/li&gt;
 &lt;li&gt;返回满足条件的对象集（&lt;code&gt;QuerySet&lt;/code&gt;）。&lt;/li&gt;
@@ -812,7 +812,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;ul&gt;
 &lt;li&gt;返回 &lt;code&gt;age&lt;/code&gt; 为 30 的所有用户。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;2-exclude&#34;&gt;2. &lt;strong&gt;&lt;code&gt;exclude()&lt;/code&gt;&lt;/strong&gt;：
+&lt;h2 id=&#34;2-exclude&#34;&gt;2. &lt;code&gt;exclude()&lt;/code&gt;：
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;用于排除不符合条件的记录。&lt;/li&gt;
 &lt;li&gt;返回&lt;strong&gt;不满足&lt;/strong&gt;条件的对象集（&lt;code&gt;QuerySet&lt;/code&gt;）。&lt;/li&gt;
@@ -859,9 +859,9 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;li&gt;&lt;code&gt;exclude()&lt;/code&gt; 返回的 &lt;code&gt;users_excluded&lt;/code&gt; 包含所有&lt;strong&gt;不&lt;/strong&gt;是 30 岁的用户。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;两个方法可以结合使用，比如你可以先使用 &lt;code&gt;filter()&lt;/code&gt; 来细化查询范围，再使用 &lt;code&gt;exclude()&lt;/code&gt; 来排除某些结果。&lt;/p&gt;
-&lt;h1 id=&#34;f和q的作用&#34;&gt;F和Q的作用?
+&lt;h1 id=&#34;十一f和q的作用&#34;&gt;&lt;strong&gt;十一、F和Q的作用?&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;在 Django ORM 中，&lt;code&gt;F&lt;/code&gt; 和 &lt;code&gt;Q&lt;/code&gt; 是两个强大的查询表达式工具，用于构建更加灵活和复杂的查询条件。&lt;/p&gt;
-&lt;h2 id=&#34;1-f-对象&#34;&gt;1. &lt;strong&gt;&lt;code&gt;F&lt;/code&gt; 对象&lt;/strong&gt;：
+&lt;h2 id=&#34;1-f-对象&#34;&gt;1. &lt;code&gt;F&lt;/code&gt; 对象：
 &lt;/h2&gt;&lt;p&gt;&lt;code&gt;F&lt;/code&gt; 对象允许在查询中引用模型字段本身，特别适合需要比较字段之间的值或者对字段进行原子更新的场景。&lt;/p&gt;
 &lt;h3 id=&#34;主要作用&#34;&gt;主要作用：
 &lt;/h3&gt;&lt;ul&gt;
@@ -869,7 +869,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;li&gt;&lt;strong&gt;原子更新&lt;/strong&gt;：在更新操作中可以直接基于现有字段值进行计算（如递增、递减）。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;示例-2&#34;&gt;示例：
-&lt;/h3&gt;&lt;h4 id=&#34;a-字段间比较&#34;&gt;a) &lt;strong&gt;字段间比较&lt;/strong&gt;：
+&lt;/h3&gt;&lt;h4 id=&#34;a-字段间比较&#34;&gt;a) 字段间比较：
 &lt;/h4&gt;&lt;p&gt;假设你有一个 &lt;code&gt;Product&lt;/code&gt; 模型，包含 &lt;code&gt;price&lt;/code&gt; 和 &lt;code&gt;discount_price&lt;/code&gt; 两个字段，想要查询 &lt;code&gt;price&lt;/code&gt; 大于 &lt;code&gt;discount_price&lt;/code&gt; 的产品。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -887,7 +887,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;ul&gt;
 &lt;li&gt;返回 &lt;code&gt;price&lt;/code&gt; 大于 &lt;code&gt;discount_price&lt;/code&gt; 的所有产品。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id=&#34;b-原子更新&#34;&gt;b) &lt;strong&gt;原子更新&lt;/strong&gt;：
+&lt;h4 id=&#34;b-原子更新&#34;&gt;b) 原子更新：
 &lt;/h4&gt;&lt;p&gt;假设你想要将某个字段的值基于其现有值增加一定数量，比如增加库存数量。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -901,7 +901,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;ul&gt;
 &lt;li&gt;将 &lt;code&gt;id=1&lt;/code&gt; 的产品库存增加 10。Django 会直接在数据库层面进行更新，避免了取出、修改再保存的额外步骤。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;2-q-对象&#34;&gt;2. &lt;strong&gt;&lt;code&gt;Q&lt;/code&gt; 对象&lt;/strong&gt;：
+&lt;h2 id=&#34;2-q-对象&#34;&gt;2. &lt;code&gt;Q&lt;/code&gt; 对象：
 &lt;/h2&gt;&lt;p&gt;&lt;code&gt;Q&lt;/code&gt; 对象用于构建更加复杂的查询条件，尤其是需要在查询中使用&lt;strong&gt;逻辑运算符&lt;/strong&gt;（如 AND、OR、NOT）时非常有用。&lt;/p&gt;
 &lt;h3 id=&#34;主要作用-1&#34;&gt;主要作用：
 &lt;/h3&gt;&lt;ul&gt;
@@ -909,7 +909,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;li&gt;&lt;strong&gt;处理条件之间的逻辑关系&lt;/strong&gt;：特别是在你需要做 OR 查询或排除某些条件时非常有用。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;示例-3&#34;&gt;示例：
-&lt;/h3&gt;&lt;h4 id=&#34;a-or-查询&#34;&gt;a) &lt;strong&gt;OR 查询&lt;/strong&gt;：
+&lt;/h3&gt;&lt;h4 id=&#34;a-or-查询&#34;&gt;a) OR 查询：
 &lt;/h4&gt;&lt;p&gt;假设你想查询 &lt;code&gt;age=30&lt;/code&gt; 或 &lt;code&gt;name=&amp;quot;John&amp;quot;&lt;/code&gt; 的用户。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -927,7 +927,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;ul&gt;
 &lt;li&gt;返回年龄为 30 岁的用户或名字为 &amp;ldquo;John&amp;rdquo; 的用户。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id=&#34;b-and-查询&#34;&gt;b) &lt;strong&gt;AND 查询&lt;/strong&gt;：
+&lt;h4 id=&#34;b-and-查询&#34;&gt;b) AND 查询：
 &lt;/h4&gt;&lt;p&gt;默认情况下，&lt;code&gt;filter()&lt;/code&gt; 使用 AND 操作符，但你可以显式使用 &lt;code&gt;&amp;amp;&lt;/code&gt; 来构建复杂的 AND 查询。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -941,7 +941,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;ul&gt;
 &lt;li&gt;返回年龄为 30 且名字为 &amp;ldquo;John&amp;rdquo; 的用户。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h4 id=&#34;c-not-查询&#34;&gt;c) &lt;strong&gt;NOT 查询&lt;/strong&gt;：
+&lt;h4 id=&#34;c-not-查询&#34;&gt;c) NOT 查询：
 &lt;/h4&gt;&lt;p&gt;可以使用 &lt;code&gt;~&lt;/code&gt; 运算符来表示逻辑 NOT。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -955,7 +955,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;ul&gt;
 &lt;li&gt;返回年龄不是 30 岁的用户。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;3-f-和-q-结合使用&#34;&gt;3. &lt;strong&gt;&lt;code&gt;F&lt;/code&gt; 和 &lt;code&gt;Q&lt;/code&gt; 结合使用&lt;/strong&gt;：
+&lt;h2 id=&#34;3-f-和-q-结合使用&#34;&gt;3. &lt;code&gt;F&lt;/code&gt; 和 &lt;code&gt;Q&lt;/code&gt; 结合使用：
 &lt;/h2&gt;&lt;p&gt;&lt;code&gt;F&lt;/code&gt; 和 &lt;code&gt;Q&lt;/code&gt; 可以一起使用来构建更复杂的查询。例如，查找所有 &lt;code&gt;price &amp;gt; discount_price&lt;/code&gt; 或 &lt;code&gt;stock &amp;lt; 10&lt;/code&gt; 的产品：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -974,9 +974,9 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;F&lt;/code&gt; 对象&lt;/strong&gt;：用于在查询或更新时引用模型字段本身，支持字段之间的比较和原子更新操作。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;Q&lt;/code&gt; 对象&lt;/strong&gt;：用于构建复杂的查询条件，支持逻辑运算（AND、OR、NOT）来组合不同的条件。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&#34;values和values_list的区别&#34;&gt;values和values_list的区别？
+&lt;h1 id=&#34;十二values和values_list的区别&#34;&gt;&lt;strong&gt;十二、values和values_list的区别？&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;在 Django ORM 中，&lt;code&gt;values()&lt;/code&gt; 和 &lt;code&gt;values_list()&lt;/code&gt; 都用于从数据库中提取特定字段的数据，但它们的返回结果形式不同：&lt;/p&gt;
-&lt;h2 id=&#34;1-values&#34;&gt;1. &lt;strong&gt;&lt;code&gt;values()&lt;/code&gt;&lt;/strong&gt;：
+&lt;h2 id=&#34;1-values&#34;&gt;1. &lt;code&gt;values()&lt;/code&gt;：
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;返回一个&lt;strong&gt;字典&lt;/strong&gt;（&lt;code&gt;dictionary&lt;/code&gt;）的 &lt;code&gt;QuerySet&lt;/code&gt;，其中每个字典的键是字段名，值是字段的值。&lt;/li&gt;
 &lt;li&gt;通常用于获取一组对象的特定字段及其对应值，结果类似于字典的列表。&lt;/li&gt;
@@ -1011,7 +1011,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;结果中每个条目是一个字典，包含 &lt;code&gt;id&lt;/code&gt; 和 &lt;code&gt;username&lt;/code&gt; 字段。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;2-values_list&#34;&gt;2. &lt;strong&gt;&lt;code&gt;values_list()&lt;/code&gt;&lt;/strong&gt;：
+&lt;h2 id=&#34;2-values_list&#34;&gt;2. &lt;code&gt;values_list()&lt;/code&gt;：
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;返回一个&lt;strong&gt;元组&lt;/strong&gt;（&lt;code&gt;tuple&lt;/code&gt;）的 &lt;code&gt;QuerySet&lt;/code&gt;，其中每个元组包含所查询字段的值。&lt;/li&gt;
 &lt;li&gt;如果只查询一个字段，则可以设置 &lt;code&gt;flat=True&lt;/code&gt; 来获取一个简单的列表。&lt;/li&gt;
@@ -1105,7 +1105,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;values()&lt;/code&gt;&lt;/strong&gt;：返回包含字段名和对应值的字典列表，适合需要字段名与值一一对应的场景。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;&lt;code&gt;values_list()&lt;/code&gt;&lt;/strong&gt;：返回字段值的元组列表，如果只查询一个字段且使用 &lt;code&gt;flat=True&lt;/code&gt;，返回平铺列表，适合只关心字段值本身的场景。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&#34;references&#34;&gt;References
+&lt;h1 id=&#34;references&#34;&gt;&lt;strong&gt;References&lt;/strong&gt;
 &lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.nowcoder.com/discuss/399679459568230400?sourceSSR=search&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;python web框架django面试题&lt;/a&gt;&lt;/li&gt;

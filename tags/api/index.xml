@@ -618,7 +618,7 @@ Django REST Framework 的认证流程通过提取请求中的凭据、验证这�
 &lt;/ol&gt;
 &lt;h2 id=&#34;总结-5&#34;&gt;总结
 &lt;/h2&gt;&lt;p&gt;DRF 的序列化组件不仅简化了数据的转换和验证过程，还提供了灵活的钩子方法，以便处理复杂的数据关系（如外键），让开发者能够方便地管理和定制 API 的数据流。&lt;/p&gt;
-&lt;h1 id=&#34;references&#34;&gt;References
+&lt;h1 id=&#34;references&#34;&gt;&lt;strong&gt;References&lt;/strong&gt;
 &lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.nowcoder.com/discuss/399679459568230400?sourceSSR=search&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;python web框架django面试题&lt;/a&gt;&lt;/li&gt;

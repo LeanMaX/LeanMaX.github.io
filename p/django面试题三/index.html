@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="django的Form和ModeForm的作用？\rDjango的Form和ModelForm是框架中非常重要的两个组件，主要用于处理表单数据和数据模型。以下是它们的具体作用：\n1. Django Form：\r生成页面可用的HTML标签：Form类可以自动生成HTML表单代码，使得在前端页面中能够方便地展示表单。 **对用户提交的数据进行校验：**Form类可以对用户提交的数据进行各种验证，确保数据的合法性和正确性。这可以防止恶意用户提交非法数据或进行攻击。 保留上次输入内容：如果用户提交的数据验证不通过，Form类可以保留用户上次输入的内容，方便用户进行修改后再次提交。 2. Django ModelForm：\r继承自Form类：ModelForm是Form的子类，因此它具有Form类的所有功能，包括生成HTML标签、数据验证等。 与数据模型进行绑定：ModelForm与Django的数据模型进行绑定，可以直接对数据库表进行操作。这使得在表单处理过程中，可以方便地读取、修改、删除数据库中的数据。 自动生成表单字段：根据绑定的数据模型，ModelForm可以自动生成对应的表单字段，无需手动定义。这大大简化了表单的开发过程。 django的Form组件中,如果字段中包含choices参数，请使用两种方式实现数据源实时更新。\r1. 重写Form类的__init__方法\r可以通过重写Form类的__init__方法来动态地设置字段的choices。这通常涉及到从数据库或其他外部源获取数据，并将其作为字段选项。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): my_field = forms.ChoiceField(choices=[]) # 初始为空，稍后在__init__中填充 def __init__(self, *args, **kwargs): super(MyForm, self).__init__(*args, **kwargs) # 从数据库或其他地方获取数据 choices = MyModel.objects.values_list(&#39;id&#39;, &#39;name&#39;) # 更新字段的choices self.fields[&#39;my_field&#39;].choices = choices 2. 使用ModelChoiceField\r如果你的选项来自于一个Django模型，你可以使用ModelChoiceField，它允许你指定一个查询集（QuerySet）作为选项。你可以在Form类中定义一个方法来返回查询集，并在ModelChoiceField中使用这个方法。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): def get_my_choices(): # 返回查询集 return MyModel.objects.all() my_field = forms.ModelChoiceField(queryset=get_my_choices()) # 注意：上面的代码片段有一个问题，即`get_my_choices`在类定义时被调用，而不是在实例化时。 # 正确的做法是使用lambda表达式或者将查询集定义在__init__方法中。 然而，上面的代码片段有一个问题：get_my_choices在类定义时就被调用了，而不是在实例化时。这会导致每次服务器启动时获取一次选项，而不是每次请求时。为了解决这个问题，你应该在__init__方法中设置查询集：\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="一、django的Form和ModeForm的作用？\rDjango的Form和ModelForm是框架中非常重要的两个组件，主要用于处理表单数据和数据模型。以下是它们的具体作用：\n1. Django Form：\r生成页面可用的HTML标签：Form类可以自动生成HTML表单代码，使得在前端页面中能够方便地展示表单。 **对用户提交的数据进行校验：**Form类可以对用户提交的数据进行各种验证，确保数据的合法性和正确性。这可以防止恶意用户提交非法数据或进行攻击。 保留上次输入内容：如果用户提交的数据验证不通过，Form类可以保留用户上次输入的内容，方便用户进行修改后再次提交。 2. Django ModelForm：\r继承自Form类：ModelForm是Form的子类，因此它具有Form类的所有功能，包括生成HTML标签、数据验证等。 与数据模型进行绑定：ModelForm与Django的数据模型进行绑定，可以直接对数据库表进行操作。这使得在表单处理过程中，可以方便地读取、修改、删除数据库中的数据。 自动生成表单字段：根据绑定的数据模型，ModelForm可以自动生成对应的表单字段，无需手动定义。这大大简化了表单的开发过程。 二、django的Form组件中,如果字段中包含choices参数，请使用两种方式实现数据源实时更新。\r1. 重写Form类的__init__方法\r可以通过重写Form类的__init__方法来动态地设置字段的choices。这通常涉及到从数据库或其他外部源获取数据，并将其作为字段选项。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): my_field = forms.ChoiceField(choices=[]) # 初始为空，稍后在__init__中填充 def __init__(self, *args, **kwargs): super(MyForm, self).__init__(*args, **kwargs) # 从数据库或其他地方获取数据 choices = MyModel.objects.values_list(&#39;id&#39;, &#39;name&#39;) # 更新字段的choices self.fields[&#39;my_field&#39;].choices = choices 2. 使用ModelChoiceField\r如果你的选项来自于一个Django模型，你可以使用ModelChoiceField，它允许你指定一个查询集（QuerySet）作为选项。你可以在Form类中定义一个方法来返回查询集，并在ModelChoiceField中使用这个方法。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): def get_my_choices(): # 返回查询集 return MyModel.objects.all() my_field = forms.ModelChoiceField(queryset=get_my_choices()) # 注意：上面的代码片段有一个问题，即`get_my_choices`在类定义时被调用，而不是在实例化时。 # 正确的做法是使用lambda表达式或者将查询集定义在__init__方法中。 然而，上面的代码片段有一个问题：get_my_choices在类定义时就被调用了，而不是在实例化时。这会导致每次服务器启动时获取一次选项，而不是每次请求时。为了解决这个问题，你应该在__init__方法中设置查询集：\n">
 <title>Django面试题（三）</title>
 
 <link rel='canonical' href='https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/'>
 
 <link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="Django面试题（三）">
-<meta property='og:description' content="django的Form和ModeForm的作用？\rDjango的Form和ModelForm是框架中非常重要的两个组件，主要用于处理表单数据和数据模型。以下是它们的具体作用：\n1. Django Form：\r生成页面可用的HTML标签：Form类可以自动生成HTML表单代码，使得在前端页面中能够方便地展示表单。 **对用户提交的数据进行校验：**Form类可以对用户提交的数据进行各种验证，确保数据的合法性和正确性。这可以防止恶意用户提交非法数据或进行攻击。 保留上次输入内容：如果用户提交的数据验证不通过，Form类可以保留用户上次输入的内容，方便用户进行修改后再次提交。 2. Django ModelForm：\r继承自Form类：ModelForm是Form的子类，因此它具有Form类的所有功能，包括生成HTML标签、数据验证等。 与数据模型进行绑定：ModelForm与Django的数据模型进行绑定，可以直接对数据库表进行操作。这使得在表单处理过程中，可以方便地读取、修改、删除数据库中的数据。 自动生成表单字段：根据绑定的数据模型，ModelForm可以自动生成对应的表单字段，无需手动定义。这大大简化了表单的开发过程。 django的Form组件中,如果字段中包含choices参数，请使用两种方式实现数据源实时更新。\r1. 重写Form类的__init__方法\r可以通过重写Form类的__init__方法来动态地设置字段的choices。这通常涉及到从数据库或其他外部源获取数据，并将其作为字段选项。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): my_field = forms.ChoiceField(choices=[]) # 初始为空，稍后在__init__中填充 def __init__(self, *args, **kwargs): super(MyForm, self).__init__(*args, **kwargs) # 从数据库或其他地方获取数据 choices = MyModel.objects.values_list(&#39;id&#39;, &#39;name&#39;) # 更新字段的choices self.fields[&#39;my_field&#39;].choices = choices 2. 使用ModelChoiceField\r如果你的选项来自于一个Django模型，你可以使用ModelChoiceField，它允许你指定一个查询集（QuerySet）作为选项。你可以在Form类中定义一个方法来返回查询集，并在ModelChoiceField中使用这个方法。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): def get_my_choices(): # 返回查询集 return MyModel.objects.all() my_field = forms.ModelChoiceField(queryset=get_my_choices()) # 注意：上面的代码片段有一个问题，即`get_my_choices`在类定义时被调用，而不是在实例化时。 # 正确的做法是使用lambda表达式或者将查询集定义在__init__方法中。 然而，上面的代码片段有一个问题：get_my_choices在类定义时就被调用了，而不是在实例化时。这会导致每次服务器启动时获取一次选项，而不是每次请求时。为了解决这个问题，你应该在__init__方法中设置查询集：\n">
+<meta property='og:description' content="一、django的Form和ModeForm的作用？\rDjango的Form和ModelForm是框架中非常重要的两个组件，主要用于处理表单数据和数据模型。以下是它们的具体作用：\n1. Django Form：\r生成页面可用的HTML标签：Form类可以自动生成HTML表单代码，使得在前端页面中能够方便地展示表单。 **对用户提交的数据进行校验：**Form类可以对用户提交的数据进行各种验证，确保数据的合法性和正确性。这可以防止恶意用户提交非法数据或进行攻击。 保留上次输入内容：如果用户提交的数据验证不通过，Form类可以保留用户上次输入的内容，方便用户进行修改后再次提交。 2. Django ModelForm：\r继承自Form类：ModelForm是Form的子类，因此它具有Form类的所有功能，包括生成HTML标签、数据验证等。 与数据模型进行绑定：ModelForm与Django的数据模型进行绑定，可以直接对数据库表进行操作。这使得在表单处理过程中，可以方便地读取、修改、删除数据库中的数据。 自动生成表单字段：根据绑定的数据模型，ModelForm可以自动生成对应的表单字段，无需手动定义。这大大简化了表单的开发过程。 二、django的Form组件中,如果字段中包含choices参数，请使用两种方式实现数据源实时更新。\r1. 重写Form类的__init__方法\r可以通过重写Form类的__init__方法来动态地设置字段的choices。这通常涉及到从数据库或其他外部源获取数据，并将其作为字段选项。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): my_field = forms.ChoiceField(choices=[]) # 初始为空，稍后在__init__中填充 def __init__(self, *args, **kwargs): super(MyForm, self).__init__(*args, **kwargs) # 从数据库或其他地方获取数据 choices = MyModel.objects.values_list(&#39;id&#39;, &#39;name&#39;) # 更新字段的choices self.fields[&#39;my_field&#39;].choices = choices 2. 使用ModelChoiceField\r如果你的选项来自于一个Django模型，你可以使用ModelChoiceField，它允许你指定一个查询集（QuerySet）作为选项。你可以在Form类中定义一个方法来返回查询集，并在ModelChoiceField中使用这个方法。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): def get_my_choices(): # 返回查询集 return MyModel.objects.all() my_field = forms.ModelChoiceField(queryset=get_my_choices()) # 注意：上面的代码片段有一个问题，即`get_my_choices`在类定义时被调用，而不是在实例化时。 # 正确的做法是使用lambda表达式或者将查询集定义在__init__方法中。 然而，上面的代码片段有一个问题：get_my_choices在类定义时就被调用了，而不是在实例化时。这会导致每次服务器启动时获取一次选项，而不是每次请求时。为了解决这个问题，你应该在__init__方法中设置查询集：\n">
 <meta property='og:url' content='https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/'>
 <meta property='og:site_name' content='Lean Max'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Django' /><meta property='article:tag' content='面试' /><meta property='article:tag' content='ORM' /><meta property='article:published_time' content='2024-10-15T15:17:09&#43;08:00'/><meta property='article:modified_time' content='2024-10-15T15:17:09&#43;08:00'/>
 <meta name="twitter:title" content="Django面试题（三）">
-<meta name="twitter:description" content="django的Form和ModeForm的作用？\rDjango的Form和ModelForm是框架中非常重要的两个组件，主要用于处理表单数据和数据模型。以下是它们的具体作用：\n1. Django Form：\r生成页面可用的HTML标签：Form类可以自动生成HTML表单代码，使得在前端页面中能够方便地展示表单。 **对用户提交的数据进行校验：**Form类可以对用户提交的数据进行各种验证，确保数据的合法性和正确性。这可以防止恶意用户提交非法数据或进行攻击。 保留上次输入内容：如果用户提交的数据验证不通过，Form类可以保留用户上次输入的内容，方便用户进行修改后再次提交。 2. Django ModelForm：\r继承自Form类：ModelForm是Form的子类，因此它具有Form类的所有功能，包括生成HTML标签、数据验证等。 与数据模型进行绑定：ModelForm与Django的数据模型进行绑定，可以直接对数据库表进行操作。这使得在表单处理过程中，可以方便地读取、修改、删除数据库中的数据。 自动生成表单字段：根据绑定的数据模型，ModelForm可以自动生成对应的表单字段，无需手动定义。这大大简化了表单的开发过程。 django的Form组件中,如果字段中包含choices参数，请使用两种方式实现数据源实时更新。\r1. 重写Form类的__init__方法\r可以通过重写Form类的__init__方法来动态地设置字段的choices。这通常涉及到从数据库或其他外部源获取数据，并将其作为字段选项。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): my_field = forms.ChoiceField(choices=[]) # 初始为空，稍后在__init__中填充 def __init__(self, *args, **kwargs): super(MyForm, self).__init__(*args, **kwargs) # 从数据库或其他地方获取数据 choices = MyModel.objects.values_list(&#39;id&#39;, &#39;name&#39;) # 更新字段的choices self.fields[&#39;my_field&#39;].choices = choices 2. 使用ModelChoiceField\r如果你的选项来自于一个Django模型，你可以使用ModelChoiceField，它允许你指定一个查询集（QuerySet）作为选项。你可以在Form类中定义一个方法来返回查询集，并在ModelChoiceField中使用这个方法。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): def get_my_choices(): # 返回查询集 return MyModel.objects.all() my_field = forms.ModelChoiceField(queryset=get_my_choices()) # 注意：上面的代码片段有一个问题，即`get_my_choices`在类定义时被调用，而不是在实例化时。 # 正确的做法是使用lambda表达式或者将查询集定义在__init__方法中。 然而，上面的代码片段有一个问题：get_my_choices在类定义时就被调用了，而不是在实例化时。这会导致每次服务器启动时获取一次选项，而不是每次请求时。为了解决这个问题，你应该在__init__方法中设置查询集：\n">
+<meta name="twitter:description" content="一、django的Form和ModeForm的作用？\rDjango的Form和ModelForm是框架中非常重要的两个组件，主要用于处理表单数据和数据模型。以下是它们的具体作用：\n1. Django Form：\r生成页面可用的HTML标签：Form类可以自动生成HTML表单代码，使得在前端页面中能够方便地展示表单。 **对用户提交的数据进行校验：**Form类可以对用户提交的数据进行各种验证，确保数据的合法性和正确性。这可以防止恶意用户提交非法数据或进行攻击。 保留上次输入内容：如果用户提交的数据验证不通过，Form类可以保留用户上次输入的内容，方便用户进行修改后再次提交。 2. Django ModelForm：\r继承自Form类：ModelForm是Form的子类，因此它具有Form类的所有功能，包括生成HTML标签、数据验证等。 与数据模型进行绑定：ModelForm与Django的数据模型进行绑定，可以直接对数据库表进行操作。这使得在表单处理过程中，可以方便地读取、修改、删除数据库中的数据。 自动生成表单字段：根据绑定的数据模型，ModelForm可以自动生成对应的表单字段，无需手动定义。这大大简化了表单的开发过程。 二、django的Form组件中,如果字段中包含choices参数，请使用两种方式实现数据源实时更新。\r1. 重写Form类的__init__方法\r可以通过重写Form类的__init__方法来动态地设置字段的choices。这通常涉及到从数据库或其他外部源获取数据，并将其作为字段选项。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): my_field = forms.ChoiceField(choices=[]) # 初始为空，稍后在__init__中填充 def __init__(self, *args, **kwargs): super(MyForm, self).__init__(*args, **kwargs) # 从数据库或其他地方获取数据 choices = MyModel.objects.values_list(&#39;id&#39;, &#39;name&#39;) # 更新字段的choices self.fields[&#39;my_field&#39;].choices = choices 2. 使用ModelChoiceField\r如果你的选项来自于一个Django模型，你可以使用ModelChoiceField，它允许你指定一个查询集（QuerySet）作为选项。你可以在Form类中定义一个方法来返回查询集，并在ModelChoiceField中使用这个方法。\n1 2 3 4 5 6 7 8 9 10 11 12 from django import forms from .models import MyModel class MyForm(forms.Form): def get_my_choices(): # 返回查询集 return MyModel.objects.all() my_field = forms.ModelChoiceField(queryset=get_my_choices()) # 注意：上面的代码片段有一个问题，即`get_my_choices`在类定义时被调用，而不是在实例化时。 # 正确的做法是使用lambda表达式或者将查询集定义在__init__方法中。 然而，上面的代码片段有一个问题：get_my_choices在类定义时就被调用了，而不是在实例化时。这会导致每次服务器启动时获取一次选项，而不是每次请求时。为了解决这个问题，你应该在__init__方法中设置查询集：\n">
     </head>
     <body class="
     article-page
@@ -225,68 +225,56 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#django的form和modeform的作用">django的Form和ModeForm的作用？</a>
+    <li><a href="#一django的form和modeform的作用"><strong>一、django的Form和ModeForm的作用？</strong></a>
       <ol>
         <li><a href="#1-django-form">1. Django Form：</a></li>
         <li><a href="#2-django-modelform">2. Django ModelForm：</a></li>
       </ol>
     </li>
-    <li><a href="#django的form组件中如果字段中包含choices参数请使用两种方式实现数据源实时更新">django的Form组件中,如果字段中包含choices参数，请使用两种方式实现数据源实时更新。</a>
+    <li><a href="#二django的form组件中如果字段中包含choices参数请使用两种方式实现数据源实时更新"><strong>二、django的Form组件中,如果字段中包含choices参数，请使用两种方式实现数据源实时更新。</strong></a>
       <ol>
         <li><a href="#1-重写form类的__init__方法">1. 重写Form类的__init__方法</a></li>
         <li><a href="#2-使用modelchoicefield">2. 使用ModelChoiceField</a></li>
       </ol>
     </li>
-    <li><a href="#django的model中的foreignkey字段中的on_delete参数有什么作用">django的Model中的ForeignKey字段中的on_delete参数有什么作用？</a>
+    <li><a href="#三django的model中的foreignkey字段中的on_delete参数有什么作用"><strong>三、django的Model中的ForeignKey字段中的on_delete参数有什么作用？</strong></a>
       <ol>
         <li><a href="#常见的-on_delete-行为选项">常见的 <code>on_delete</code> 行为选项</a></li>
         <li><a href="#选择合适的-on_delete-选项">选择合适的 <code>on_delete</code> 选项</a></li>
         <li><a href="#总结">总结</a></li>
       </ol>
     </li>
-    <li><a href="#列举django-orm中三种能写sql语句的方法">列举django orm中三种能写sql语句的方法。</a>
+    <li><a href="#四列举django-orm中三种能写sql语句的方法"><strong>四、列举django orm中三种能写sql语句的方法。</strong></a>
       <ol>
-        <li><a href="#1-raw-方法">1. <strong><code>raw()</code> 方法</strong></a></li>
-        <li><a href="#2-managerraw-方法">2. <strong><code>Manager.raw()</code> 方法</strong></a></li>
-        <li><a href="#3-connectioncursor-方法">3. <strong><code>connection.cursor()</code> 方法</strong></a></li>
+        <li><a href="#1-raw-方法">1. <code>raw()</code> 方法</a></li>
+        <li><a href="#2-managerraw-方法">2. <code>Manager.raw()</code> 方法</a></li>
+        <li><a href="#3-connectioncursor-方法">3. <code>connection.cursor()</code> 方法</a></li>
         <li><a href="#总结表格">总结表格</a></li>
       </ol>
     </li>
-    <li><a href="#django-orm-中如何设置读写分离">django orm 中如何设置读写分离？</a>
+    <li><a href="#五django-orm-中如何设置读写分离">五、django orm 中如何设置读写分离？</a>
       <ol>
         <li><a href="#实现读写分离的步骤">实现读写分离的步骤</a></li>
         <li><a href="#小结">小结</a></li>
       </ol>
     </li>
-    <li><a href="#django中如何实现orm表中添加数据时创建一条日志记录">django中如何实现orm表中添加数据时创建一条日志记录。</a>
+    <li><a href="#六django中如何实现orm表中添加数据时创建一条日志记录"><strong>六、django中如何实现orm表中添加数据时创建一条日志记录。</strong></a>
       <ol>
-        <li><a href="#方案-1使用-django-信号-signals">方案 1：使用 Django 信号 (<code>signals</code>)</a>
-          <ol>
-            <li><a href="#步骤">步骤</a></li>
-          </ol>
-        </li>
-        <li><a href="#方案-2重写模型的-save-方法">方案 2：重写模型的 <code>save()</code> 方法</a>
-          <ol>
-            <li><a href="#步骤-1">步骤</a></li>
-          </ol>
-        </li>
-        <li><a href="#方案-3使用数据库表记录日志">方案 3：使用数据库表记录日志</a>
-          <ol>
-            <li><a href="#步骤-2">步骤</a></li>
-          </ol>
-        </li>
+        <li><a href="#方案-1使用-django-信号-signals">方案 1：使用 Django 信号 (<code>signals</code>)</a></li>
+        <li><a href="#方案-2重写模型的-save-方法">方案 2：重写模型的 <code>save()</code> 方法</a></li>
+        <li><a href="#方案-3使用数据库表记录日志">方案 3：使用数据库表记录日志</a></li>
         <li><a href="#总结-1">总结</a></li>
       </ol>
     </li>
-    <li><a href="#解释orm中-db-first-和-code-first的含义">解释orm中 db first 和 code first的含义？</a>
+    <li><a href="#七解释orm中-db-first-和-code-first的含义"><strong>七、解释orm中 db first 和 code first的含义？</strong></a>
       <ol>
         <li><a href="#db-first数据库优先">db first（数据库优先）：</a></li>
         <li><a href="#code-first代码优先">code first（代码优先）：</a></li>
       </ol>
     </li>
-    <li><a href="#使用orm和原生sql的优缺点">使用orm和原生sql的优缺点？</a></li>
-    <li><a href="#django中如何根据数据库表生成model中的类">django中如何根据数据库表生成model中的类？</a></li>
-    <li><a href="#references">References</a></li>
+    <li><a href="#八使用orm和原生sql的优缺点"><strong>八、使用orm和原生sql的优缺点？</strong></a></li>
+    <li><a href="#九django中如何根据数据库表生成model中的类"><strong>九、django中如何根据数据库表生成model中的类？</strong></a></li>
+    <li><a href="#references"><strong>References</strong></a></li>
   </ol>
 </nav>
         </div>
@@ -366,7 +354,7 @@
     <section class="article-content">
     
     
-    <h1 id="django的form和modeform的作用">django的Form和ModeForm的作用？
+    <h1 id="一django的form和modeform的作用"><strong>一、django的Form和ModeForm的作用？</strong>
 </h1><p>Django的Form和ModelForm是框架中非常重要的两个组件，主要用于处理表单数据和数据模型。以下是它们的具体作用：</p>
 <h2 id="1-django-form">1. Django Form：
 </h2><ul>
@@ -380,7 +368,7 @@
 <li><strong>与数据模型进行绑定</strong>：ModelForm与Django的数据模型进行绑定，可以直接对数据库表进行操作。这使得在表单处理过程中，可以方便地读取、修改、删除数据库中的数据。</li>
 <li><strong>自动生成表单字段</strong>：根据绑定的数据模型，ModelForm可以自动生成对应的表单字段，无需手动定义。这大大简化了表单的开发过程。</li>
 </ul>
-<h1 id="django的form组件中如果字段中包含choices参数请使用两种方式实现数据源实时更新">django的Form组件中,如果字段中包含choices参数，请使用两种方式实现数据源实时更新。
+<h1 id="二django的form组件中如果字段中包含choices参数请使用两种方式实现数据源实时更新"><strong>二、django的Form组件中,如果字段中包含choices参数，请使用两种方式实现数据源实时更新。</strong>
 </h1><h2 id="1-重写form类的__init__方法">1. 重写Form类的__init__方法
 </h2><p>可以通过重写<code>Form</code>类的<code>__init__</code>方法来动态地设置字段的<code>choices</code>。这通常涉及到从数据库或其他外部源获取数据，并将其作为字段选项。</p>
 <div class="highlight"><div class="chroma">
@@ -474,7 +462,7 @@
 </div>
 </div><p>在这个修正后的例子中，MyModel.objects.none()创建了一个空的查询集，它在数据库中没有匹配任何记录。然后，在__init__方法中，我们根据实际需要更新了查询集。<br>
 推荐使用第二种方式，因为它直接与Django的ORM集成，可以更容易地处理数据库查询和相关的优化。同时，确保在__init__方法中设置或更新查询集，以确保每次表单实例化时都能获取到最新的数据。</p>
-<h1 id="django的model中的foreignkey字段中的on_delete参数有什么作用">django的Model中的ForeignKey字段中的on_delete参数有什么作用？
+<h1 id="三django的model中的foreignkey字段中的on_delete参数有什么作用"><strong>三、django的Model中的ForeignKey字段中的on_delete参数有什么作用？</strong>
 </h1><p>在 Django 的 <code>Model</code> 中，<code>ForeignKey</code> 字段的 <code>on_delete</code> 参数用于指定当<strong>关联的外键对象</strong>被删除时，<strong>当前对象</strong>应该如何处理。这是为了确保在外键引用被删除时，数据库的完整性得到维护。</p>
 <h2 id="常见的-on_delete-行为选项">常见的 <code>on_delete</code> 行为选项
 </h2><p>以下是 <code>on_delete</code> 参数的几种常见选项，它们对应不同的处理方式：</p>
@@ -641,9 +629,9 @@
 </ul>
 <h2 id="总结">总结
 </h2><p><code>on_delete</code> 参数为你提供了多种处理外键删除的方式。选择合适的方式取决于你希望当外键对象被删除时，数据库中的相关数据如何处理，从而确保数据的完整性和业务逻辑的正确性。</p>
-<h1 id="列举django-orm中三种能写sql语句的方法">列举django orm中三种能写sql语句的方法。
+<h1 id="四列举django-orm中三种能写sql语句的方法"><strong>四、列举django orm中三种能写sql语句的方法。</strong>
 </h1><p>在 Django ORM 中，虽然 ORM 提供了高级的查询接口，但有时需要直接执行 SQL 语句。Django 提供了三种常见的方式可以编写和执行 SQL 语句：</p>
-<h2 id="1-raw-方法">1. <strong><code>raw()</code> 方法</strong>
+<h2 id="1-raw-方法">1. <code>raw()</code> 方法
 </h2><ul>
 <li>
 <p><strong>描述</strong>：用于执行原生 SQL 查询，并返回模型实例。可以将原生 SQL 语句与 Django 模型结合使用。</p>
@@ -680,7 +668,7 @@
 <p><strong>注意</strong>：<code>raw()</code> 返回的对象是模型实例，但不能使用 <code>raw()</code> 来进行插入、更新或删除操作。</p>
 </li>
 </ul>
-<h2 id="2-managerraw-方法">2. <strong><code>Manager.raw()</code> 方法</strong>
+<h2 id="2-managerraw-方法">2. <code>Manager.raw()</code> 方法
 </h2><ul>
 <li><strong>描述</strong>：从模型管理器执行原生 SQL 查询。类似于 <code>raw()</code>，但是在模型的 <code>Manager</code> 上调用，返回查询结果集。</li>
 <li><strong>适用场景</strong>：当你想在模型管理器中定义自定义查询时使用（可用作默认查询）。</li>
@@ -717,7 +705,7 @@
 </div>
 </div></li>
 </ul>
-<h2 id="3-connectioncursor-方法">3. <strong><code>connection.cursor()</code> 方法</strong>
+<h2 id="3-connectioncursor-方法">3. <code>connection.cursor()</code> 方法
 </h2><ul>
 <li>
 <p><strong>描述</strong>：直接使用数据库游标执行任意 SQL 语句。可以执行 <code>SELECT</code>、<code>INSERT</code>、<code>UPDATE</code>、<code>DELETE</code> 等操作，返回结果集或影响的行数。</p>
@@ -788,7 +776,7 @@
   </tbody>
 </table></div>
 <p>这三种方式允许开发者根据需求灵活执行原生 SQL 语句，尤其是在 ORM 难以实现或性能要求较高的场景下，显得尤为重要。</p>
-<h1 id="django-orm-中如何设置读写分离">django orm 中如何设置读写分离？
+<h1 id="五django-orm-中如何设置读写分离">五、django orm 中如何设置读写分离？
 </h1><p>在 Django 中实现读写分离（即将读操作与写操作分离到不同的数据库实例）通常通过配置多个数据库、并根据操作类型（读或写）路由请求到相应的数据库。Django 的数据库路由机制允许开发者自定义逻辑来决定某个查询应该发送到哪个数据库。</p>
 <h2 id="实现读写分离的步骤">实现读写分离的步骤
 </h2><ol>
@@ -987,12 +975,12 @@
 </ol>
 <h2 id="小结">小结
 </h2><p>通过配置多个数据库并自定义数据库路由，Django 可以实现读写分离。读操作通常路由到从库，而写操作路由到主库，从而分散数据库负载并提高系统的可扩展性。在实现读写分离时，需要注意主从数据库的同步延迟问题，并根据实际应用场景调整数据库路由的逻辑。</p>
-<h1 id="django中如何实现orm表中添加数据时创建一条日志记录">django中如何实现orm表中添加数据时创建一条日志记录。
+<h1 id="六django中如何实现orm表中添加数据时创建一条日志记录"><strong>六、django中如何实现orm表中添加数据时创建一条日志记录。</strong>
 </h1><p>在 Django 中，你可以通过多种方式在 ORM 表中添加数据时创建一条日志记录。一个常见的解决方案是使用 <strong>Django 的信号</strong> 或 <strong>重写模型的 <code>save()</code> 方法</strong>，在数据创建或更新时自动记录日志。</p>
 <h2 id="方案-1使用-django-信号-signals">方案 1：使用 Django 信号 (<code>signals</code>)
 </h2><p>Django 提供了 <code>signals</code>，你可以监听模型的 <code>post_save</code> 信号来在数据保存后记录日志。</p>
-<h3 id="步骤">步骤
-</h3><ol>
+<p><strong>步骤</strong></p>
+<ol>
 <li>
 <p><strong>定义信号处理器</strong>：
 你可以定义一个信号处理器，在模型保存时触发日志记录。</p>
@@ -1113,8 +1101,8 @@
 <hr>
 <h2 id="方案-2重写模型的-save-方法">方案 2：重写模型的 <code>save()</code> 方法
 </h2><p>另一种方式是直接在模型的 <code>save()</code> 方法中加入日志记录逻辑，每次调用 <code>save()</code> 时记录日志。</p>
-<h3 id="步骤-1">步骤
-</h3><ol>
+<p><strong>步骤</strong></p>
+<ol>
 <li>
 <p><strong>重写模型的 <code>save()</code> 方法</strong>：</p>
 <div class="highlight"><div class="chroma">
@@ -1170,8 +1158,8 @@
 <hr>
 <h2 id="方案-3使用数据库表记录日志">方案 3：使用数据库表记录日志
 </h2><p>如果你希望将日志存储在数据库中，而不是日志文件中，你可以创建一个日志模型，手动在 <code>save()</code> 方法或信号中记录每次操作的详细信息。</p>
-<h3 id="步骤-2">步骤
-</h3><ol>
+<p><strong>步骤</strong></p>
+<ol>
 <li>
 <p><strong>创建日志模型</strong>：</p>
 <div class="highlight"><div class="chroma">
@@ -1261,7 +1249,7 @@
 <li><strong>数据库日志</strong>：如果希望在数据库中保存操作日志，使用一个日志模型可以轻松管理所有记录。</li>
 </ul>
 <p>你可以根据实际需求选择合适的方法来实现 Django ORM 表数据变更时的日志记录。</p>
-<h1 id="解释orm中-db-first-和-code-first的含义">解释orm中 db first 和 code first的含义？
+<h1 id="七解释orm中-db-first-和-code-first的含义"><strong>七、解释orm中 db first 和 code first的含义？</strong>
 </h1><p>在ORM（Object Relational Mapping，对象关系映射）中，“db first”和“code first”是两种开发模式，用于处理数据库和应用程序代码之间的关系。</p>
 <h2 id="db-first数据库优先">db first（数据库优先）：
 </h2><ul>
@@ -1274,7 +1262,7 @@
 <li><strong>应用</strong>：适用于从零开始开发应用程序，且需要快速迭代和灵活调整数据库结构的场景。例如，初创公司可能需要快速开发一个MVP（最小可行产品），并根据用户反馈不断调整数据库结构。</li>
 </ul>
 <p>在实际开发中，选择“db first”还是“code first”取决于具体需求和团队偏好。有些项目可能会混合使用这两种模式，以获得最佳的开发效率和数据库性能。</p>
-<h1 id="使用orm和原生sql的优缺点">使用orm和原生sql的优缺点？
+<h1 id="八使用orm和原生sql的优缺点"><strong>八、使用orm和原生sql的优缺点？</strong>
 </h1><div class="table-wrapper"><table>
   <thead>
       <tr>
@@ -1296,7 +1284,7 @@
       </tr>
   </tbody>
 </table></div>
-<h1 id="django中如何根据数据库表生成model中的类">django中如何根据数据库表生成model中的类？
+<h1 id="九django中如何根据数据库表生成model中的类"><strong>九、django中如何根据数据库表生成model中的类？</strong>
 </h1><p>在Django中，如果你已经有一个存在的数据库，并且想要根据数据库中的表来生成Django模型（model）类，你可以使用inspectdb命令。这个命令可以自动为你生成一个模型类的代码，该代码基于你的数据库表结构。<br>
 以下是如何使用inspectdb的步骤：</p>
 <ol>
@@ -1329,7 +1317,7 @@
 6. 运行<code>python manage.py makemigrations</code>和<code>python manage.py migrate</code>来创建和应用迁移，虽然这些模型是基于现有数据库表生成的，但这一步通常是不必要的，除非你计划对这些模型进行进一步的修改。<br>
 请注意，inspectdb生成的模型是只读的，意味着它们可以用于从数据库中检索数据，但Django不会为这些模型创建迁移来管理数据库模式的更改。如果你需要修改数据库结构，你应该手动创建迁移并指定所需的更改。<br>
 另外，inspectdb不支持所有类型的数据库特性，例如存储过程、触发器、视图、分区等。它主要用于生成基本的表结构模型。对于更复杂的数据库特性，你可能需要手动编写模型代码或寻找第三方工具来帮助你。</p>
-<h1 id="references">References
+<h1 id="references"><strong>References</strong>
 </h1><ul>
 <li><a class="link" href="https://www.nowcoder.com/discuss/399679459568230400?sourceSSR=search"  target="_blank" rel="noopener"
     >python web框架django面试题</a></li>

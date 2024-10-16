@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="django的request对象是在什么时候创建的？\r当请求一个页面时, Django会建立一个包含请求元数据的HttpRequest对象。\n当Django加载对应的视图时, HttpRequest对象将作为视图函数的第一个参数，另外每个视图会返回一个HttpResponse对象。\nDjango重定向是如何实现的？用的什么状态码？\r使用HttpResponseRedirect 1 2 3 4 5 6 7 from django.http import HttpResponseRedirect def update_time(request): # 表单处理 OR 逻辑处理 return HttpResponseRedirect(&#39;/&#39;) #跳转到主界面 # 如果需要传参数 # return HttpResponseRedirect(&#39;/commons/index/?message=error&#39;) redirect 和 reverse 1 2 3 4 5 6 7 8 9 10 11 from django.core.urlresolvers import reverse from django.shortcuts import redirect def update_time(request): # 进行要处理的逻辑 return redirect(reverse(&#39;test.views.invoice_return_index&#39;, args=[])) # 跳转到index界面 # redirect 类似HttpResponseRedirect的用法， # 也可以使用 字符串的url格式 /..index/？a=add # reverse 可以直接用views函数来指定重定向的处理函数，args是url匹配的值。 状态码：301和302\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="一、django的request对象是在什么时候创建的？\r当请求一个页面时, Django会建立一个包含请求元数据的HttpRequest对象。\n当Django加载对应的视图时, HttpRequest对象将作为视图函数的第一个参数，另外每个视图会返回一个HttpResponse对象。\n二、Django重定向是如何实现的？用的什么状态码？\r使用HttpResponseRedirect 1 2 3 4 5 6 7 from django.http import HttpResponseRedirect def update_time(request): # 表单处理 OR 逻辑处理 return HttpResponseRedirect(&#39;/&#39;) #跳转到主界面 # 如果需要传参数 # return HttpResponseRedirect(&#39;/commons/index/?message=error&#39;) redirect 和 reverse 1 2 3 4 5 6 7 8 9 10 11 from django.core.urlresolvers import reverse from django.shortcuts import redirect def update_time(request): # 进行要处理的逻辑 return redirect(reverse(&#39;test.views.invoice_return_index&#39;, args=[])) # 跳转到index界面 # redirect 类似HttpResponseRedirect的用法， # 也可以使用 字符串的url格式 /..index/？a=add # reverse 可以直接用views函数来指定重定向的处理函数，args是url匹配的值。 状态码：301和302\n">
 <title>Django面试题（二）</title>
 
 <link rel='canonical' href='https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/'>
 
 <link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="Django面试题（二）">
-<meta property='og:description' content="django的request对象是在什么时候创建的？\r当请求一个页面时, Django会建立一个包含请求元数据的HttpRequest对象。\n当Django加载对应的视图时, HttpRequest对象将作为视图函数的第一个参数，另外每个视图会返回一个HttpResponse对象。\nDjango重定向是如何实现的？用的什么状态码？\r使用HttpResponseRedirect 1 2 3 4 5 6 7 from django.http import HttpResponseRedirect def update_time(request): # 表单处理 OR 逻辑处理 return HttpResponseRedirect(&#39;/&#39;) #跳转到主界面 # 如果需要传参数 # return HttpResponseRedirect(&#39;/commons/index/?message=error&#39;) redirect 和 reverse 1 2 3 4 5 6 7 8 9 10 11 from django.core.urlresolvers import reverse from django.shortcuts import redirect def update_time(request): # 进行要处理的逻辑 return redirect(reverse(&#39;test.views.invoice_return_index&#39;, args=[])) # 跳转到index界面 # redirect 类似HttpResponseRedirect的用法， # 也可以使用 字符串的url格式 /..index/？a=add # reverse 可以直接用views函数来指定重定向的处理函数，args是url匹配的值。 状态码：301和302\n">
+<meta property='og:description' content="一、django的request对象是在什么时候创建的？\r当请求一个页面时, Django会建立一个包含请求元数据的HttpRequest对象。\n当Django加载对应的视图时, HttpRequest对象将作为视图函数的第一个参数，另外每个视图会返回一个HttpResponse对象。\n二、Django重定向是如何实现的？用的什么状态码？\r使用HttpResponseRedirect 1 2 3 4 5 6 7 from django.http import HttpResponseRedirect def update_time(request): # 表单处理 OR 逻辑处理 return HttpResponseRedirect(&#39;/&#39;) #跳转到主界面 # 如果需要传参数 # return HttpResponseRedirect(&#39;/commons/index/?message=error&#39;) redirect 和 reverse 1 2 3 4 5 6 7 8 9 10 11 from django.core.urlresolvers import reverse from django.shortcuts import redirect def update_time(request): # 进行要处理的逻辑 return redirect(reverse(&#39;test.views.invoice_return_index&#39;, args=[])) # 跳转到index界面 # redirect 类似HttpResponseRedirect的用法， # 也可以使用 字符串的url格式 /..index/？a=add # reverse 可以直接用views函数来指定重定向的处理函数，args是url匹配的值。 状态码：301和302\n">
 <meta property='og:url' content='https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/'>
 <meta property='og:site_name' content='Lean Max'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Django' /><meta property='article:tag' content='面试' /><meta property='article:tag' content='csrf' /><meta property='article:published_time' content='2024-10-14T20:21:44&#43;08:00'/><meta property='article:modified_time' content='2024-10-14T20:21:44&#43;08:00'/>
 <meta name="twitter:title" content="Django面试题（二）">
-<meta name="twitter:description" content="django的request对象是在什么时候创建的？\r当请求一个页面时, Django会建立一个包含请求元数据的HttpRequest对象。\n当Django加载对应的视图时, HttpRequest对象将作为视图函数的第一个参数，另外每个视图会返回一个HttpResponse对象。\nDjango重定向是如何实现的？用的什么状态码？\r使用HttpResponseRedirect 1 2 3 4 5 6 7 from django.http import HttpResponseRedirect def update_time(request): # 表单处理 OR 逻辑处理 return HttpResponseRedirect(&#39;/&#39;) #跳转到主界面 # 如果需要传参数 # return HttpResponseRedirect(&#39;/commons/index/?message=error&#39;) redirect 和 reverse 1 2 3 4 5 6 7 8 9 10 11 from django.core.urlresolvers import reverse from django.shortcuts import redirect def update_time(request): # 进行要处理的逻辑 return redirect(reverse(&#39;test.views.invoice_return_index&#39;, args=[])) # 跳转到index界面 # redirect 类似HttpResponseRedirect的用法， # 也可以使用 字符串的url格式 /..index/？a=add # reverse 可以直接用views函数来指定重定向的处理函数，args是url匹配的值。 状态码：301和302\n">
+<meta name="twitter:description" content="一、django的request对象是在什么时候创建的？\r当请求一个页面时, Django会建立一个包含请求元数据的HttpRequest对象。\n当Django加载对应的视图时, HttpRequest对象将作为视图函数的第一个参数，另外每个视图会返回一个HttpResponse对象。\n二、Django重定向是如何实现的？用的什么状态码？\r使用HttpResponseRedirect 1 2 3 4 5 6 7 from django.http import HttpResponseRedirect def update_time(request): # 表单处理 OR 逻辑处理 return HttpResponseRedirect(&#39;/&#39;) #跳转到主界面 # 如果需要传参数 # return HttpResponseRedirect(&#39;/commons/index/?message=error&#39;) redirect 和 reverse 1 2 3 4 5 6 7 8 9 10 11 from django.core.urlresolvers import reverse from django.shortcuts import redirect def update_time(request): # 进行要处理的逻辑 return redirect(reverse(&#39;test.views.invoice_return_index&#39;, args=[])) # 跳转到index界面 # redirect 类似HttpResponseRedirect的用法， # 也可以使用 字符串的url格式 /..index/？a=add # reverse 可以直接用views函数来指定重定向的处理函数，args是url匹配的值。 状态码：301和302\n">
     </head>
     <body class="
     article-page
@@ -225,12 +225,12 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#django的request对象是在什么时候创建的">django的request对象是在什么时候创建的？</a></li>
-    <li><a href="#django重定向是如何实现的用的什么状态码">Django重定向是如何实现的？用的什么状态码？</a></li>
-    <li><a href="#django中csrf的实现机制">django中csrf的实现机制</a></li>
-    <li><a href="#基于django使用ajax发送post请求时都可以使用哪种方法携带csrf-token">基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf token？</a></li>
-    <li><a href="#django本身提供了runserver为什么不能用来部署runserver与uwsgi的区别">Django本身提供了runserver，为什么不能用来部署？(runserver与uWSGI的区别)</a></li>
-    <li><a href="#cookie和session的区别">cookie和session的区别</a>
+    <li><a href="#一django的request对象是在什么时候创建的"><strong>一、django的request对象是在什么时候创建的？</strong></a></li>
+    <li><a href="#二django重定向是如何实现的用的什么状态码"><strong>二、Django重定向是如何实现的？用的什么状态码？</strong></a></li>
+    <li><a href="#三django中csrf的实现机制"><strong>三、django中csrf的实现机制</strong></a></li>
+    <li><a href="#四基于django使用ajax发送post请求时都可以使用哪种方法携带csrf-token"><strong>四、基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf token？</strong></a></li>
+    <li><a href="#五django本身提供了runserver为什么不能用来部署runserver与uwsgi的区别"><strong>五、Django本身提供了runserver，为什么不能用来部署？(runserver与uWSGI的区别)</strong></a></li>
+    <li><a href="#六cookie和session的区别"><strong>六、cookie和session的区别</strong></a>
       <ol>
         <li><a href="#1-存储位置与数据安全性">1. 存储位置与数据安全性</a></li>
         <li><a href="#2-存取方式与数据类型">2. 存取方式与数据类型</a></li>
@@ -238,48 +238,48 @@
         <li><a href="#4-跨域请求与分布式处理">4. 跨域请求与分布式处理</a></li>
       </ol>
     </li>
-    <li><a href="#列举django-orm-中所有的方法queryset对象的所有方法">列举django orm 中所有的方法（QuerySet对象的所有方法）</a>
+    <li><a href="#七列举django-orm-中所有的方法queryset对象的所有方法"><strong>七、列举django orm 中所有的方法（QuerySet对象的所有方法）</strong></a>
       <ol>
-        <li><a href="#1-查询方法">1. <strong>查询方法</strong></a></li>
-        <li><a href="#2-排序与限制">2. <strong>排序与限制</strong></a></li>
-        <li><a href="#3-聚合与注解">3. <strong>聚合与注解</strong></a></li>
-        <li><a href="#4-更新与删除">4. <strong>更新与删除</strong></a></li>
-        <li><a href="#5-高级查询">5. <strong>高级查询</strong></a></li>
-        <li><a href="#6-缓存与清空">6. <strong>缓存与清空</strong></a></li>
-        <li><a href="#7-复合查询">7. <strong>复合查询</strong></a></li>
+        <li><a href="#1-查询方法">1. 查询方法</a></li>
+        <li><a href="#2-排序与限制">2. 排序与限制</a></li>
+        <li><a href="#3-聚合与注解">3. 聚合与注解</a></li>
+        <li><a href="#4-更新与删除">4. 更新与删除</a></li>
+        <li><a href="#5-高级查询">5. 高级查询</a></li>
+        <li><a href="#6-缓存与清空">6. 缓存与清空</a></li>
+        <li><a href="#7-复合查询">7. 复合查询</a></li>
         <li><a href="#总结">总结</a></li>
       </ol>
     </li>
-    <li><a href="#only和defer的区别">only和defer的区别？</a>
+    <li><a href="#八only和defer的区别"><strong>八、only和defer的区别？</strong></a>
       <ol>
-        <li><a href="#1-only">1. <strong><code>only()</code></strong></a></li>
-        <li><a href="#2-defer">2. <strong><code>defer()</code></strong></a></li>
-        <li><a href="#only-和-defer-的对比"><strong><code>only()</code> 和 <code>defer()</code> 的对比</strong></a></li>
+        <li><a href="#1-only">1. <code>only()</code></a></li>
+        <li><a href="#2-defer">2. <code>defer()</code></a></li>
+        <li><a href="#only-和-defer-的对比"><code>only()</code> 和 <code>defer()</code> 的对比</a></li>
         <li><a href="#总结-1">总结</a></li>
       </ol>
     </li>
-    <li><a href="#select_related和prefetch_related的区别">select_related和prefetch_related的区别？</a>
+    <li><a href="#九select_related和prefetch_related的区别"><strong>九、select_related和prefetch_related的区别？</strong></a>
       <ol>
-        <li><a href="#1-适用的关系类型">1. <strong>适用的关系类型</strong></a></li>
-        <li><a href="#2-查询次数">2. <strong>查询次数</strong></a></li>
-        <li><a href="#3-性能对比">3. <strong>性能对比</strong></a></li>
-        <li><a href="#4-示例">4. <strong>示例</strong></a>
+        <li><a href="#1-适用的关系类型">1. 适用的关系类型</a></li>
+        <li><a href="#2-查询次数">2. 查询次数</a></li>
+        <li><a href="#3-性能对比">3. 性能对比</a></li>
+        <li><a href="#4-示例">4. 示例</a>
           <ol>
             <li><a href="#使用-select_related外键关系">使用 <code>select_related</code>（外键关系）</a></li>
             <li><a href="#使用-prefetch_related多对多关系">使用 <code>prefetch_related</code>（多对多关系）</a></li>
           </ol>
         </li>
-        <li><a href="#5-总结">5. <strong>总结</strong></a></li>
+        <li><a href="#5-总结">5. 总结</a></li>
       </ol>
     </li>
-    <li><a href="#filter和exclude的区别">filter和exclude的区别？</a>
+    <li><a href="#十filter和exclude的区别"><strong>十、filter和exclude的区别？</strong></a>
       <ol>
-        <li><a href="#1-filter">1. <strong><code>filter()</code></strong>：</a>
+        <li><a href="#1-filter">1. <code>filter()</code>：</a>
           <ol>
             <li><a href="#示例">示例：</a></li>
           </ol>
         </li>
-        <li><a href="#2-exclude">2. <strong><code>exclude()</code></strong>：</a>
+        <li><a href="#2-exclude">2. <code>exclude()</code>：</a>
           <ol>
             <li><a href="#示例-1">示例：</a></li>
           </ol>
@@ -289,43 +289,43 @@
         <li><a href="#返回结果">返回结果：</a></li>
       </ol>
     </li>
-    <li><a href="#f和q的作用">F和Q的作用?</a>
+    <li><a href="#十一f和q的作用"><strong>十一、F和Q的作用?</strong></a>
       <ol>
-        <li><a href="#1-f-对象">1. <strong><code>F</code> 对象</strong>：</a>
+        <li><a href="#1-f-对象">1. <code>F</code> 对象：</a>
           <ol>
             <li><a href="#主要作用">主要作用：</a></li>
             <li><a href="#示例-2">示例：</a>
               <ol>
-                <li><a href="#a-字段间比较">a) <strong>字段间比较</strong>：</a></li>
-                <li><a href="#b-原子更新">b) <strong>原子更新</strong>：</a></li>
+                <li><a href="#a-字段间比较">a) 字段间比较：</a></li>
+                <li><a href="#b-原子更新">b) 原子更新：</a></li>
               </ol>
             </li>
           </ol>
         </li>
-        <li><a href="#2-q-对象">2. <strong><code>Q</code> 对象</strong>：</a>
+        <li><a href="#2-q-对象">2. <code>Q</code> 对象：</a>
           <ol>
             <li><a href="#主要作用-1">主要作用：</a></li>
             <li><a href="#示例-3">示例：</a>
               <ol>
-                <li><a href="#a-or-查询">a) <strong>OR 查询</strong>：</a></li>
-                <li><a href="#b-and-查询">b) <strong>AND 查询</strong>：</a></li>
-                <li><a href="#c-not-查询">c) <strong>NOT 查询</strong>：</a></li>
+                <li><a href="#a-or-查询">a) OR 查询：</a></li>
+                <li><a href="#b-and-查询">b) AND 查询：</a></li>
+                <li><a href="#c-not-查询">c) NOT 查询：</a></li>
               </ol>
             </li>
           </ol>
         </li>
-        <li><a href="#3-f-和-q-结合使用">3. <strong><code>F</code> 和 <code>Q</code> 结合使用</strong>：</a></li>
+        <li><a href="#3-f-和-q-结合使用">3. <code>F</code> 和 <code>Q</code> 结合使用：</a></li>
         <li><a href="#总结-2">总结：</a></li>
       </ol>
     </li>
-    <li><a href="#values和values_list的区别">values和values_list的区别？</a>
+    <li><a href="#十二values和values_list的区别"><strong>十二、values和values_list的区别？</strong></a>
       <ol>
-        <li><a href="#1-values">1. <strong><code>values()</code></strong>：</a>
+        <li><a href="#1-values">1. <code>values()</code>：</a>
           <ol>
             <li><a href="#示例-4">示例：</a></li>
           </ol>
         </li>
-        <li><a href="#2-values_list">2. <strong><code>values_list()</code></strong>：</a>
+        <li><a href="#2-values_list">2. <code>values_list()</code>：</a>
           <ol>
             <li><a href="#示例-5">示例：</a>
               <ol>
@@ -339,7 +339,7 @@
         <li><a href="#总结-3">总结：</a></li>
       </ol>
     </li>
-    <li><a href="#references">References</a></li>
+    <li><a href="#references"><strong>References</strong></a></li>
   </ol>
 </nav>
         </div>
@@ -419,10 +419,10 @@
     <section class="article-content">
     
     
-    <h1 id="django的request对象是在什么时候创建的">django的request对象是在什么时候创建的？
+    <h1 id="一django的request对象是在什么时候创建的"><strong>一、django的request对象是在什么时候创建的？</strong>
 </h1><p>当请求一个页面时, Django会建立一个包含请求元数据的HttpRequest对象。<br>
 当Django加载对应的视图时, HttpRequest对象将作为视图函数的第一个参数，另外每个视图会返回一个HttpResponse对象。</p>
-<h1 id="django重定向是如何实现的用的什么状态码">Django重定向是如何实现的？用的什么状态码？
+<h1 id="二django重定向是如何实现的用的什么状态码"><strong>二、Django重定向是如何实现的？用的什么状态码？</strong>
 </h1><ol>
 <li>使用<code>HttpResponseRedirect</code></li>
 </ol>
@@ -489,7 +489,7 @@
 </ul>
 </li>
 </ul>
-<h1 id="django中csrf的实现机制">django中csrf的实现机制
+<h1 id="三django中csrf的实现机制"><strong>三、django中csrf的实现机制</strong>
 </h1><p>跨站请求伪造（CSRF，Cross-Site Request Forgery）是一种攻击方式，攻击者诱导用户在已认证的网站上执行非授权操作。攻击者通常通过第三方网站发送恶意请求，让受害者在不知情的情况下使用其已登录的身份发起请求，执行操作。（攻击者可以利用Cookie但不能获取Cookie）<br>
 django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完成。<br>
 具体机制：</p>
@@ -499,17 +499,17 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <li>Django 的 CSRF 中间件接收请求后，验证表单中的 Token 和 Cookie 中的 Token 是否匹配。<br>
 如果验证成功，请求通过；如果失败，返回 403 错误。</li>
 </ol>
-<h1 id="基于django使用ajax发送post请求时都可以使用哪种方法携带csrf-token">基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf token？
+<h1 id="四基于django使用ajax发送post请求时都可以使用哪种方法携带csrf-token"><strong>四、基于django使用ajax发送post请求时，都可以使用哪种方法携带csrf token？</strong>
 </h1><ol>
 <li>将 CSRF Token 添加到请求头：推荐使用 <code>X-CSRFToken</code>，这种方式最常用且最安全。</li>
 <li>将 CSRF Token 作为 POST 数据的一部分：适用于需要通过 <code>FormData</code> 提交文件的场景。</li>
 </ol>
-<h1 id="django本身提供了runserver为什么不能用来部署runserver与uwsgi的区别">Django本身提供了runserver，为什么不能用来部署？(runserver与uWSGI的区别)
+<h1 id="五django本身提供了runserver为什么不能用来部署runserver与uwsgi的区别"><strong>五、Django本身提供了runserver，为什么不能用来部署？(runserver与uWSGI的区别)</strong>
 </h1><ul>
 <li>runserver 是调试 Django 时经常用到的运行方式，它使用 Django 自带的 WSGI Server 运行，主要在测试和开发中使用，并且 runserver 开启的方式也是单进程。</li>
 <li>uWSGI 是一个 Web 服务器，它实现了WSGI，uwsgi，HTTP等协议。uwsgi 是一种通信协议，而 uWSGI 是实现 uwsgi 协议和 WSGI 协议的 Web 服务器。uWSGI 具有超快的性能、低内存占用等优点，并且搭配着 Nginx 组成项目的生产环境，能够将用户访问请求与项目应用隔离，实现真正的网站部署。相对来说，这种方式支持的并发量更高，方便管理多进程，发挥多核的优势，提升性能。</li>
 </ul>
-<h1 id="cookie和session的区别">cookie和session的区别
+<h1 id="六cookie和session的区别"><strong>六、cookie和session的区别</strong>
 </h1><h2 id="1-存储位置与数据安全性">1. 存储位置与数据安全性
 </h2><ul>
 <li>Cookie：存储在客户端浏览器中，数据安全性相对较差。因为数据保存在客户端浏览器中，如果用户或第三方工具非法获取Cookie内容，可能导致数据泄露或身份冒用。</li>
@@ -530,8 +530,8 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <li>Cookie：由于同源策略的限制，Cookie无法在跨域请求中使用。这意味着如果一个网站需要从其他域获取资源或服务，将无法使用Cookie进行身份验证或会话管理。</li>
 <li>Session：在跨域请求中，可以通过将Session存储在中央服务器或使用分布式Session来处理。这样可以在多个域之间共享用户会话信息，实现跨域认证和资源共享。</li>
 </ul>
-<h1 id="列举django-orm-中所有的方法queryset对象的所有方法">列举django orm 中所有的方法（QuerySet对象的所有方法）
-</h1><h2 id="1-查询方法">1. <strong>查询方法</strong>
+<h1 id="七列举django-orm-中所有的方法queryset对象的所有方法"><strong>七、列举django orm 中所有的方法（QuerySet对象的所有方法）</strong>
+</h1><h2 id="1-查询方法">1. 查询方法
 </h2><p>这些方法用于检索和获取数据。</p>
 <ul>
 <li>
@@ -645,7 +645,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 </div>
 </div></li>
 </ul>
-<h2 id="2-排序与限制">2. <strong>排序与限制</strong>
+<h2 id="2-排序与限制">2. 排序与限制
 </h2><p>这些方法用于排序和限制返回的结果。</p>
 <ul>
 <li>
@@ -772,7 +772,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 </div>
 </div></li>
 </ul>
-<h2 id="3-聚合与注解">3. <strong>聚合与注解</strong>
+<h2 id="3-聚合与注解">3. 聚合与注解
 </h2><p>这些方法用于统计和计算。</p>
 <ul>
 <li>
@@ -802,7 +802,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 </div>
 </div></li>
 </ul>
-<h2 id="4-更新与删除">4. <strong>更新与删除</strong>
+<h2 id="4-更新与删除">4. 更新与删除
 </h2><p>这些方法用于修改或删除数据库中的对象。</p>
 <ul>
 <li>
@@ -850,7 +850,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 </div>
 </div></li>
 </ul>
-<h2 id="5-高级查询">5. <strong>高级查询</strong>
+<h2 id="5-高级查询">5. 高级查询
 </h2><p>这些方法用于执行更复杂的查询。</p>
 <ul>
 <li>
@@ -921,7 +921,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 </div>
 </div></li>
 </ul>
-<h2 id="6-缓存与清空">6. <strong>缓存与清空</strong>
+<h2 id="6-缓存与清空">6. 缓存与清空
 </h2><ul>
 <li>
 <p><strong><code>iterator()</code></strong>：逐个获取对象，避免一次性加载所有对象（有助于处理大量数据）。</p>
@@ -956,7 +956,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 </div>
 </div></li>
 </ul>
-<h2 id="7-复合查询">7. <strong>复合查询</strong>
+<h2 id="7-复合查询">7. 复合查询
 </h2><ul>
 <li><strong><code>or_</code> 和 <code>and_</code></strong>：通过 <code>Q</code> 对象进行复杂的查询条件组合。
 <div class="highlight"><div class="chroma">
@@ -973,9 +973,9 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 </ul>
 <h2 id="总结">总结
 </h2><p>Django ORM 提供了丰富的 <code>QuerySet</code> 方法，涵盖从简单到复杂的查询、排序、过滤、聚合、更新等功能。合理使用这些方法，可以极大地提升数据查询和操作的效率。</p>
-<h1 id="only和defer的区别">only和defer的区别？
+<h1 id="八only和defer的区别"><strong>八、only和defer的区别？</strong>
 </h1><p>在 Django 的查询集（QuerySet）中，<code>only()</code> 和 <code>defer()</code> 是两种优化查询性能的方法，目的是减少从数据库中获取的数据量，提升查询速度。但它们的工作方式和适用场景有所不同。</p>
-<h2 id="1-only">1. <strong><code>only()</code></strong>
+<h2 id="1-only">1. <code>only()</code>
 </h2><p><code>only()</code> 用于告诉 Django <strong>只从数据库中获取特定字段的数据</strong>，其余字段将不会在查询时一同获取。如果访问了未加载的字段，Django 会在访问该字段时进行额外的数据库查询。</p>
 <p><strong>工作原理</strong>：</p>
 <ul>
@@ -1012,7 +1012,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <ul>
 <li>适合只需要部分字段的场景，尤其是查询结果中有很多字段但并不都需要立即使用时，可以通过 <code>only()</code> 提前减少数据库负担。</li>
 </ul>
-<h2 id="2-defer">2. <strong><code>defer()</code></strong>
+<h2 id="2-defer">2. <code>defer()</code>
 </h2><p><code>defer()</code> 与 <code>only()</code> 相反，<strong>它告诉 Django 延迟加载某些字段</strong>。即在查询时获取所有字段，除了你指定的字段之外，其他字段将在实际访问时进行额外的查询。</p>
 <p><strong>工作原理</strong>：</p>
 <ul>
@@ -1048,7 +1048,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <ul>
 <li>当你需要大部分字段，但有一些字段不经常使用时，可以使用 <code>defer()</code> 延迟这些字段的加载，以减少初次查询的开销。</li>
 </ul>
-<h2 id="only-和-defer-的对比"><strong><code>only()</code> 和 <code>defer()</code> 的对比</strong>
+<h2 id="only-和-defer-的对比"><code>only()</code> 和 <code>defer()</code> 的对比
 </h2><div class="table-wrapper"><table>
   <thead>
       <tr>
@@ -1085,9 +1085,9 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <li><strong><code>only()</code></strong>：告诉 Django 只查询指定字段，其他字段延迟加载。适合在只需要少数几个字段的场景中使用。</li>
 <li><strong><code>defer()</code></strong>：告诉 Django 查询所有字段，除了那些被延迟加载的字段。适合需要大部分字段但不需要立即使用某些字段的情况。</li>
 </ul>
-<h1 id="select_related和prefetch_related的区别">select_related和prefetch_related的区别？
+<h1 id="九select_related和prefetch_related的区别"><strong>九、select_related和prefetch_related的区别？</strong>
 </h1><p><code>select_related</code> 和 <code>prefetch_related</code> 都用于优化查询并减少数据库查询次数，但它们的作用机制和适用场景有所不同。下面详细介绍它们的区别：</p>
-<h2 id="1-适用的关系类型">1. <strong>适用的关系类型</strong>
+<h2 id="1-适用的关系类型">1. 适用的关系类型
 </h2><ul>
 <li>
 <p><strong><code>select_related</code></strong>：用于<strong>一对一</strong>和外键（一对多）关系。</p>
@@ -1104,7 +1104,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 </ul>
 </li>
 </ul>
-<h2 id="2-查询次数">2. <strong>查询次数</strong>
+<h2 id="2-查询次数">2. 查询次数
 </h2><ul>
 <li>
 <p><strong><code>select_related</code></strong>：使用 SQL 的 <code>JOIN</code> 操作，只需要<strong>一次数据库查询</strong>就能获取主对象和相关对象的数据。</p>
@@ -1119,7 +1119,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 </ul>
 </li>
 </ul>
-<h2 id="3-性能对比">3. <strong>性能对比</strong>
+<h2 id="3-性能对比">3. 性能对比
 </h2><ul>
 <li>
 <p><strong><code>select_related</code></strong>：由于使用了 SQL <code>JOIN</code>，在处理一对一或外键关系时性能通常更好，因为只需要一次查询。但是如果涉及到太多的表 <code>JOIN</code> 操作，查询变得复杂时，性能可能会下降。</p>
@@ -1128,7 +1128,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <p><strong><code>prefetch_related</code></strong>：在多对多关系或反向外键关系下，使用 <code>select_related</code> 不能达到优化的效果，因为 <code>JOIN</code> 复杂的多对多表会产生大量重复数据。此时，<code>prefetch_related</code> 更合适，因为它在 Python 中处理数据，避免了复杂的 <code>JOIN</code>，能更好地减少冗余数据。</p>
 </li>
 </ul>
-<h2 id="4-示例">4. <strong>示例</strong>
+<h2 id="4-示例">4. 示例
 </h2><h3 id="使用-select_related外键关系">使用 <code>select_related</code>（外键关系）
 </h3><div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1159,7 +1159,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 </span></span><span class="line"><span class="cl"><span class="c1"># 这会执行两次查询：一次查询 Person，一次查询 Person 对应的 Book 数据。</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="5-总结">5. <strong>总结</strong>
+</div><h2 id="5-总结">5. 总结
 </h2><div class="table-wrapper"><table>
   <thead>
       <tr>
@@ -1197,9 +1197,9 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
   </tbody>
 </table></div>
 <p>根据关系类型和性能需求，选择合适的方法可以有效优化 Django ORM 的数据库查询效率。</p>
-<h1 id="filter和exclude的区别">filter和exclude的区别？
+<h1 id="十filter和exclude的区别"><strong>十、filter和exclude的区别？</strong>
 </h1><p>在 Django ORM 中，<code>filter()</code> 和 <code>exclude()</code> 都用于查询数据，但它们的作用相反：</p>
-<h2 id="1-filter">1. <strong><code>filter()</code></strong>：
+<h2 id="1-filter">1. <code>filter()</code>：
 </h2><ul>
 <li>用于筛选出符合条件的记录。</li>
 <li>返回满足条件的对象集（<code>QuerySet</code>）。</li>
@@ -1218,7 +1218,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <ul>
 <li>返回 <code>age</code> 为 30 的所有用户。</li>
 </ul>
-<h2 id="2-exclude">2. <strong><code>exclude()</code></strong>：
+<h2 id="2-exclude">2. <code>exclude()</code>：
 </h2><ul>
 <li>用于排除不符合条件的记录。</li>
 <li>返回<strong>不满足</strong>条件的对象集（<code>QuerySet</code>）。</li>
@@ -1265,9 +1265,9 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <li><code>exclude()</code> 返回的 <code>users_excluded</code> 包含所有<strong>不</strong>是 30 岁的用户。</li>
 </ul>
 <p>两个方法可以结合使用，比如你可以先使用 <code>filter()</code> 来细化查询范围，再使用 <code>exclude()</code> 来排除某些结果。</p>
-<h1 id="f和q的作用">F和Q的作用?
+<h1 id="十一f和q的作用"><strong>十一、F和Q的作用?</strong>
 </h1><p>在 Django ORM 中，<code>F</code> 和 <code>Q</code> 是两个强大的查询表达式工具，用于构建更加灵活和复杂的查询条件。</p>
-<h2 id="1-f-对象">1. <strong><code>F</code> 对象</strong>：
+<h2 id="1-f-对象">1. <code>F</code> 对象：
 </h2><p><code>F</code> 对象允许在查询中引用模型字段本身，特别适合需要比较字段之间的值或者对字段进行原子更新的场景。</p>
 <h3 id="主要作用">主要作用：
 </h3><ul>
@@ -1275,7 +1275,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <li><strong>原子更新</strong>：在更新操作中可以直接基于现有字段值进行计算（如递增、递减）。</li>
 </ul>
 <h3 id="示例-2">示例：
-</h3><h4 id="a-字段间比较">a) <strong>字段间比较</strong>：
+</h3><h4 id="a-字段间比较">a) 字段间比较：
 </h4><p>假设你有一个 <code>Product</code> 模型，包含 <code>price</code> 和 <code>discount_price</code> 两个字段，想要查询 <code>price</code> 大于 <code>discount_price</code> 的产品。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1293,7 +1293,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <ul>
 <li>返回 <code>price</code> 大于 <code>discount_price</code> 的所有产品。</li>
 </ul>
-<h4 id="b-原子更新">b) <strong>原子更新</strong>：
+<h4 id="b-原子更新">b) 原子更新：
 </h4><p>假设你想要将某个字段的值基于其现有值增加一定数量，比如增加库存数量。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1307,7 +1307,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <ul>
 <li>将 <code>id=1</code> 的产品库存增加 10。Django 会直接在数据库层面进行更新，避免了取出、修改再保存的额外步骤。</li>
 </ul>
-<h2 id="2-q-对象">2. <strong><code>Q</code> 对象</strong>：
+<h2 id="2-q-对象">2. <code>Q</code> 对象：
 </h2><p><code>Q</code> 对象用于构建更加复杂的查询条件，尤其是需要在查询中使用<strong>逻辑运算符</strong>（如 AND、OR、NOT）时非常有用。</p>
 <h3 id="主要作用-1">主要作用：
 </h3><ul>
@@ -1315,7 +1315,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <li><strong>处理条件之间的逻辑关系</strong>：特别是在你需要做 OR 查询或排除某些条件时非常有用。</li>
 </ul>
 <h3 id="示例-3">示例：
-</h3><h4 id="a-or-查询">a) <strong>OR 查询</strong>：
+</h3><h4 id="a-or-查询">a) OR 查询：
 </h4><p>假设你想查询 <code>age=30</code> 或 <code>name=&quot;John&quot;</code> 的用户。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1333,7 +1333,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <ul>
 <li>返回年龄为 30 岁的用户或名字为 &ldquo;John&rdquo; 的用户。</li>
 </ul>
-<h4 id="b-and-查询">b) <strong>AND 查询</strong>：
+<h4 id="b-and-查询">b) AND 查询：
 </h4><p>默认情况下，<code>filter()</code> 使用 AND 操作符，但你可以显式使用 <code>&amp;</code> 来构建复杂的 AND 查询。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1347,7 +1347,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <ul>
 <li>返回年龄为 30 且名字为 &ldquo;John&rdquo; 的用户。</li>
 </ul>
-<h4 id="c-not-查询">c) <strong>NOT 查询</strong>：
+<h4 id="c-not-查询">c) NOT 查询：
 </h4><p>可以使用 <code>~</code> 运算符来表示逻辑 NOT。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1361,7 +1361,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <ul>
 <li>返回年龄不是 30 岁的用户。</li>
 </ul>
-<h2 id="3-f-和-q-结合使用">3. <strong><code>F</code> 和 <code>Q</code> 结合使用</strong>：
+<h2 id="3-f-和-q-结合使用">3. <code>F</code> 和 <code>Q</code> 结合使用：
 </h2><p><code>F</code> 和 <code>Q</code> 可以一起使用来构建更复杂的查询。例如，查找所有 <code>price &gt; discount_price</code> 或 <code>stock &lt; 10</code> 的产品：</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
@@ -1380,9 +1380,9 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <li><strong><code>F</code> 对象</strong>：用于在查询或更新时引用模型字段本身，支持字段之间的比较和原子更新操作。</li>
 <li><strong><code>Q</code> 对象</strong>：用于构建复杂的查询条件，支持逻辑运算（AND、OR、NOT）来组合不同的条件。</li>
 </ul>
-<h1 id="values和values_list的区别">values和values_list的区别？
+<h1 id="十二values和values_list的区别"><strong>十二、values和values_list的区别？</strong>
 </h1><p>在 Django ORM 中，<code>values()</code> 和 <code>values_list()</code> 都用于从数据库中提取特定字段的数据，但它们的返回结果形式不同：</p>
-<h2 id="1-values">1. <strong><code>values()</code></strong>：
+<h2 id="1-values">1. <code>values()</code>：
 </h2><ul>
 <li>返回一个<strong>字典</strong>（<code>dictionary</code>）的 <code>QuerySet</code>，其中每个字典的键是字段名，值是字段的值。</li>
 <li>通常用于获取一组对象的特定字段及其对应值，结果类似于字典的列表。</li>
@@ -1417,7 +1417,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 </div><ul>
 <li>结果中每个条目是一个字典，包含 <code>id</code> 和 <code>username</code> 字段。</li>
 </ul>
-<h2 id="2-values_list">2. <strong><code>values_list()</code></strong>：
+<h2 id="2-values_list">2. <code>values_list()</code>：
 </h2><ul>
 <li>返回一个<strong>元组</strong>（<code>tuple</code>）的 <code>QuerySet</code>，其中每个元组包含所查询字段的值。</li>
 <li>如果只查询一个字段，则可以设置 <code>flat=True</code> 来获取一个简单的列表。</li>
@@ -1511,7 +1511,7 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 <li><strong><code>values()</code></strong>：返回包含字段名和对应值的字典列表，适合需要字段名与值一一对应的场景。</li>
 <li><strong><code>values_list()</code></strong>：返回字段值的元组列表，如果只查询一个字段且使用 <code>flat=True</code>，返回平铺列表，适合只关心字段值本身的场景。</li>
 </ul>
-<h1 id="references">References
+<h1 id="references"><strong>References</strong>
 </h1><ul>
 <li><a class="link" href="https://www.nowcoder.com/discuss/399679459568230400?sourceSSR=search"  target="_blank" rel="noopener"
     >python web框架django面试题</a></li>

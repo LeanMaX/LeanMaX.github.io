@@ -501,7 +501,7 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
       &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;h1 id=&#34;references&#34;&gt;References
+&lt;h1 id=&#34;references&#34;&gt;&lt;strong&gt;References&lt;/strong&gt;
 &lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.nowcoder.com/discuss/399679459568230400?sourceSSR=search&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;python web框架django面试题&lt;/a&gt;&lt;/li&gt;
