@@ -264,7 +264,7 @@
 &lt;/ul&gt;
 &lt;h2 id=&#34;总结-2&#34;&gt;总结
 &lt;/h2&gt;&lt;p&gt;通过上述步骤，您可以实现用户的登录认证，处理用户的登录和退出请求，并根据需求进行相应的用户信息管理和安全控制。根据项目需求，您还可以扩展认证方式，例如使用 JWT 或 OAuth 进行更复杂的认证。&lt;/p&gt;
-&lt;h1 id=&#34;五如何将dict转换成url的格式&#34;&gt;**五、如何将dict转换成url的格式
+&lt;h1 id=&#34;五如何将dict转换成url的格式&#34;&gt;&lt;strong&gt;五、如何将dict转换成url的格式&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;要将字典（&lt;code&gt;dict&lt;/code&gt;）转换为 URL 查询字符串的格式，可以使用 Python 的标准库中的 &lt;code&gt;urllib&lt;/code&gt; 模块，具体方法如下：&lt;/p&gt;
 &lt;h2 id=&#34;使用-urllibparse-模块&#34;&gt;使用 &lt;code&gt;urllib.parse&lt;/code&gt; 模块
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -318,7 +318,7 @@
 &lt;/div&gt;
 &lt;/div&gt;&lt;h2 id=&#34;总结-3&#34;&gt;总结
 &lt;/h2&gt;&lt;p&gt;使用 &lt;code&gt;urllib.parse&lt;/code&gt; 模块中的 &lt;code&gt;urlencode&lt;/code&gt; 方法，可以轻松将字典转换为适合在 URL 中使用的查询字符串格式。这在处理 API 请求或生成链接时非常有用。&lt;/p&gt;
-&lt;h1 id=&#34;references&#34;&gt;References
+&lt;h1 id=&#34;references&#34;&gt;&lt;strong&gt;References&lt;/strong&gt;
 &lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.nowcoder.com/discuss/399679459568230400?sourceSSR=search&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;python web框架django面试题&lt;/a&gt;&lt;/li&gt;
