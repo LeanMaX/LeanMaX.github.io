@@ -13,14 +13,14 @@
         <pubDate>Sun, 13 Oct 2024 21:57:51 +0800</pubDate>
         
         <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%80/</guid>
-        <description>&lt;h1 id=&#34;对django的认识&#34;&gt;对Django的认识
+        <description>&lt;h1 id=&#34;一对django的认识&#34;&gt;&lt;strong&gt;一、对Django的认识&lt;/strong&gt;
 &lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;Django是走大而全的方向，它最出名的是其全自动化的管理后台：只需要使用其ORM，做简单的对象定义，它就能自动生成数据库结构、以及全功能的管理后台。&lt;/li&gt;
 &lt;li&gt;Django内置的ORM跟框架内的其他模块耦合程度高。应用程序必须使用Django内置的ORM，否则就不能享受到框架内提供的种种基于其ORM的便利；&lt;/li&gt;
 &lt;li&gt;Django适用的是中小型的网站，或者是作为大型网站快速实现产品雏形的工具。&lt;/li&gt;
 &lt;li&gt;Django模板的设计哲学是彻底的将代码、样式分离；Django从根本上杜绝在模板中进行编码、处理数据的可能。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&#34;djangoflask和tornado的对比&#34;&gt;Django，Flask和Tornado的对比
+&lt;h1 id=&#34;二djangoflask和tornado的对比&#34;&gt;&lt;strong&gt;二、Django，Flask和Tornado的对比&lt;/strong&gt;
 &lt;/h1&gt;&lt;ol&gt;
 &lt;li&gt;&lt;strong&gt;框架定位&lt;/strong&gt;&lt;br&gt;
 Django：全栈框架，功能全面，内置ORM、认证、后台管理等，适合中大型项目。
@@ -39,10 +39,10 @@ Django：适合功能复杂、需要快速开发的项目。
 Flask：适合灵活定制的小型应用或微服务。
 Tornado：适合高并发、实时通讯的系统。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h1 id=&#34;web服务器和web框架的区别&#34;&gt;Web服务器和Web框架的区别
+&lt;h1 id=&#34;三web服务器和web框架的区别&#34;&gt;&lt;strong&gt;三、Web服务器和Web框架的区别&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;Web服务器即用来接受客户端请求，建立连接，转发响应的程序。至于转发的内容是什么，交由Web框架来处理，即处理这些业务逻辑。如查询数据库、生成实时信息等。
 Nginx是一个Web服务器，Django或flask就是Web框架。&lt;/p&gt;
-&lt;h1 id=&#34;什么是wsgiuwsgiuwsgiawsgi&#34;&gt;什么是WSGI,uWSGI,uwsgi,aWSGI？
+&lt;h1 id=&#34;四什么是wsgiuwsgiuwsgiawsgi&#34;&gt;&lt;strong&gt;四、什么是WSGI,uWSGI,uwsgi,aWSGI？&lt;/strong&gt;
 &lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;WSGI，Web服务器网关接口，是一种Web服务器网关接口，它是一个Web服务器（如Nginx，uWSGI等服务器）与Web应用（如Flask框架写的程序）通信的一种规范。当前运行在WSGI协议之上的Web框架有Bottle，Flask，Django&lt;/li&gt;
 &lt;li&gt;uWSGI，是实现了WSGI协议的一个Web服务器。即用来接受客户端请求，转发响应的程序。实际上，一个uWSGI的Web服务器，再加上Django这样的Web框架，就已经可以实现网站的功能了。&lt;/li&gt;
@@ -51,7 +51,7 @@ Nginx是一个Web服务器，Django或flask就是Web框架。&lt;/p&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;wsgi和asgi的区别&#34;&gt;WSGI和ASGI的区别
 &lt;/h2&gt;&lt;p&gt;WSGI是基于HTTP协议模式的，不支持WebSocket，而ASGI的诞生则是为了解决Python常用的WSGI不支持当前Web开发中的一些新的协议标准。同时，ASGI对于WSGI原有的模式的支持和WebSocket的扩展，即ASGI是WSGI的扩展。&lt;/p&gt;
-&lt;h1 id=&#34;django的生命周期&#34;&gt;Django的生命周期
+&lt;h1 id=&#34;五django的生命周期&#34;&gt;&lt;strong&gt;五、Django的生命周期&lt;/strong&gt;
 &lt;/h1&gt;&lt;ol&gt;
 &lt;li&gt;wsgi,请求封装后交给web框架 （Flask、Django）&lt;/li&gt;
 &lt;li&gt;中间件，对请求进行校验或在请求对象中添加其他相关数据，例如：csrf、request.session&lt;/li&gt;
@@ -60,7 +60,7 @@ Nginx是一个Web服务器，Django或flask就是Web框架。&lt;/p&gt;
 &lt;li&gt;中间件，对响应的数据进行处理。&lt;/li&gt;
 &lt;li&gt;wsgi,将响应的内容发送给浏览器。&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h1 id=&#34;什么是fbv和cbv&#34;&gt;什么是FBV和CBV？
+&lt;h1 id=&#34;六什么是fbv和cbv&#34;&gt;&lt;strong&gt;六、什么是FBV和CBV？&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;FBV（function base views）： 基于函数的视图，就是在视图里使用函数处理请求。
 CBV（class base views）： 基于类的视图，就是在视图里使用类处理请求。&lt;/p&gt;
 &lt;h2 id=&#34;fbv&#34;&gt;FBV
@@ -161,7 +161,7 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HttpResponse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;POST 方法 1&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h1 id=&#34;如何给cbv的程序添加装饰器&#34;&gt;如何给CBV的程序添加装饰器？
+&lt;/div&gt;&lt;h1 id=&#34;七如何给cbv的程序添加装饰器&#34;&gt;&lt;strong&gt;七、如何给CBV的程序添加装饰器？&lt;/strong&gt;
 &lt;/h1&gt;&lt;ol&gt;
 &lt;li&gt;对单个方法使用装饰器：使用@method_decorator装饰get、post等方法。&lt;/li&gt;
 &lt;/ol&gt;
@@ -222,7 +222,7 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;HttpResponse&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;This is a protected view for POST request&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h1 id=&#34;简述mvc和mtv&#34;&gt;简述MVC和MTV
+&lt;/div&gt;&lt;h1 id=&#34;八简述mvc和mtv&#34;&gt;&lt;strong&gt;八、简述MVC和MTV&lt;/strong&gt;
 &lt;/h1&gt;&lt;h2 id=&#34;mvcmodel-view-controller-模型-视图-控制器&#34;&gt;MVC（Model View Controller 模型-视图-控制器）
 &lt;/h2&gt;&lt;p&gt;​ Web服务器开发领域里著名的MVC模式，所谓MVC就是把Web应用分为模型(M)，控制器(C)和视图(V)三层，他们之间以一种插件式的、松耦合的方式连接在一起，模型负责业务对象与数据库的映射(ORM)，视图负责与用户的交互(页面)，控制器接受用户的输入调用模型和视图完成用户的请求，其示意图如下所示：&lt;/p&gt;
 &lt;div align=&#34;center&#34;&gt;
@@ -254,7 +254,7 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
 &lt;h2 id=&#34;mvc和mtv的区别&#34;&gt;MVC和MTV的区别
 &lt;/h2&gt;&lt;p&gt;MVC中的V的目的是呈现那个数据，而MTV的V的目的是数据如何呈现&lt;br&gt;
 也就是把MVC中的View分成了视图（展现哪些数据）和模板（如何展现）2个部分，而Contorller这个要素由框架自己来实现了，我们需要做的就是把（带正则表达式的）URL对应到视图就可以了，通过这样的URL配置，系统将一个请求发送到一个合适的视图。&lt;/p&gt;
-&lt;h1 id=&#34;django框架中配置url路由时name的作用&#34;&gt;Django框架中配置url路由时name的作用
+&lt;h1 id=&#34;九django框架中配置url路由时name的作用&#34;&gt;&lt;strong&gt;九、Django框架中配置url路由时name的作用&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;主要是通过name的值，来查找url地址，可以理解为反射作用（别名）。在html模板中使用name来反射url优势就是后期url规则发生改变之后，只需调整urls.py即可，所有的模板文件都不需要修改。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
@@ -316,10 +316,10 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;href&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;{% url &amp;#39;add1&amp;#39; 10 25 %}&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;计算&lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;h1 id=&#34;列举django的内置组件&#34;&gt;列举django的内置组件？
+&lt;/div&gt;&lt;h1 id=&#34;十列举django的内置组件&#34;&gt;&lt;strong&gt;十、列举django的内置组件？&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;Django 是一个功能强大的全栈框架，提供了大量内置组件，帮助开发者快速构建和维护Web应用。这些内置组件涵盖了从数据管理、用户身份认证到安全性、性能优化等方面的需求。&lt;/p&gt;
 &lt;p&gt;以下是 Django 的一些重要内置组件：&lt;/p&gt;
-&lt;h2 id=&#34;1-模型model&#34;&gt;1. &lt;strong&gt;模型（Model）&lt;/strong&gt;
+&lt;h2 id=&#34;1-模型model&#34;&gt;1. 模型（Model）**
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;ORM（Object-Relational Mapping）&lt;/strong&gt;：Django 提供了内置的 ORM 系统，帮助开发者通过 Python 类定义数据库表结构，而不需要直接写 SQL。常用组件包括：
 &lt;ul&gt;
@@ -329,7 +329,7 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;2-视图view&#34;&gt;2. &lt;strong&gt;视图（View）&lt;/strong&gt;
+&lt;h2 id=&#34;2-视图view&#34;&gt;2. 视图（View）
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;基于函数的视图（FBV）&lt;/strong&gt;：使用普通的 Python 函数处理 HTTP 请求，例如：
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -351,7 +351,7 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;3-模板引擎template-engine&#34;&gt;3. &lt;strong&gt;模板引擎（Template Engine）&lt;/strong&gt;
+&lt;h2 id=&#34;3-模板引擎template-engine&#34;&gt;3. 模板引擎（Template Engine）
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Django 内置了一个模板系统，允许开发者使用模板语言生成动态 HTML 页面。常用的模板标签和过滤器包括：
 &lt;ul&gt;
@@ -361,7 +361,7 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;4-url-路由url-routing&#34;&gt;4. &lt;strong&gt;URL 路由（URL Routing）&lt;/strong&gt;
+&lt;h2 id=&#34;4-url-路由url-routing&#34;&gt;4. URL 路由（URL Routing）
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Django 提供了灵活的 URL 路由系统，允许开发者通过 &lt;code&gt;urls.py&lt;/code&gt; 文件定义 URL 模式与视图函数的映射：
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -385,7 +385,7 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
 &lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;支持正则表达式匹配和命名路由。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;5-表单处理forms&#34;&gt;5. &lt;strong&gt;表单处理（Forms）&lt;/strong&gt;
+&lt;h2 id=&#34;5-表单处理forms&#34;&gt;5. 表单处理（Forms）
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Django 提供了强大的表单处理组件，支持表单生成、验证、以及与模型的绑定。
 &lt;ul&gt;
@@ -395,7 +395,7 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;6-认证和授权系统authentication-and-authorization&#34;&gt;6. &lt;strong&gt;认证和授权系统（Authentication and Authorization）&lt;/strong&gt;
+&lt;h2 id=&#34;6-认证和授权系统authentication-and-authorization&#34;&gt;6. 认证和授权系统（Authentication and Authorization）
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Django 内置了完整的用户身份认证和权限管理系统：
 &lt;ul&gt;
@@ -410,7 +410,7 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;7-管理界面admin&#34;&gt;7. &lt;strong&gt;管理界面（Admin）&lt;/strong&gt;
+&lt;h2 id=&#34;7-管理界面admin&#34;&gt;7. 管理界面（Admin）
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Django 内置了强大的后台管理界面，无需额外开发即可管理模型数据。
 &lt;ul&gt;
@@ -419,7 +419,7 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;8-中间件middleware&#34;&gt;8. &lt;strong&gt;中间件（Middleware）&lt;/strong&gt;
+&lt;h2 id=&#34;8-中间件middleware&#34;&gt;8. 中间件（Middleware）
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Django 提供了中间件机制，可以在请求和响应的处理过程中添加额外的逻辑。
 &lt;ul&gt;
@@ -434,7 +434,7 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;9-消息框架messages-framework&#34;&gt;9. &lt;strong&gt;消息框架（Messages Framework）&lt;/strong&gt;
+&lt;h2 id=&#34;9-消息框架messages-framework&#34;&gt;9. 消息框架（Messages Framework）
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Django 的消息框架允许在不同请求之间传递一次性消息（如成功提示、错误消息）。
 &lt;ul&gt;
@@ -443,7 +443,7 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;10-文件上传处理file-handling&#34;&gt;10. &lt;strong&gt;文件上传处理（File Handling）&lt;/strong&gt;
+&lt;h2 id=&#34;10-文件上传处理file-handling&#34;&gt;10. 文件上传处理（File Handling）
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Django 提供了简便的文件上传和处理机制。
 &lt;ul&gt;
@@ -452,7 +452,7 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;11-信号signals&#34;&gt;11. &lt;strong&gt;信号（Signals）&lt;/strong&gt;
+&lt;h2 id=&#34;11-信号signals&#34;&gt;11. 信号（Signals）
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;Django 提供了信号机制，允许在某些事件发生时触发特定的回调函数。
 &lt;ul&gt;
@@ -461,7 +461,7 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&#34;说一下djangomiddlewares中间件的作用和应用场景&#34;&gt;说一下Django，MIDDLEWARES中间件的作用和应用场景？
+&lt;h1 id=&#34;十一说一下djangomiddlewares中间件的作用和应用场景&#34;&gt;&lt;strong&gt;十一、说一下Django，MIDDLEWARES中间件的作用和应用场景？&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;中间件是介于request与response处理之间的一道处理过程,用于在全局范围内改变Django的输入和输出。&lt;br&gt;
 简单的来说中间件是帮助我们在视图函数执行之前和执行之后都可以做一些额外的操作&lt;br&gt;
 例如：&lt;/p&gt;
@@ -470,7 +470,7 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
 &lt;li&gt;当用户在页面上发送请求时，通过自定义的认证中间件，判断用户是否已经登陆，未登陆就去登陆。&lt;/li&gt;
 &lt;li&gt;当有用户请求过来时，判断用户是否在白名单或者在黑名单里&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h1 id=&#34;列举django中间件的5个方法&#34;&gt;列举django中间件的5个方法？
+&lt;h1 id=&#34;十二列举django中间件的5个方法&#34;&gt;&lt;strong&gt;十二、列举django中间件的5个方法？&lt;/strong&gt;
 &lt;/h1&gt;&lt;table&gt;
   &lt;thead&gt;
       &lt;tr&gt;
