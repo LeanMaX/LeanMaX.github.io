@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="一、简述Django 中哪里用到了线程？哪里用到了协程？哪里用到了进程？\rDjango 是一个基于 Python 的高级 Web 框架，它本身并不直接处理线程、协程或进程的创建和管理，而是依赖于其运行的环境（如 Web 服务器、数据库等）以及可能的第三方库来处理并发和并行。然而，在 Django 的不同部分和与其相关的生态系统中，你可能会遇到这些概念。\n1. 线程（Threads）\rWeb 服务器：Django 通常部署在 WSGI 服务器上，如 Gunicorn 或 uWSGI，这些服务器可能会使用线程来处理并发请求。例如，Gunicorn 可以通过配置工作进程和工作线程的数量来优化并发性能。 数据库连接：Django 的数据库连接通常是线程安全的，这意味着每个线程可以有自己的数据库连接。Django 的 ORM 提供了数据库连接池的概念，以支持高效的线程间数据库访问。 内部操作：在 Django 代码中直接使用线程（通过 Python 的 threading 模块）是不常见的，因为 Django 的设计通常是同步的。但是，开发者可能会在某些特定情况下使用线程来执行后台任务或处理耗时的操作。 2. 协程（Coroutines）\r异步视图和中间件：从 Django 3.1 开始，Django 支持异步视图和中间件，这允许开发者使用 async 和 await 关键字编写异步代码。这些异步视图和中间件通常与 ASGI 服务器（如 Daphne 或 Uvicorn）一起使用，这些服务器支持基于协程的并发模型。 Channels：Channels 是一个 Django 的第三方库，它为 Django 添加了实时、双向通信的能力。Channels 基于 ASGI，并使用协程来处理 WebSocket、HTTP2 和其他协议。 数据库操作：虽然 Django 的默认 ORM 是同步的，但有一些第三方库（如 databases）提供了异步的数据库操作支持，这些操作可以与协程一起使用。 3. 进程（Processes）\rWeb 服务器：像 Gunicorn 这样的 WSGI 服务器通常使用多个进程来处理请求，每个进程可以有自己的线程池。这种方式有助于隔离不同请求之间的状态，并提供了更高的稳定性。 后台任务：Django 通常与 Celery 这样的任务队列一起使用来处理后台任务。Celery 可以配置为使用不同的并发模型，包括多进程，来执行异步任务。 多进程模式：在某些情况下，开发者可能会选择使用 Python 的 multiprocessing 模块在 Django 应用中直接创建和管理进程。这通常用于执行 CPU 密集型任务或需要隔离状态的操作。 总的来说，Django 框架本身并不直接管理线程、协程或进程，但这些概念在 Django 的部署、扩展和并发处理中扮演着重要角色。开发者可以根据需要选择适当的工具和库来优化其应用的性能和可扩展性。\n">
+<title>Django面试题（六）</title>
+
+<link rel='canonical' href='https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%85%AD/'>
+
+<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="Django面试题（六）">
+<meta property='og:description' content="一、简述Django 中哪里用到了线程？哪里用到了协程？哪里用到了进程？\rDjango 是一个基于 Python 的高级 Web 框架，它本身并不直接处理线程、协程或进程的创建和管理，而是依赖于其运行的环境（如 Web 服务器、数据库等）以及可能的第三方库来处理并发和并行。然而，在 Django 的不同部分和与其相关的生态系统中，你可能会遇到这些概念。\n1. 线程（Threads）\rWeb 服务器：Django 通常部署在 WSGI 服务器上，如 Gunicorn 或 uWSGI，这些服务器可能会使用线程来处理并发请求。例如，Gunicorn 可以通过配置工作进程和工作线程的数量来优化并发性能。 数据库连接：Django 的数据库连接通常是线程安全的，这意味着每个线程可以有自己的数据库连接。Django 的 ORM 提供了数据库连接池的概念，以支持高效的线程间数据库访问。 内部操作：在 Django 代码中直接使用线程（通过 Python 的 threading 模块）是不常见的，因为 Django 的设计通常是同步的。但是，开发者可能会在某些特定情况下使用线程来执行后台任务或处理耗时的操作。 2. 协程（Coroutines）\r异步视图和中间件：从 Django 3.1 开始，Django 支持异步视图和中间件，这允许开发者使用 async 和 await 关键字编写异步代码。这些异步视图和中间件通常与 ASGI 服务器（如 Daphne 或 Uvicorn）一起使用，这些服务器支持基于协程的并发模型。 Channels：Channels 是一个 Django 的第三方库，它为 Django 添加了实时、双向通信的能力。Channels 基于 ASGI，并使用协程来处理 WebSocket、HTTP2 和其他协议。 数据库操作：虽然 Django 的默认 ORM 是同步的，但有一些第三方库（如 databases）提供了异步的数据库操作支持，这些操作可以与协程一起使用。 3. 进程（Processes）\rWeb 服务器：像 Gunicorn 这样的 WSGI 服务器通常使用多个进程来处理请求，每个进程可以有自己的线程池。这种方式有助于隔离不同请求之间的状态，并提供了更高的稳定性。 后台任务：Django 通常与 Celery 这样的任务队列一起使用来处理后台任务。Celery 可以配置为使用不同的并发模型，包括多进程，来执行异步任务。 多进程模式：在某些情况下，开发者可能会选择使用 Python 的 multiprocessing 模块在 Django 应用中直接创建和管理进程。这通常用于执行 CPU 密集型任务或需要隔离状态的操作。 总的来说，Django 框架本身并不直接管理线程、协程或进程，但这些概念在 Django 的部署、扩展和并发处理中扮演着重要角色。开发者可以根据需要选择适当的工具和库来优化其应用的性能和可扩展性。\n">
+<meta property='og:url' content='https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%85%AD/'>
+<meta property='og:site_name' content='Lean Max'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Django' /><meta property='article:tag' content='面试' /><meta property='article:tag' content='跨域' /><meta property='article:tag' content='进程' /><meta property='article:tag' content='协程' /><meta property='article:tag' content='线程' /><meta property='article:tag' content='代理' /><meta property='article:published_time' content='2024-10-16T14:19:56&#43;08:00'/><meta property='article:modified_time' content='2024-10-16T14:19:56&#43;08:00'/>
+<meta name="twitter:title" content="Django面试题（六）">
+<meta name="twitter:description" content="一、简述Django 中哪里用到了线程？哪里用到了协程？哪里用到了进程？\rDjango 是一个基于 Python 的高级 Web 框架，它本身并不直接处理线程、协程或进程的创建和管理，而是依赖于其运行的环境（如 Web 服务器、数据库等）以及可能的第三方库来处理并发和并行。然而，在 Django 的不同部分和与其相关的生态系统中，你可能会遇到这些概念。\n1. 线程（Threads）\rWeb 服务器：Django 通常部署在 WSGI 服务器上，如 Gunicorn 或 uWSGI，这些服务器可能会使用线程来处理并发请求。例如，Gunicorn 可以通过配置工作进程和工作线程的数量来优化并发性能。 数据库连接：Django 的数据库连接通常是线程安全的，这意味着每个线程可以有自己的数据库连接。Django 的 ORM 提供了数据库连接池的概念，以支持高效的线程间数据库访问。 内部操作：在 Django 代码中直接使用线程（通过 Python 的 threading 模块）是不常见的，因为 Django 的设计通常是同步的。但是，开发者可能会在某些特定情况下使用线程来执行后台任务或处理耗时的操作。 2. 协程（Coroutines）\r异步视图和中间件：从 Django 3.1 开始，Django 支持异步视图和中间件，这允许开发者使用 async 和 await 关键字编写异步代码。这些异步视图和中间件通常与 ASGI 服务器（如 Daphne 或 Uvicorn）一起使用，这些服务器支持基于协程的并发模型。 Channels：Channels 是一个 Django 的第三方库，它为 Django 添加了实时、双向通信的能力。Channels 基于 ASGI，并使用协程来处理 WebSocket、HTTP2 和其他协议。 数据库操作：虽然 Django 的默认 ORM 是同步的，但有一些第三方库（如 databases）提供了异步的数据库操作支持，这些操作可以与协程一起使用。 3. 进程（Processes）\rWeb 服务器：像 Gunicorn 这样的 WSGI 服务器通常使用多个进程来处理请求，每个进程可以有自己的线程池。这种方式有助于隔离不同请求之间的状态，并提供了更高的稳定性。 后台任务：Django 通常与 Celery 这样的任务队列一起使用来处理后台任务。Celery 可以配置为使用不同的并发模型，包括多进程，来执行异步任务。 多进程模式：在某些情况下，开发者可能会选择使用 Python 的 multiprocessing 模块在 Django 应用中直接创建和管理进程。这通常用于执行 CPU 密集型任务或需要隔离状态的操作。 总的来说，Django 框架本身并不直接管理线程、协程或进程，但这些概念在 Django 的部署、扩展和并发处理中扮演着重要角色。开发者可以根据需要选择适当的工具和库来优化其应用的性能和可扩展性。\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu10645090171398504556.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🥥</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">Lean Max</a></h1>
+            <h2 class="site-description">Try to be better</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/LeanMaX/LeanMaX.github.io'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#一简述django-中哪里用到了线程哪里用到了协程哪里用到了进程"><strong>一、简述Django 中哪里用到了线程？哪里用到了协程？哪里用到了进程？</strong></a>
+      <ol>
+        <li><a href="#1-线程threads">1. 线程（Threads）</a></li>
+        <li><a href="#2-协程coroutines">2. 协程（Coroutines）</a></li>
+        <li><a href="#3-进程processes">3. 进程（Processes）</a></li>
+      </ol>
+    </li>
+    <li><a href="#二什么是跨域以及解决方法"><strong>二、什么是跨域以及解决方法</strong></a>
+      <ol>
+        <li><a href="#跨域的解决方法">跨域的解决方法</a></li>
+        <li><a href="#总结">总结</a></li>
+      </ol>
+    </li>
+    <li><a href="#三代理服务器和反向代理的区别"><strong>三、代理服务器和反向代理的区别</strong></a>
+      <ol>
+        <li><a href="#1-代理服务器forward-proxy">1. 代理服务器（Forward Proxy）</a></li>
+        <li><a href="#2-反向代理reverse-proxy">2. 反向代理（Reverse Proxy）</a></li>
+        <li><a href="#总结-1">总结</a></li>
+      </ol>
+    </li>
+    <li><a href="#四如何实现用户的登陆认证"><strong>四、如何实现用户的登陆认证</strong></a>
+      <ol>
+        <li><a href="#总结-2">总结</a></li>
+      </ol>
+    </li>
+    <li><a href="#五如何将dict转换成url的格式">**五、如何将dict转换成url的格式</a>
+      <ol>
+        <li><a href="#使用-urllibparse-模块">使用 <code>urllib.parse</code> 模块</a></li>
+        <li><a href="#说明">说明</a></li>
+        <li><a href="#输出结果">输出结果</a></li>
+        <li><a href="#总结-3">总结</a></li>
+      </ol>
+    </li>
+    <li><a href="#references">References</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/" >
+                面试题
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%85%AD/">Django面试题（六）</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 16, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="一简述django-中哪里用到了线程哪里用到了协程哪里用到了进程"><strong>一、简述Django 中哪里用到了线程？哪里用到了协程？哪里用到了进程？</strong>
+</h1><p>Django 是一个基于 Python 的高级 Web 框架，它本身并不直接处理线程、协程或进程的创建和管理，而是依赖于其运行的环境（如 Web 服务器、数据库等）以及可能的第三方库来处理并发和并行。然而，在 Django 的不同部分和与其相关的生态系统中，你可能会遇到这些概念。</p>
+<h2 id="1-线程threads">1. 线程（Threads）
+</h2><ul>
+<li>Web 服务器：Django 通常部署在 WSGI 服务器上，如 Gunicorn 或 uWSGI，这些服务器可能会使用线程来处理并发请求。例如，Gunicorn 可以通过配置工作进程和工作线程的数量来优化并发性能。</li>
+<li>数据库连接：Django 的数据库连接通常是线程安全的，这意味着每个线程可以有自己的数据库连接。Django 的 ORM 提供了数据库连接池的概念，以支持高效的线程间数据库访问。</li>
+<li>内部操作：在 Django 代码中直接使用线程（通过 Python 的 <code>threading</code> 模块）是不常见的，因为 Django 的设计通常是同步的。但是，开发者可能会在某些特定情况下使用线程来执行后台任务或处理耗时的操作。</li>
+</ul>
+<h2 id="2-协程coroutines">2. 协程（Coroutines）
+</h2><ul>
+<li>异步视图和中间件：从 Django 3.1 开始，Django 支持异步视图和中间件，这允许开发者使用 async 和 await 关键字编写异步代码。这些异步视图和中间件通常与 ASGI 服务器（如 Daphne 或 Uvicorn）一起使用，这些服务器支持基于协程的并发模型。</li>
+<li>Channels：Channels 是一个 Django 的第三方库，它为 Django 添加了实时、双向通信的能力。Channels 基于 ASGI，并使用协程来处理 WebSocket、HTTP2 和其他协议。</li>
+<li>数据库操作：虽然 Django 的默认 ORM 是同步的，但有一些第三方库（如 databases）提供了异步的数据库操作支持，这些操作可以与协程一起使用。</li>
+</ul>
+<h2 id="3-进程processes">3. 进程（Processes）
+</h2><ul>
+<li>Web 服务器：像 Gunicorn 这样的 WSGI 服务器通常使用多个进程来处理请求，每个进程可以有自己的线程池。这种方式有助于隔离不同请求之间的状态，并提供了更高的稳定性。</li>
+<li>后台任务：Django 通常与 <code>Celery</code> 这样的任务队列一起使用来处理后台任务。<code>Celery</code> 可以配置为使用不同的并发模型，包括多进程，来执行异步任务。</li>
+<li>多进程模式：在某些情况下，开发者可能会选择使用 Python 的 <code>multiprocessing</code> 模块在 Django 应用中直接创建和管理进程。这通常用于执行 CPU 密集型任务或需要隔离状态的操作。</li>
+</ul>
+<p>总的来说，Django 框架本身并不直接管理线程、协程或进程，但这些概念在 Django 的部署、扩展和并发处理中扮演着重要角色。开发者可以根据需要选择适当的工具和库来优化其应用的性能和可扩展性。</p>
+<h1 id="二什么是跨域以及解决方法"><strong>二、什么是跨域以及解决方法</strong>
+</h1><p>跨域指的是在浏览器中，由于同源策略的限制，网页从一个源（协议、域名和端口）请求另一个源的资源时，浏览器会阻止这种请求。这个策略旨在保护用户的数据安全，但在开发中可能会遇到跨域问题，尤其是在进行 API 请求时。</p>
+<h2 id="跨域的解决方法">跨域的解决方法
+</h2><ol>
+<li>
+<p><strong>CORS（跨源资源共享）</strong>：</p>
+<ul>
+<li>在服务器端设置 <code>Access-Control-Allow-Origin</code> 响应头，允许特定的源访问资源。</li>
+<li>可以配置允许的 HTTP 方法、头部和凭据等。</li>
+</ul>
+</li>
+<li>
+<p><strong>JSONP（JSON with Padding）</strong>：</p>
+<ul>
+<li>通过动态创建 <code>&lt;script&gt;</code> 标签的方式，利用 <code>&lt;script&gt;</code> 标签不受同源策略限制的特性来请求跨域数据。</li>
+<li>适用于 GET 请求，但只支持简单数据返回。</li>
+</ul>
+</li>
+<li>
+<p><strong>代理服务器</strong>：</p>
+<ul>
+<li>在同源的服务器上设置一个代理，将跨域请求转发到目标服务器。客户端向同源的代理发起请求，代理再将请求转发到目标服务器。</li>
+</ul>
+</li>
+<li>
+<p><strong>WebSocket</strong>：</p>
+<ul>
+<li>WebSocket 连接不受同源策略限制，可以在不同源之间建立实时双向通信。</li>
+</ul>
+</li>
+<li>
+<p><strong>iframe + postMessage</strong>：</p>
+<ul>
+<li>利用 <code>postMessage</code> 方法，在同源的 iframe 中与父页面进行安全的跨域通信。</li>
+</ul>
+</li>
+<li>
+<p><strong>Nginx 反向代理</strong>：</p>
+<ul>
+<li>在 Nginx 中配置反向代理，将请求转发到不同的后端服务，同时保持同源的外部表现。</li>
+</ul>
+</li>
+</ol>
+<h2 id="总结">总结
+</h2><p>跨域问题是由于浏览器的同源策略造成的，开发者可以通过 CORS、JSONP、代理等方法来解决这一问题，确保前后端的正常通信和数据交换。</p>
+<h1 id="三代理服务器和反向代理的区别"><strong>三、代理服务器和反向代理的区别</strong>
+</h1><p>代理服务器和反向代理是两种不同的网络代理概念，它们的功能和应用场景有所不同：</p>
+<h2 id="1-代理服务器forward-proxy">1. 代理服务器（Forward Proxy）
+</h2><ul>
+<li><strong>定义</strong>：代理服务器（也称为正向代理）是客户端和目标服务器之间的中介。客户端将请求发送到代理服务器，代理服务器再将请求转发给目标服务器，并将响应返回给客户端。</li>
+<li><strong>主要用途</strong>：
+<ul>
+<li><strong>匿名浏览</strong>：用户通过代理服务器隐藏自己的真实 IP 地址。</li>
+<li><strong>访问控制</strong>：可以用于过滤内容、限制访问某些网站或资源。</li>
+<li><strong>缓存</strong>：可以缓存常用资源，提高访问速度。</li>
+</ul>
+</li>
+</ul>
+<h2 id="2-反向代理reverse-proxy">2. 反向代理（Reverse Proxy）
+</h2><ul>
+<li><strong>定义</strong>：反向代理是在客户端和多个后端服务器之间的中介。客户端请求发送到反向代理服务器，反向代理再将请求转发到适当的后端服务器，并将响应返回给客户端。</li>
+<li><strong>主要用途</strong>：
+<ul>
+<li><strong>负载均衡</strong>：可以将请求分发到多台后端服务器，以实现负载均衡，提高系统的可用性和性能。</li>
+<li><strong>SSL/TLS 终止</strong>：可以处理 SSL 加密和解密，减轻后端服务器的负担。</li>
+<li><strong>缓存和压缩</strong>：可以对响应进行缓存和压缩，提高性能。</li>
+<li><strong>安全性</strong>：可以隐藏后端服务器的真实地址，增加安全性。</li>
+</ul>
+</li>
+</ul>
+<h2 id="总结-1">总结
+</h2><ul>
+<li><strong>代理服务器</strong>主要服务于客户端，帮助客户端访问其他服务器，常用于匿名、过滤和缓存等场景。</li>
+<li><strong>反向代理</strong>主要服务于服务器端，帮助后端服务器处理请求，常用于负载均衡、安全性和性能优化等场景。</li>
+</ul>
+<p>两者的核心区别在于它们的工作方向和服务对象，代理服务器面向客户端，反向代理面向服务器。</p>
+<h1 id="四如何实现用户的登陆认证"><strong>四、如何实现用户的登陆认证</strong>
+</h1><p>在 Django 中实现用户的登录认证通常涉及以下步骤：</p>
+<ol>
+<li><strong>设置用户模型</strong></li>
+</ol>
+<ul>
+<li>确保项目中有用户模型，Django 默认提供了一个 <code>User</code> 模型，可以使用或自定义。</li>
+</ul>
+<ol start="2">
+<li><strong>安装和配置 Django REST Framework（如果是 API 认证）</strong></li>
+</ol>
+<ul>
+<li>安装 DRF：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install djangorestframework
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>在 <code>settings.py</code> 中添加 DRF：
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;rest_framework&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 其他应用</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<ol start="3">
+<li><strong>编写认证视图</strong></li>
+</ol>
+<ul>
+<li>
+<p>创建登录视图，使用 Django 提供的 <code>authenticate</code> 和 <code>login</code> 方法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">authenticate</span><span class="p">,</span> <span class="n">login</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">rest_framework.response</span> <span class="kn">import</span> <span class="n">Response</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">rest_framework</span> <span class="kn">import</span> <span class="n">status</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">rest_framework.views</span> <span class="kn">import</span> <span class="n">APIView</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">LoginView</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;password&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">user</span> <span class="o">=</span> <span class="n">authenticate</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="n">password</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">login</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span>  <span class="c1"># 将用户登录</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;Login successful&#39;</span><span class="p">},</span> <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s1">&#39;error&#39;</span><span class="p">:</span> <span class="s1">&#39;Invalid credentials&#39;</span><span class="p">},</span> <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_401_UNAUTHORIZED</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<ol start="4">
+<li><strong>设置 URL 路由</strong></li>
+</ol>
+<ul>
+<li>
+<p>在 <code>urls.py</code> 中为登录视图添加路由：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.urls</span> <span class="kn">import</span> <span class="n">path</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">.views</span> <span class="kn">import</span> <span class="n">LoginView</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">urlpatterns</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="n">path</span><span class="p">(</span><span class="s1">&#39;login/&#39;</span><span class="p">,</span> <span class="n">LoginView</span><span class="o">.</span><span class="n">as_view</span><span class="p">(),</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;login&#39;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 其他路由</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<ol start="5">
+<li><strong>前端请求</strong></li>
+</ol>
+<ul>
+<li>前端发送 POST 请求到 <code>/login/</code>，请求体中包含用户名和密码。</li>
+</ul>
+<ol start="6">
+<li><strong>认证后的处理</strong></li>
+</ol>
+<ul>
+<li>成功登录后，可以返回用户信息或 JWT token，供后续请求使用。</li>
+<li>对于 API，通常会使用 JWT 或其他 token 机制进行后续认证。</li>
+</ul>
+<ol start="7">
+<li><strong>退出登录</strong></li>
+</ol>
+<ul>
+<li>
+<p>也可以实现一个退出登录的视图，使用 <code>logout</code> 方法。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">django.contrib.auth</span> <span class="kn">import</span> <span class="n">logout</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">LogoutView</span><span class="p">(</span><span class="n">APIView</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logout</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>  <span class="c1"># 退出登录</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">Response</span><span class="p">({</span><span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="s1">&#39;Logout successful&#39;</span><span class="p">},</span> <span class="n">status</span><span class="o">=</span><span class="n">status</span><span class="o">.</span><span class="n">HTTP_200_OK</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<h2 id="总结-2">总结
+</h2><p>通过上述步骤，您可以实现用户的登录认证，处理用户的登录和退出请求，并根据需求进行相应的用户信息管理和安全控制。根据项目需求，您还可以扩展认证方式，例如使用 JWT 或 OAuth 进行更复杂的认证。</p>
+<h1 id="五如何将dict转换成url的格式">**五、如何将dict转换成url的格式
+</h1><p>要将字典（<code>dict</code>）转换为 URL 查询字符串的格式，可以使用 Python 的标准库中的 <code>urllib</code> 模块，具体方法如下：</p>
+<h2 id="使用-urllibparse-模块">使用 <code>urllib.parse</code> 模块
+</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">urllib.parse</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 示例字典</span>
+</span></span><span class="line"><span class="cl"><span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;John Doe&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;age&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;city&#39;</span><span class="p">:</span> <span class="s1">&#39;New York&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;hobbies&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;reading&#39;</span><span class="p">,</span> <span class="s1">&#39;traveling&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用 urlencode 将字典转换为查询字符串</span>
+</span></span><span class="line"><span class="cl"><span class="n">query_string</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">parse</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">doseq</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">query_string</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="说明">说明
+</h2><ul>
+<li><code>urlencode</code> 方法会将字典转换为 URL 查询字符串的格式，支持将列表参数（如 <code>hobbies</code>）转换为多次出现的相同键。</li>
+<li><code>doseq=True</code> 参数确保列表中的每个值都被单独编码。</li>
+</ul>
+<h2 id="输出结果">输出结果
+</h2><p>对于上述示例，输出将会是：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">name=John+Doe&amp;age=30&amp;city=New+York&amp;hobbies=reading&amp;hobbies=traveling
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="总结-3">总结
+</h2><p>使用 <code>urllib.parse</code> 模块中的 <code>urlencode</code> 方法，可以轻松将字典转换为适合在 URL 中使用的查询字符串格式。这在处理 API 请求或生成链接时非常有用。</p>
+<h1 id="references">References
+</h1><ul>
+<li><a class="link" href="https://www.nowcoder.com/discuss/399679459568230400?sourceSSR=search"  target="_blank" rel="noopener"
+    >python web框架django面试题</a></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/django/">Django</a>
+        
+            <a href="/tags/%E9%9D%A2%E8%AF%95/">面试</a>
+        
+            <a href="/tags/%E8%B7%A8%E5%9F%9F/">跨域</a>
+        
+            <a href="/tags/%E8%BF%9B%E7%A8%8B/">进程</a>
+        
+            <a href="/tags/%E5%8D%8F%E7%A8%8B/">协程</a>
+        
+            <a href="/tags/%E7%BA%BF%E7%A8%8B/">线程</a>
+        
+            <a href="/tags/%E4%BB%A3%E7%90%86/">代理</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%94/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Django面试题（五）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Django面试题（四）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Django面试题（三）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Django面试题（二）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%80/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Django面试题（一）</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2024 Lean Max
+    </section>
+    
+    <section class="powerby">
+        
+            网站总访客数：<span id='busuanzi_value_site_uv'>Loading</span><br/>
+      网站总访问量：<span id='busuanzi_value_site_pv'>Loading</span>
+      <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.27.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<script defer src="https://cn.vercount.one/js"></script>
+
+    </body>
+</html>

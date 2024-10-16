@@ -6,6 +6,23 @@
         <description>Recent content in Categories on Lean Max</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <copyright>Lean Max</copyright><atom:link href="https://leanmax.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+        <copyright>Lean Max</copyright>
+        <lastBuildDate>Wed, 16 Oct 2024 14:19:56 +0800</lastBuildDate><atom:link href="https://leanmax.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>面试题</title>
+        <link>https://leanmax.github.io/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/</link>
+        <pubDate>Wed, 16 Oct 2024 14:19:56 +0800</pubDate>
+        
+        <guid>https://leanmax.github.io/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>保研</title>
+        <link>https://leanmax.github.io/categories/%E4%BF%9D%E7%A0%94/</link>
+        <pubDate>Sun, 13 Oct 2024 14:29:12 +0800</pubDate>
+        
+        <guid>https://leanmax.github.io/categories/%E4%BF%9D%E7%A0%94/</guid>
+        <description></description>
+        </item>
+        
     </channel>
 </rss>

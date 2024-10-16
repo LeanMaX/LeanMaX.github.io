@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Csrf on Lean Max</title>
-        <link>http://localhost:1313/tags/csrf/</link>
+        <link>https://leanmax.github.io/tags/csrf/</link>
         <description>Recent content in Csrf on Lean Max</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Lean Max</copyright>
-        <lastBuildDate>Mon, 14 Oct 2024 20:21:44 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/csrf/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 14 Oct 2024 20:21:44 +0800</lastBuildDate><atom:link href="https://leanmax.github.io/tags/csrf/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Django面试题（二）</title>
-        <link>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/</link>
+        <link>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/</link>
         <pubDate>Mon, 14 Oct 2024 20:21:44 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/</guid>
+        <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/</guid>
         <description>&lt;h1 id=&#34;django的request对象是在什么时候创建的&#34;&gt;django的request对象是在什么时候创建的？
 &lt;/h1&gt;&lt;p&gt;当请求一个页面时, Django会建立一个包含请求元数据的HttpRequest对象。&lt;br&gt;
 当Django加载对应的视图时, HttpRequest对象将作为视图函数的第一个参数，另外每个视图会返回一个HttpResponse对象。&lt;/p&gt;

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="一、django内置的缓存机制？\rDjango 提供了一个内置的缓存框架，可以通过多种方式缓存页面、视图、查询结果或其他数据，以提高性能和减少数据库访问。Django 的缓存机制非常灵活，支持多种缓存后端，如内存、文件系统、数据库等。下面是 Django 内置缓存机制的主要部分：\n1. 缓存后端\rDjango 支持多种缓存后端，常见的包括：\n内存缓存（MemoryCache）：使用本地内存作为缓存存储，适合单机部署的小型项目。\n1 2 3 4 5 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.locmem.LocMemCache&#39;, } } 文件系统缓存（FileBasedCache）：将缓存存储在文件系统中，适合需要跨进程共享的缓存。\n1 2 3 4 5 6 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.filebased.FileBasedCache&#39;, &#39;LOCATION&#39;: &#39;/var/tmp/django_cache&#39;, } } 数据库缓存（DatabaseCache）：将缓存存储在数据库中，需要预先创建缓存表。\n1 2 3 4 5 6 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.db.DatabaseCache&#39;, &#39;LOCATION&#39;: &#39;my_cache_table&#39;, } } 创建缓存表：\n1 python manage.py createcachetable Memcached：一个高效的内存缓存系统，适合大规模部署的项目。\n1 2 3 4 5 6 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.memcached.MemcachedCache&#39;, &#39;LOCATION&#39;: &#39;127.0.0.1:11211&#39;, } } Redis：流行的键值存储，支持复杂的数据结构，适合高并发项目。\n">
 <title>Django面试题（四）</title>
 
-<link rel='canonical' href='http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/'>
+<link rel='canonical' href='https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/'>
 
 <link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="Django面试题（四）">
 <meta property='og:description' content="一、django内置的缓存机制？\rDjango 提供了一个内置的缓存框架，可以通过多种方式缓存页面、视图、查询结果或其他数据，以提高性能和减少数据库访问。Django 的缓存机制非常灵活，支持多种缓存后端，如内存、文件系统、数据库等。下面是 Django 内置缓存机制的主要部分：\n1. 缓存后端\rDjango 支持多种缓存后端，常见的包括：\n内存缓存（MemoryCache）：使用本地内存作为缓存存储，适合单机部署的小型项目。\n1 2 3 4 5 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.locmem.LocMemCache&#39;, } } 文件系统缓存（FileBasedCache）：将缓存存储在文件系统中，适合需要跨进程共享的缓存。\n1 2 3 4 5 6 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.filebased.FileBasedCache&#39;, &#39;LOCATION&#39;: &#39;/var/tmp/django_cache&#39;, } } 数据库缓存（DatabaseCache）：将缓存存储在数据库中，需要预先创建缓存表。\n1 2 3 4 5 6 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.db.DatabaseCache&#39;, &#39;LOCATION&#39;: &#39;my_cache_table&#39;, } } 创建缓存表：\n1 python manage.py createcachetable Memcached：一个高效的内存缓存系统，适合大规模部署的项目。\n1 2 3 4 5 6 CACHES = { &#39;default&#39;: { &#39;BACKEND&#39;: &#39;django.core.cache.backends.memcached.MemcachedCache&#39;, &#39;LOCATION&#39;: &#39;127.0.0.1:11211&#39;, } } Redis：流行的键值存储，支持复杂的数据结构，适合高并发项目。\n">
-<meta property='og:url' content='http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/'>
+<meta property='og:url' content='https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/'>
 <meta property='og:site_name' content='Lean Max'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Django' /><meta property='article:tag' content='面试' /><meta property='article:tag' content='缓存' /><meta property='article:tag' content='Redis' /><meta property='article:published_time' content='2024-10-15T17:48:09&#43;08:00'/><meta property='article:modified_time' content='2024-10-15T17:48:09&#43;08:00'/>
 <meta name="twitter:title" content="Django面试题（四）">
@@ -1250,6 +1250,19 @@
     <h2 class="section-title">Related content</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%85%AD/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Django面试题（六）</h2>
+        </div>
+    </a>
+</article>
+
             
                 
 <article class="">
