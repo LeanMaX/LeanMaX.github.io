@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>RESTful on Lean Max</title>
+        <link>http://localhost:1313/tags/restful/</link>
+        <description>Recent content in RESTful on Lean Max</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Lean Max</copyright>
+        <lastBuildDate>Wed, 16 Oct 2024 10:36:20 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/restful/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Django面试题（五）</title>
+        <link>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%94/</link>
+        <pubDate>Wed, 16 Oct 2024 10:36:20 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%94/</guid>
+        <description></description>
+        </item>
+        
+    </channel>
+</rss>

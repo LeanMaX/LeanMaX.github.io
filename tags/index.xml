@@ -6,63 +6,6 @@
         <description>Recent content in Tags on Lean Max</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
-        <copyright>Lean Max</copyright>
-        <lastBuildDate>Tue, 15 Oct 2024 17:48:09 +0800</lastBuildDate><atom:link href="https://leanmax.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Django</title>
-        <link>https://leanmax.github.io/tags/django/</link>
-        <pubDate>Tue, 15 Oct 2024 17:48:09 +0800</pubDate>
-        
-        <guid>https://leanmax.github.io/tags/django/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Redis</title>
-        <link>https://leanmax.github.io/tags/redis/</link>
-        <pubDate>Tue, 15 Oct 2024 17:48:09 +0800</pubDate>
-        
-        <guid>https://leanmax.github.io/tags/redis/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>缓存</title>
-        <link>https://leanmax.github.io/tags/%E7%BC%93%E5%AD%98/</link>
-        <pubDate>Tue, 15 Oct 2024 17:48:09 +0800</pubDate>
-        
-        <guid>https://leanmax.github.io/tags/%E7%BC%93%E5%AD%98/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>面试</title>
-        <link>https://leanmax.github.io/tags/%E9%9D%A2%E8%AF%95/</link>
-        <pubDate>Tue, 15 Oct 2024 17:48:09 +0800</pubDate>
-        
-        <guid>https://leanmax.github.io/tags/%E9%9D%A2%E8%AF%95/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>ORM</title>
-        <link>https://leanmax.github.io/tags/orm/</link>
-        <pubDate>Tue, 15 Oct 2024 15:17:09 +0800</pubDate>
-        
-        <guid>https://leanmax.github.io/tags/orm/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>MTV</title>
-        <link>https://leanmax.github.io/tags/mtv/</link>
-        <pubDate>Sun, 13 Oct 2024 21:57:51 +0800</pubDate>
-        
-        <guid>https://leanmax.github.io/tags/mtv/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>保研</title>
-        <link>https://leanmax.github.io/tags/%E4%BF%9D%E7%A0%94/</link>
-        <pubDate>Sun, 13 Oct 2024 14:29:12 +0800</pubDate>
-        
-        <guid>https://leanmax.github.io/tags/%E4%BF%9D%E7%A0%94/</guid>
-        <description></description>
-        </item>
-        
+        <copyright>Lean Max</copyright><atom:link href="https://leanmax.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     </channel>
 </rss>

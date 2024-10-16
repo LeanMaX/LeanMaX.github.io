@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>缓存 on Lean Max</title>
-        <link>https://leanmax.github.io/tags/%E7%BC%93%E5%AD%98/</link>
+        <link>http://localhost:1313/tags/%E7%BC%93%E5%AD%98/</link>
         <description>Recent content in 缓存 on Lean Max</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Lean Max</copyright>
-        <lastBuildDate>Tue, 15 Oct 2024 17:48:09 +0800</lastBuildDate><atom:link href="https://leanmax.github.io/tags/%E7%BC%93%E5%AD%98/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 15 Oct 2024 17:48:09 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E7%BC%93%E5%AD%98/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Django面试题（四）</title>
-        <link>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/</link>
+        <link>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/</link>
         <pubDate>Tue, 15 Oct 2024 17:48:09 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/</guid>
+        <guid>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/</guid>
         <description>&lt;h1 id=&#34;django内置的缓存机制&#34;&gt;django内置的缓存机制？
 &lt;/h1&gt;&lt;p&gt;Django 提供了一个内置的缓存框架，可以通过多种方式缓存页面、视图、查询结果或其他数据，以提高性能和减少数据库访问。Django 的缓存机制非常灵活，支持多种缓存后端，如内存、文件系统、数据库等。下面是 Django 内置缓存机制的主要部分：&lt;/p&gt;
 &lt;h2 id=&#34;1-缓存后端&#34;&gt;1. &lt;strong&gt;缓存后端&lt;/strong&gt;

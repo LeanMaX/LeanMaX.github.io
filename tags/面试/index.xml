@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>面试 on Lean Max</title>
-        <link>https://leanmax.github.io/tags/%E9%9D%A2%E8%AF%95/</link>
+        <link>http://localhost:1313/tags/%E9%9D%A2%E8%AF%95/</link>
         <description>Recent content in 面试 on Lean Max</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Lean Max</copyright>
-        <lastBuildDate>Tue, 15 Oct 2024 17:48:09 +0800</lastBuildDate><atom:link href="https://leanmax.github.io/tags/%E9%9D%A2%E8%AF%95/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 15 Oct 2024 17:48:09 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E9%9D%A2%E8%AF%95/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Django面试题（四）</title>
-        <link>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/</link>
+        <link>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/</link>
         <pubDate>Tue, 15 Oct 2024 17:48:09 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/</guid>
+        <guid>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/</guid>
         <description>&lt;h1 id=&#34;django内置的缓存机制&#34;&gt;django内置的缓存机制？
 &lt;/h1&gt;&lt;p&gt;Django 提供了一个内置的缓存框架，可以通过多种方式缓存页面、视图、查询结果或其他数据，以提高性能和减少数据库访问。Django 的缓存机制非常灵活，支持多种缓存后端，如内存、文件系统、数据库等。下面是 Django 内置缓存机制的主要部分：&lt;/p&gt;
 &lt;h2 id=&#34;1-缓存后端&#34;&gt;1. &lt;strong&gt;缓存后端&lt;/strong&gt;
@@ -857,10 +857,10 @@
         </item>
         <item>
         <title>Django面试题（三）</title>
-        <link>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/</link>
+        <link>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/</link>
         <pubDate>Tue, 15 Oct 2024 15:17:09 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/</guid>
+        <guid>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/</guid>
         <description>&lt;h1 id=&#34;django的form和modeform的作用&#34;&gt;django的Form和ModeForm的作用？
 &lt;/h1&gt;&lt;p&gt;Django的Form和ModelForm是框架中非常重要的两个组件，主要用于处理表单数据和数据模型。以下是它们的具体作用：&lt;/p&gt;
 &lt;h2 id=&#34;1-django-form&#34;&gt;1. Django Form：
@@ -1835,10 +1835,10 @@
         </item>
         <item>
         <title>Django面试题（二）</title>
-        <link>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/</link>
+        <link>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/</link>
         <pubDate>Mon, 14 Oct 2024 20:21:44 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/</guid>
+        <guid>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/</guid>
         <description>&lt;h1 id=&#34;django的request对象是在什么时候创建的&#34;&gt;django的request对象是在什么时候创建的？
 &lt;/h1&gt;&lt;p&gt;当请求一个页面时, Django会建立一个包含请求元数据的HttpRequest对象。&lt;br&gt;
 当Django加载对应的视图时, HttpRequest对象将作为视图函数的第一个参数，另外每个视图会返回一个HttpResponse对象。&lt;/p&gt;
@@ -2942,10 +2942,10 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
         </item>
         <item>
         <title>Django面试题（一）</title>
-        <link>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%80/</link>
+        <link>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%80/</link>
         <pubDate>Sun, 13 Oct 2024 21:57:51 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%80/</guid>
+        <guid>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%80/</guid>
         <description>&lt;h1 id=&#34;对django的认识&#34;&gt;对Django的认识
 &lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;Django是走大而全的方向，它最出名的是其全自动化的管理后台：只需要使用其ORM，做简单的对象定义，它就能自动生成数据库结构、以及全功能的管理后台。&lt;/li&gt;
