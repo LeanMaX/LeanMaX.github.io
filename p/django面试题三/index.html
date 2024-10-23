@@ -1098,7 +1098,6 @@
 当你在数据库中创建或更新 <code>MyModel</code> 的实例时，Django 会自动在日志中记录一条新创建或更新的消息。</p>
 </li>
 </ol>
-<hr>
 <h2 id="方案-2重写模型的-save-方法">方案 2：重写模型的 <code>save()</code> 方法
 </h2><p>另一种方式是直接在模型的 <code>save()</code> 方法中加入日志记录逻辑，每次调用 <code>save()</code> 时记录日志。</p>
 <p><strong>步骤</strong></p>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>技术 on Lean Max</title>
+        <link>https://leanmax.github.io/categories/%E6%8A%80%E6%9C%AF/</link>
+        <description>Recent content in 技术 on Lean Max</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Lean Max</copyright>
+        <lastBuildDate>Wed, 23 Oct 2024 14:57:38 +0800</lastBuildDate><atom:link href="https://leanmax.github.io/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>缓存（Cache）和缓冲（Buffer）的区别</title>
+        <link>https://leanmax.github.io/p/%E7%BC%93%E5%AD%98cache%E5%92%8C%E7%BC%93%E5%86%B2buffer%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+        <pubDate>Wed, 23 Oct 2024 14:57:38 +0800</pubDate>
+        
+        <guid>https://leanmax.github.io/p/%E7%BC%93%E5%AD%98cache%E5%92%8C%E7%BC%93%E5%86%B2buffer%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+        <description>&lt;ol&gt;
+&lt;li&gt;Buffer（缓冲区）：系统两端处理速度平衡（从长时间尺度上看）时使用的。它的引入是为了减小短期内突发I/O的影响，起到&lt;strong&gt;流量整形&lt;/strong&gt;的作用。比如生产者——消费者问题，他们产生和消耗资源的速度大体接近，加一个buffer可以抵消掉资源刚产生/消耗时的突然变化。&lt;/li&gt;
+&lt;li&gt;Cache（缓存）：系统两端处理速度不匹配时的一种折衷策略。因为CPU和memory之间的速度差异越来越大，所以人们充分利用数据的局部性（locality）特征，通过使用存储系统分级（memory hierarchy）的策略来减小这种差异带来的影响。(浏览器预加载就是先将一部分资源存储在Cache中)&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

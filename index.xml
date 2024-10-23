@@ -7,7 +7,19 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Lean Max</copyright>
-        <lastBuildDate>Wed, 16 Oct 2024 14:19:56 +0800</lastBuildDate><atom:link href="https://leanmax.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 23 Oct 2024 14:57:38 +0800</lastBuildDate><atom:link href="https://leanmax.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>缓存（Cache）和缓冲（Buffer）的区别</title>
+        <link>https://leanmax.github.io/p/%E7%BC%93%E5%AD%98cache%E5%92%8C%E7%BC%93%E5%86%B2buffer%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+        <pubDate>Wed, 23 Oct 2024 14:57:38 +0800</pubDate>
+        
+        <guid>https://leanmax.github.io/p/%E7%BC%93%E5%AD%98cache%E5%92%8C%E7%BC%93%E5%86%B2buffer%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+        <description>&lt;ol&gt;
+&lt;li&gt;Buffer（缓冲区）：系统两端处理速度平衡（从长时间尺度上看）时使用的。它的引入是为了减小短期内突发I/O的影响，起到&lt;strong&gt;流量整形&lt;/strong&gt;的作用。比如生产者——消费者问题，他们产生和消耗资源的速度大体接近，加一个buffer可以抵消掉资源刚产生/消耗时的突然变化。&lt;/li&gt;
+&lt;li&gt;Cache（缓存）：系统两端处理速度不匹配时的一种折衷策略。因为CPU和memory之间的速度差异越来越大，所以人们充分利用数据的局部性（locality）特征，通过使用存储系统分级（memory hierarchy）的策略来减小这种差异带来的影响。(浏览器预加载就是先将一部分资源存储在Cache中)&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        <item>
         <title>Django面试题（六）</title>
         <link>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%85%AD/</link>
         <pubDate>Wed, 16 Oct 2024 14:19:56 +0800</pubDate>
@@ -2541,7 +2553,6 @@ Django REST Framework 的认证流程通过提取请求中的凭据、验证这�
 当你在数据库中创建或更新 &lt;code&gt;MyModel&lt;/code&gt; 的实例时，Django 会自动在日志中记录一条新创建或更新的消息。&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;hr&gt;
 &lt;h2 id=&#34;方案-2重写模型的-save-方法&#34;&gt;方案 2：重写模型的 &lt;code&gt;save()&lt;/code&gt; 方法
 &lt;/h2&gt;&lt;p&gt;另一种方式是直接在模型的 &lt;code&gt;save()&lt;/code&gt; 方法中加入日志记录逻辑，每次调用 &lt;code&gt;save()&lt;/code&gt; 时记录日志。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;步骤&lt;/strong&gt;&lt;/p&gt;
