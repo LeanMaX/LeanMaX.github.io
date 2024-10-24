@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>B&#43;树 on Lean Max</title>
+        <link>http://localhost:1313/tags/b&#43;%E6%A0%91/</link>
+        <description>Recent content in B&#43;树 on Lean Max</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Lean Max</copyright>
+        <lastBuildDate>Thu, 24 Oct 2024 00:20:10 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/b+%E6%A0%91/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>MySQL面试题</title>
+        <link>http://localhost:1313/p/mysql%E9%9D%A2%E8%AF%95%E9%A2%98/</link>
+        <pubDate>Thu, 24 Oct 2024 00:20:10 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/mysql%E9%9D%A2%E8%AF%95%E9%A2%98/</guid>
+        <description>&lt;h1 id=&#34;一什么是索引&#34;&gt;一、什么是索引
+&lt;/h1&gt;&lt;p&gt;**数据库索引是为了提高查询速度而对表字段附加的一种标识。**简单来说，索引其实是一种数据结构。在数据库中，索引也允许数据库程序迅速地找到表中的数据，而不必扫描整个数据库。（默认扫描整表）&lt;/p&gt;
+&lt;h2 id=&#34;适合索引的场景&#34;&gt;适合索引的场景：
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;经常在where条件中作为查询条件的字段可以建立索引；&lt;/li&gt;
+&lt;li&gt;外键关联列可以建立索引；&lt;/li&gt;
+&lt;li&gt;order by排序后面的字段可以建立索引；&lt;/li&gt;
+&lt;li&gt;group by分组后的字段可以建立索引；&lt;/li&gt;
+&lt;li&gt;区分度高的场景  （i.e., 索引的选择性是指索引列中不同值的数目和表的记录数的比值。假如表里面有1000条数据，表索引列有980个不同的值，这时候索引的选择性就是980/1000=0.98 。索引的选择性越接近1，这个索引的效率很高。反之可能会导致多次回表）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;不太适合建立索引&#34;&gt;不太适合建立索引：
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;经常增、删、改的字段不适合建立索引，每次执行，索引需重新建立；&lt;/li&gt;
+&lt;li&gt;数据过滤性很差的字段不适合建立索引，如性别字段；&lt;/li&gt;
+&lt;li&gt;当表数据量过少的时候不太适合建立索引，因为索引占用存储空间；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;关于各种类型索引的很好文章&#34;&gt;关于各种类型索引的很好文章：
+&lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://mp.weixin.qq.com/s/8qemhRg5MgXs1So5YCv0fQ&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://mp.weixin.qq.com/s/8qemhRg5MgXs1So5YCv0fQ&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;二红黑树b树和b树&#34;&gt;二、红黑树、B树和B+树
+&lt;/h1&gt;&lt;h2 id=&#34;红黑树&#34;&gt;红黑树
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;每个节点非红即黑；根节点总是黑色的；&lt;/li&gt;
+&lt;li&gt;每个叶子节点都是黑色的空节点（NIL 节点）；&lt;/li&gt;
+&lt;li&gt;如果节点是红色的，则它的子节点必须是黑色的（反之不一定）；&lt;/li&gt;
+&lt;li&gt;从任意节点到它的叶子节点或空子节点的每条路径，必须包含相同数目的黑色节点（即相同的黑色高度）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;b树&#34;&gt;B树
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;每个结点最多有m-1个关键字。&lt;/li&gt;
+&lt;li&gt;根结点最少可以只有1个关键字。&lt;/li&gt;
+&lt;li&gt;非根结点至少有Math.ceil(m/2)-1个关键字。&lt;/li&gt;
+&lt;li&gt;每个结点中的关键字都按照从小到大的顺序排列，每个关键字的左子树中的所有关键字都小于它，而右子树中的所有关键字都大于它。&lt;/li&gt;
+&lt;li&gt;所有叶子结点都位于同一层，或者说根结点到每个叶子结点的长度都相同。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;b树-1&#34;&gt;B+树
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;B树基础上：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;B+树包含2种类型的结点：&lt;strong&gt;内部结点（也称索引结点）&lt;strong&gt;和&lt;/strong&gt;叶子结点&lt;/strong&gt;。根结点本身即可以是内部结点，也可以是叶子结点。根结点的关键字个数最少可以只有1个。&lt;/li&gt;
+&lt;li&gt;B+树与B树最大的不同是内部结点不保存数据，只用于索引，所有数据（或者说记录）都保存在叶子结点中。&lt;/li&gt;
+&lt;li&gt;每个叶子结点都存有相邻叶子结点的指针，叶子结点本身依关键字的大小自小而大顺序链接&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;为什么mysql使用b树而不是红黑树b树&#34;&gt;为什么MySQL使用B+树而不是红黑树/B树
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;更少的IO次数：&lt;/strong&gt; B+树的非叶节点只包含键，而不包含真实数据，因此每个节点存储的记录个数比B数多很多（即阶m更大），因此B+树的高度更低，访问时所需要的IO次数更少。此外，由于每个节点存储的记录数更多，所以对访问局部性原理的利用更好，缓存命中率更高。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;更适于范围查询：&lt;/strong&gt; 在B树中进行范围查询时，首先找到要查找的下限，然后对B树进行中序遍历，直到找到查找的上限；而B+树的范围查询，只需要对链表进行遍历即可。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;更稳定的查询效率：&lt;/strong&gt; B树的查询时间复杂度在1到树高之间(分别对应记录在根节点和叶节点)，而B+树的查询复杂度则稳定为树高，因为所有数据都在叶节点。&lt;/li&gt;
+&lt;li&gt;**红黑树：**通过舍弃严格的平衡和引入红黑节点，解决了AVL旋转效率过低的问题，但是在磁盘等场景下，树仍然太高，IO次数太多；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;references&#34;&gt;References
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/Mind_programmonkey/article/details/114693502&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.csdn.net/Mind_programmonkey/article/details/114693502&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/a519640026/article/details/106940115&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.csdn.net/a519640026/article/details/106940115&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

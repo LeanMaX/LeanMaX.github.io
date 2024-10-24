@@ -2,153 +2,161 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Tags on Lean Max</title>
-        <link>https://leanmax.github.io/tags/</link>
+        <link>http://localhost:1313/tags/</link>
         <description>Recent content in Tags on Lean Max</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Lean Max</copyright>
-        <lastBuildDate>Wed, 23 Oct 2024 14:57:38 +0800</lastBuildDate><atom:link href="https://leanmax.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 24 Oct 2024 00:20:10 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>MySQL</title>
+        <link>http://localhost:1313/tags/mysql/</link>
+        <pubDate>Thu, 24 Oct 2024 00:20:10 +0800</pubDate>
+        
+        <guid>http://localhost:1313/tags/mysql/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Buffer</title>
-        <link>https://leanmax.github.io/tags/buffer/</link>
+        <link>http://localhost:1313/tags/buffer/</link>
         <pubDate>Wed, 23 Oct 2024 14:57:38 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/buffer/</guid>
+        <guid>http://localhost:1313/tags/buffer/</guid>
         <description></description>
         </item>
         <item>
         <title>Cache</title>
-        <link>https://leanmax.github.io/tags/cache/</link>
+        <link>http://localhost:1313/tags/cache/</link>
         <pubDate>Wed, 23 Oct 2024 14:57:38 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/cache/</guid>
+        <guid>http://localhost:1313/tags/cache/</guid>
         <description></description>
         </item>
         <item>
         <title>缓冲</title>
-        <link>https://leanmax.github.io/tags/%E7%BC%93%E5%86%B2/</link>
+        <link>http://localhost:1313/tags/%E7%BC%93%E5%86%B2/</link>
         <pubDate>Wed, 23 Oct 2024 14:57:38 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/%E7%BC%93%E5%86%B2/</guid>
+        <guid>http://localhost:1313/tags/%E7%BC%93%E5%86%B2/</guid>
         <description></description>
         </item>
         <item>
         <title>缓存</title>
-        <link>https://leanmax.github.io/tags/%E7%BC%93%E5%AD%98/</link>
+        <link>http://localhost:1313/tags/%E7%BC%93%E5%AD%98/</link>
         <pubDate>Wed, 23 Oct 2024 14:57:38 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/%E7%BC%93%E5%AD%98/</guid>
+        <guid>http://localhost:1313/tags/%E7%BC%93%E5%AD%98/</guid>
         <description></description>
         </item>
         <item>
         <title>面试</title>
-        <link>https://leanmax.github.io/tags/%E9%9D%A2%E8%AF%95/</link>
+        <link>http://localhost:1313/tags/%E9%9D%A2%E8%AF%95/</link>
         <pubDate>Wed, 23 Oct 2024 14:57:38 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/%E9%9D%A2%E8%AF%95/</guid>
+        <guid>http://localhost:1313/tags/%E9%9D%A2%E8%AF%95/</guid>
         <description></description>
         </item>
         <item>
         <title>Django</title>
-        <link>https://leanmax.github.io/tags/django/</link>
+        <link>http://localhost:1313/tags/django/</link>
         <pubDate>Wed, 16 Oct 2024 14:19:56 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/django/</guid>
+        <guid>http://localhost:1313/tags/django/</guid>
         <description></description>
         </item>
         <item>
         <title>代理</title>
-        <link>https://leanmax.github.io/tags/%E4%BB%A3%E7%90%86/</link>
+        <link>http://localhost:1313/tags/%E4%BB%A3%E7%90%86/</link>
         <pubDate>Wed, 16 Oct 2024 14:19:56 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/%E4%BB%A3%E7%90%86/</guid>
+        <guid>http://localhost:1313/tags/%E4%BB%A3%E7%90%86/</guid>
         <description></description>
         </item>
         <item>
         <title>协程</title>
-        <link>https://leanmax.github.io/tags/%E5%8D%8F%E7%A8%8B/</link>
+        <link>http://localhost:1313/tags/%E5%8D%8F%E7%A8%8B/</link>
         <pubDate>Wed, 16 Oct 2024 14:19:56 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/%E5%8D%8F%E7%A8%8B/</guid>
+        <guid>http://localhost:1313/tags/%E5%8D%8F%E7%A8%8B/</guid>
         <description></description>
         </item>
         <item>
         <title>线程</title>
-        <link>https://leanmax.github.io/tags/%E7%BA%BF%E7%A8%8B/</link>
+        <link>http://localhost:1313/tags/%E7%BA%BF%E7%A8%8B/</link>
         <pubDate>Wed, 16 Oct 2024 14:19:56 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/%E7%BA%BF%E7%A8%8B/</guid>
+        <guid>http://localhost:1313/tags/%E7%BA%BF%E7%A8%8B/</guid>
         <description></description>
         </item>
         <item>
         <title>跨域</title>
-        <link>https://leanmax.github.io/tags/%E8%B7%A8%E5%9F%9F/</link>
+        <link>http://localhost:1313/tags/%E8%B7%A8%E5%9F%9F/</link>
         <pubDate>Wed, 16 Oct 2024 14:19:56 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/%E8%B7%A8%E5%9F%9F/</guid>
+        <guid>http://localhost:1313/tags/%E8%B7%A8%E5%9F%9F/</guid>
         <description></description>
         </item>
         <item>
         <title>进程</title>
-        <link>https://leanmax.github.io/tags/%E8%BF%9B%E7%A8%8B/</link>
+        <link>http://localhost:1313/tags/%E8%BF%9B%E7%A8%8B/</link>
         <pubDate>Wed, 16 Oct 2024 14:19:56 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/%E8%BF%9B%E7%A8%8B/</guid>
+        <guid>http://localhost:1313/tags/%E8%BF%9B%E7%A8%8B/</guid>
         <description></description>
         </item>
         <item>
         <title>API</title>
-        <link>https://leanmax.github.io/tags/api/</link>
+        <link>http://localhost:1313/tags/api/</link>
         <pubDate>Wed, 16 Oct 2024 10:36:20 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/api/</guid>
+        <guid>http://localhost:1313/tags/api/</guid>
         <description></description>
         </item>
         <item>
         <title>RESTful</title>
-        <link>https://leanmax.github.io/tags/restful/</link>
+        <link>http://localhost:1313/tags/restful/</link>
         <pubDate>Wed, 16 Oct 2024 10:36:20 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/restful/</guid>
+        <guid>http://localhost:1313/tags/restful/</guid>
         <description></description>
         </item>
         <item>
         <title>Redis</title>
-        <link>https://leanmax.github.io/tags/redis/</link>
+        <link>http://localhost:1313/tags/redis/</link>
         <pubDate>Tue, 15 Oct 2024 17:48:09 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/redis/</guid>
+        <guid>http://localhost:1313/tags/redis/</guid>
         <description></description>
         </item>
         <item>
         <title>ORM</title>
-        <link>https://leanmax.github.io/tags/orm/</link>
+        <link>http://localhost:1313/tags/orm/</link>
         <pubDate>Tue, 15 Oct 2024 15:17:09 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/orm/</guid>
+        <guid>http://localhost:1313/tags/orm/</guid>
         <description></description>
         </item>
         <item>
         <title>Csrf</title>
-        <link>https://leanmax.github.io/tags/csrf/</link>
+        <link>http://localhost:1313/tags/csrf/</link>
         <pubDate>Mon, 14 Oct 2024 20:21:44 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/csrf/</guid>
+        <guid>http://localhost:1313/tags/csrf/</guid>
         <description></description>
         </item>
         <item>
         <title>MTV</title>
-        <link>https://leanmax.github.io/tags/mtv/</link>
+        <link>http://localhost:1313/tags/mtv/</link>
         <pubDate>Sun, 13 Oct 2024 21:57:51 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/mtv/</guid>
+        <guid>http://localhost:1313/tags/mtv/</guid>
         <description></description>
         </item>
         <item>
         <title>保研</title>
-        <link>https://leanmax.github.io/tags/%E4%BF%9D%E7%A0%94/</link>
+        <link>http://localhost:1313/tags/%E4%BF%9D%E7%A0%94/</link>
         <pubDate>Sun, 13 Oct 2024 14:29:12 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/tags/%E4%BF%9D%E7%A0%94/</guid>
+        <guid>http://localhost:1313/tags/%E4%BF%9D%E7%A0%94/</guid>
         <description></description>
         </item>
         

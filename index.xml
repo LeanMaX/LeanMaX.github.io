@@ -2,17 +2,81 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Lean Max</title>
-        <link>https://leanmax.github.io/</link>
+        <link>http://localhost:1313/</link>
         <description>Recent content on Lean Max</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Lean Max</copyright>
-        <lastBuildDate>Wed, 23 Oct 2024 14:57:38 +0800</lastBuildDate><atom:link href="https://leanmax.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 24 Oct 2024 00:20:10 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>MySQL面试题</title>
+        <link>http://localhost:1313/p/mysql%E9%9D%A2%E8%AF%95%E9%A2%98/</link>
+        <pubDate>Thu, 24 Oct 2024 00:20:10 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/mysql%E9%9D%A2%E8%AF%95%E9%A2%98/</guid>
+        <description>&lt;h1 id=&#34;一什么是索引&#34;&gt;一、什么是索引
+&lt;/h1&gt;&lt;p&gt;**数据库索引是为了提高查询速度而对表字段附加的一种标识。**简单来说，索引其实是一种数据结构。在数据库中，索引也允许数据库程序迅速地找到表中的数据，而不必扫描整个数据库。（默认扫描整表）&lt;/p&gt;
+&lt;h2 id=&#34;适合索引的场景&#34;&gt;适合索引的场景：
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;经常在where条件中作为查询条件的字段可以建立索引；&lt;/li&gt;
+&lt;li&gt;外键关联列可以建立索引；&lt;/li&gt;
+&lt;li&gt;order by排序后面的字段可以建立索引；&lt;/li&gt;
+&lt;li&gt;group by分组后的字段可以建立索引；&lt;/li&gt;
+&lt;li&gt;区分度高的场景  （i.e., 索引的选择性是指索引列中不同值的数目和表的记录数的比值。假如表里面有1000条数据，表索引列有980个不同的值，这时候索引的选择性就是980/1000=0.98 。索引的选择性越接近1，这个索引的效率很高。反之可能会导致多次回表）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;不太适合建立索引&#34;&gt;不太适合建立索引：
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;经常增、删、改的字段不适合建立索引，每次执行，索引需重新建立；&lt;/li&gt;
+&lt;li&gt;数据过滤性很差的字段不适合建立索引，如性别字段；&lt;/li&gt;
+&lt;li&gt;当表数据量过少的时候不太适合建立索引，因为索引占用存储空间；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;关于各种类型索引的很好文章&#34;&gt;关于各种类型索引的很好文章：
+&lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://mp.weixin.qq.com/s/8qemhRg5MgXs1So5YCv0fQ&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://mp.weixin.qq.com/s/8qemhRg5MgXs1So5YCv0fQ&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;二红黑树b树和b树&#34;&gt;二、红黑树、B树和B+树
+&lt;/h1&gt;&lt;h2 id=&#34;红黑树&#34;&gt;红黑树
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;每个节点非红即黑；根节点总是黑色的；&lt;/li&gt;
+&lt;li&gt;每个叶子节点都是黑色的空节点（NIL 节点）；&lt;/li&gt;
+&lt;li&gt;如果节点是红色的，则它的子节点必须是黑色的（反之不一定）；&lt;/li&gt;
+&lt;li&gt;从任意节点到它的叶子节点或空子节点的每条路径，必须包含相同数目的黑色节点（即相同的黑色高度）。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;b树&#34;&gt;B树
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;每个结点最多有m-1个关键字。&lt;/li&gt;
+&lt;li&gt;根结点最少可以只有1个关键字。&lt;/li&gt;
+&lt;li&gt;非根结点至少有Math.ceil(m/2)-1个关键字。&lt;/li&gt;
+&lt;li&gt;每个结点中的关键字都按照从小到大的顺序排列，每个关键字的左子树中的所有关键字都小于它，而右子树中的所有关键字都大于它。&lt;/li&gt;
+&lt;li&gt;所有叶子结点都位于同一层，或者说根结点到每个叶子结点的长度都相同。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;b树-1&#34;&gt;B+树
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;B树基础上：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;B+树包含2种类型的结点：&lt;strong&gt;内部结点（也称索引结点）&lt;strong&gt;和&lt;/strong&gt;叶子结点&lt;/strong&gt;。根结点本身即可以是内部结点，也可以是叶子结点。根结点的关键字个数最少可以只有1个。&lt;/li&gt;
+&lt;li&gt;B+树与B树最大的不同是内部结点不保存数据，只用于索引，所有数据（或者说记录）都保存在叶子结点中。&lt;/li&gt;
+&lt;li&gt;每个叶子结点都存有相邻叶子结点的指针，叶子结点本身依关键字的大小自小而大顺序链接&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;为什么mysql使用b树而不是红黑树b树&#34;&gt;为什么MySQL使用B+树而不是红黑树/B树
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;更少的IO次数：&lt;/strong&gt; B+树的非叶节点只包含键，而不包含真实数据，因此每个节点存储的记录个数比B数多很多（即阶m更大），因此B+树的高度更低，访问时所需要的IO次数更少。此外，由于每个节点存储的记录数更多，所以对访问局部性原理的利用更好，缓存命中率更高。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;更适于范围查询：&lt;/strong&gt; 在B树中进行范围查询时，首先找到要查找的下限，然后对B树进行中序遍历，直到找到查找的上限；而B+树的范围查询，只需要对链表进行遍历即可。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;更稳定的查询效率：&lt;/strong&gt; B树的查询时间复杂度在1到树高之间(分别对应记录在根节点和叶节点)，而B+树的查询复杂度则稳定为树高，因为所有数据都在叶节点。&lt;/li&gt;
+&lt;li&gt;**红黑树：**通过舍弃严格的平衡和引入红黑节点，解决了AVL旋转效率过低的问题，但是在磁盘等场景下，树仍然太高，IO次数太多；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;references&#34;&gt;References
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/Mind_programmonkey/article/details/114693502&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.csdn.net/Mind_programmonkey/article/details/114693502&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://blog.csdn.net/a519640026/article/details/106940115&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://blog.csdn.net/a519640026/article/details/106940115&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>缓存（Cache）和缓冲（Buffer）的区别</title>
-        <link>https://leanmax.github.io/p/%E7%BC%93%E5%AD%98cache%E5%92%8C%E7%BC%93%E5%86%B2buffer%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+        <link>http://localhost:1313/p/%E7%BC%93%E5%AD%98cache%E5%92%8C%E7%BC%93%E5%86%B2buffer%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
         <pubDate>Wed, 23 Oct 2024 14:57:38 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/p/%E7%BC%93%E5%AD%98cache%E5%92%8C%E7%BC%93%E5%86%B2buffer%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+        <guid>http://localhost:1313/p/%E7%BC%93%E5%AD%98cache%E5%92%8C%E7%BC%93%E5%86%B2buffer%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
         <description>&lt;ol&gt;
 &lt;li&gt;Buffer（缓冲区）：系统两端处理速度平衡（从长时间尺度上看）时使用的。它的引入是为了减小短期内突发I/O的影响，起到&lt;strong&gt;流量整形&lt;/strong&gt;的作用。比如生产者——消费者问题，他们产生和消耗资源的速度大体接近，加一个buffer可以抵消掉资源刚产生/消耗时的突然变化。&lt;/li&gt;
 &lt;li&gt;Cache（缓存）：系统两端处理速度不匹配时的一种折衷策略。因为CPU和memory之间的速度差异越来越大，所以人们充分利用数据的局部性（locality）特征，通过使用存储系统分级（memory hierarchy）的策略来减小这种差异带来的影响。(浏览器预加载就是先将一部分资源存储在Cache中)&lt;/li&gt;
@@ -21,10 +85,10 @@
         </item>
         <item>
         <title>Django面试题（六）</title>
-        <link>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%85%AD/</link>
+        <link>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%85%AD/</link>
         <pubDate>Wed, 16 Oct 2024 14:19:56 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%85%AD/</guid>
+        <guid>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%85%AD/</guid>
         <description>&lt;h1 id=&#34;一简述django-中哪里用到了线程哪里用到了协程哪里用到了进程&#34;&gt;&lt;strong&gt;一、简述Django 中哪里用到了线程？哪里用到了协程？哪里用到了进程？&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;Django 是一个基于 Python 的高级 Web 框架，它本身并不直接处理线程、协程或进程的创建和管理，而是依赖于其运行的环境（如 Web 服务器、数据库等）以及可能的第三方库来处理并发和并行。然而，在 Django 的不同部分和与其相关的生态系统中，你可能会遇到这些概念。&lt;/p&gt;
 &lt;h2 id=&#34;1-线程threads&#34;&gt;1. 线程（Threads）
@@ -339,10 +403,10 @@
         </item>
         <item>
         <title>Django面试题（五）</title>
-        <link>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%94/</link>
+        <link>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%94/</link>
         <pubDate>Wed, 16 Oct 2024 10:36:20 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%94/</guid>
+        <guid>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%94/</guid>
         <description>&lt;h1 id=&#34;一django的contenttype组件的作用&#34;&gt;&lt;strong&gt;一、django的ContentType组件的作用？&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;Django 的 &lt;code&gt;ContentType&lt;/code&gt; 组件是一个强大的工具，它提供了一种通用的方法来处理与模型相关的权限和关系。&lt;code&gt;ContentType&lt;/code&gt; 是 Django 内置的应用程序，允许你以一种统一的方式处理与不同模型的交互。&lt;/p&gt;
 &lt;h2 id=&#34;主要作用&#34;&gt;主要作用
@@ -957,10 +1021,10 @@ Django REST Framework 的认证流程通过提取请求中的凭据、验证这�
         </item>
         <item>
         <title>Django面试题（四）</title>
-        <link>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/</link>
+        <link>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/</link>
         <pubDate>Tue, 15 Oct 2024 17:48:09 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/</guid>
+        <guid>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%9B%9B/</guid>
         <description>&lt;h1 id=&#34;一django内置的缓存机制&#34;&gt;&lt;strong&gt;一、django内置的缓存机制？&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;Django 提供了一个内置的缓存框架，可以通过多种方式缓存页面、视图、查询结果或其他数据，以提高性能和减少数据库访问。Django 的缓存机制非常灵活，支持多种缓存后端，如内存、文件系统、数据库等。下面是 Django 内置缓存机制的主要部分：&lt;/p&gt;
 &lt;h2 id=&#34;1-缓存后端&#34;&gt;1. 缓存后端
@@ -1805,10 +1869,10 @@ Django REST Framework 的认证流程通过提取请求中的凭据、验证这�
         </item>
         <item>
         <title>Django面试题（三）</title>
-        <link>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/</link>
+        <link>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/</link>
         <pubDate>Tue, 15 Oct 2024 15:17:09 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/</guid>
+        <guid>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/</guid>
         <description>&lt;h1 id=&#34;一django的form和modeform的作用&#34;&gt;&lt;strong&gt;一、django的Form和ModeForm的作用？&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;Django的Form和ModelForm是框架中非常重要的两个组件，主要用于处理表单数据和数据模型。以下是它们的具体作用：&lt;/p&gt;
 &lt;h2 id=&#34;1-django-form&#34;&gt;1. Django Form：
@@ -2782,10 +2846,10 @@ Django REST Framework 的认证流程通过提取请求中的凭据、验证这�
         </item>
         <item>
         <title>Django面试题（二）</title>
-        <link>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/</link>
+        <link>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/</link>
         <pubDate>Mon, 14 Oct 2024 20:21:44 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/</guid>
+        <guid>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%8C/</guid>
         <description>&lt;h1 id=&#34;一django的request对象是在什么时候创建的&#34;&gt;&lt;strong&gt;一、django的request对象是在什么时候创建的？&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;当请求一个页面时, Django会建立一个包含请求元数据的HttpRequest对象。&lt;br&gt;
 当Django加载对应的视图时, HttpRequest对象将作为视图函数的第一个参数，另外每个视图会返回一个HttpResponse对象。&lt;/p&gt;
@@ -3889,10 +3953,10 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
         </item>
         <item>
         <title>Django面试题（一）</title>
-        <link>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%80/</link>
+        <link>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%80/</link>
         <pubDate>Sun, 13 Oct 2024 21:57:51 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%80/</guid>
+        <guid>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%80/</guid>
         <description>&lt;h1 id=&#34;一对django的认识&#34;&gt;&lt;strong&gt;一、对Django的认识&lt;/strong&gt;
 &lt;/h1&gt;&lt;ul&gt;
 &lt;li&gt;Django是走大而全的方向，它最出名的是其全自动化的管理后台：只需要使用其ORM，做简单的对象定义，它就能自动生成数据库结构、以及全功能的管理后台。&lt;/li&gt;
@@ -4398,10 +4462,10 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
         </item>
         <item>
         <title>保研回忆录</title>
-        <link>https://leanmax.github.io/p/%E4%BF%9D%E7%A0%94%E5%9B%9E%E5%BF%86%E5%BD%95/</link>
+        <link>http://localhost:1313/p/%E4%BF%9D%E7%A0%94%E5%9B%9E%E5%BF%86%E5%BD%95/</link>
         <pubDate>Sun, 13 Oct 2024 14:29:12 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/p/%E4%BF%9D%E7%A0%94%E5%9B%9E%E5%BF%86%E5%BD%95/</guid>
+        <guid>http://localhost:1313/p/%E4%BF%9D%E7%A0%94%E5%9B%9E%E5%BF%86%E5%BD%95/</guid>
         <description>&lt;h1 id=&#34;宇宙级免责声明&#34;&gt;宇宙级免责声明
 &lt;/h1&gt;&lt;p&gt;&lt;strong&gt;本人无意泄露各高校试题，严格遵守任何保密协议，如有不妥随时私信，本人将立刻删除相关内容。本文章的所有内容都仅代表本人观点，如有不同观点，欢迎友善交流~&lt;/strong&gt;&lt;br&gt;&lt;/p&gt;
 &lt;h1 id=&#34;写在前面&#34;&gt;写在前面
@@ -4703,38 +4767,38 @@ CAD&amp;CG是在紫金港，是真的又大又好看（别人家的学校），�
         </item>
         <item>
         <title>About</title>
-        <link>https://leanmax.github.io/about/</link>
+        <link>http://localhost:1313/about/</link>
         <pubDate>Sat, 12 Oct 2024 00:00:00 +0000</pubDate>
         
-        <guid>https://leanmax.github.io/about/</guid>
+        <guid>http://localhost:1313/about/</guid>
         <description>&lt;p&gt;About My Custom
 Footer:&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>My First Post</title>
-        <link>https://leanmax.github.io/p/my-first-post/</link>
+        <link>http://localhost:1313/p/my-first-post/</link>
         <pubDate>Fri, 11 Oct 2024 21:03:48 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/p/my-first-post/</guid>
+        <guid>http://localhost:1313/p/my-first-post/</guid>
         <description>&lt;h1 id=&#34;my-first-blog&#34;&gt;My First Blog
 &lt;/h1&gt;&lt;p&gt;Just memory my first blog. Nothing else~&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>Archives</title>
-        <link>https://leanmax.github.io/archives/</link>
+        <link>http://localhost:1313/archives/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://leanmax.github.io/archives/</guid>
+        <guid>http://localhost:1313/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>Links</title>
-        <link>https://leanmax.github.io/links/</link>
+        <link>http://localhost:1313/links/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://leanmax.github.io/links/</guid>
+        <guid>http://localhost:1313/links/</guid>
         <description>&lt;p&gt;To use this feature, add &lt;code&gt;links&lt;/code&gt; section to frontmatter.&lt;/p&gt;
 &lt;p&gt;This page&amp;rsquo;s frontmatter:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
@@ -4766,10 +4830,10 @@ Footer:&lt;/p&gt;
         </item>
         <item>
         <title>Search</title>
-        <link>https://leanmax.github.io/search/</link>
+        <link>http://localhost:1313/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://leanmax.github.io/search/</guid>
+        <guid>http://localhost:1313/search/</guid>
         <description></description>
         </item>
         

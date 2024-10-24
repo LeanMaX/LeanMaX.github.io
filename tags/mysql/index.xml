@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>MySQL on Lean Max</title>
+        <link>http://localhost:1313/tags/mysql/</link>
+        <description>Recent content in MySQL on Lean Max</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Lean Max</copyright>
+        <lastBuildDate>Thu, 24 Oct 2024 00:20:10 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/mysql/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>MySQL面试题</title>
+        <link>http://localhost:1313/p/mysql%E9%9D%A2%E8%AF%95%E9%A2%98/</link>
+        <pubDate>Thu, 24 Oct 2024 00:20:10 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/mysql%E9%9D%A2%E8%AF%95%E9%A2%98/</guid>
+        <description>&lt;h1 id=&#34;一什么是索引&#34;&gt;一、什么是索引
+&lt;/h1&gt;&lt;p&gt;**数据库索引是为了提高查询速度而对表字段附加的一种标识。**简单来说，索引其实是一种数据结构。在数据库中，索引也允许数据库程序迅速地找到表中的数据，而不必扫描整个数据库。（默认扫描整表）&lt;/p&gt;
+&lt;h2 id=&#34;适合索引的场景&#34;&gt;适合索引的场景：
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;经常在where条件中作为查询条件的字段可以建立索引；&lt;/li&gt;
+&lt;li&gt;外键关联列可以建立索引；&lt;/li&gt;
+&lt;li&gt;order by排序后面的字段可以建立索引；&lt;/li&gt;
+&lt;li&gt;group by分组后的字段可以建立索引；&lt;/li&gt;
+&lt;li&gt;区分度高的场景（i.e., 索引的选择性是指索引列中不同值的数目和表的记录数的比值。假如表里面有1000条数据，表索引列有980个不同的值，这时候索引的选择性就是980/1000=0.98 。索引的选择性越接近1，这个索引的效率很高。反之可能会导致多次回表）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;不太适合建立索引&#34;&gt;不太适合建立索引：
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;经常增、删、改的字段不适合建立索引，每次执行，索引需重新建立；&lt;/li&gt;
+&lt;li&gt;数据过滤性很差的字段不适合建立索引，如性别字段；&lt;/li&gt;
+&lt;li&gt;当表数据量过少的时候不太适合建立索引，因为索引占用存储空间；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;关于各种类型索引的很好文章&#34;&gt;关于各种类型索引的很好文章：
+&lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://mp.weixin.qq.com/s/8qemhRg5MgXs1So5YCv0fQ&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://mp.weixin.qq.com/s/8qemhRg5MgXs1So5YCv0fQ&lt;/a&gt;&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

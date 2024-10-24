@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>协程 on Lean Max</title>
-        <link>https://leanmax.github.io/tags/%E5%8D%8F%E7%A8%8B/</link>
+        <link>http://localhost:1313/tags/%E5%8D%8F%E7%A8%8B/</link>
         <description>Recent content in 协程 on Lean Max</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Lean Max</copyright>
-        <lastBuildDate>Wed, 16 Oct 2024 14:19:56 +0800</lastBuildDate><atom:link href="https://leanmax.github.io/tags/%E5%8D%8F%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 16 Oct 2024 14:19:56 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%E5%8D%8F%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Django面试题（六）</title>
-        <link>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%85%AD/</link>
+        <link>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%85%AD/</link>
         <pubDate>Wed, 16 Oct 2024 14:19:56 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%85%AD/</guid>
+        <guid>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E5%85%AD/</guid>
         <description>&lt;h1 id=&#34;一简述django-中哪里用到了线程哪里用到了协程哪里用到了进程&#34;&gt;&lt;strong&gt;一、简述Django 中哪里用到了线程？哪里用到了协程？哪里用到了进程？&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;Django 是一个基于 Python 的高级 Web 框架，它本身并不直接处理线程、协程或进程的创建和管理，而是依赖于其运行的环境（如 Web 服务器、数据库等）以及可能的第三方库来处理并发和并行。然而，在 Django 的不同部分和与其相关的生态系统中，你可能会遇到这些概念。&lt;/p&gt;
 &lt;h2 id=&#34;1-线程threads&#34;&gt;1. 线程（Threads）

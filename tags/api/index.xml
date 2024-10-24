@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>API on Lean Max</title>
-        <link>https://leanmax.github.io/tags/api/</link>
+        <link>http://localhost:1313/tags/api/</link>
         <description>Recent content in API on Lean Max</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Lean Max</copyright>
-        <lastBuildDate>Wed, 16 Oct 2024 10:36:20 +0800</lastBuildDate><atom:link href="https://leanmax.github.io/tags/api/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 16 Oct 2024 10:36:20 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/api/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Django面试题（五）</title>
-        <link>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%94/</link>
+        <link>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%94/</link>
         <pubDate>Wed, 16 Oct 2024 10:36:20 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%94/</guid>
+        <guid>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%BA%94/</guid>
         <description>&lt;h1 id=&#34;一django的contenttype组件的作用&#34;&gt;&lt;strong&gt;一、django的ContentType组件的作用？&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;Django 的 &lt;code&gt;ContentType&lt;/code&gt; 组件是一个强大的工具，它提供了一种通用的方法来处理与模型相关的权限和关系。&lt;code&gt;ContentType&lt;/code&gt; 是 Django 内置的应用程序，允许你以一种统一的方式处理与不同模型的交互。&lt;/p&gt;
 &lt;h2 id=&#34;主要作用&#34;&gt;主要作用

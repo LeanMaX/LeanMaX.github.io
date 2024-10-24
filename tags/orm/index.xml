@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>ORM on Lean Max</title>
-        <link>https://leanmax.github.io/tags/orm/</link>
+        <link>http://localhost:1313/tags/orm/</link>
         <description>Recent content in ORM on Lean Max</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Lean Max</copyright>
-        <lastBuildDate>Tue, 15 Oct 2024 15:17:09 +0800</lastBuildDate><atom:link href="https://leanmax.github.io/tags/orm/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 15 Oct 2024 15:17:09 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/orm/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Django面试题（三）</title>
-        <link>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/</link>
+        <link>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/</link>
         <pubDate>Tue, 15 Oct 2024 15:17:09 +0800</pubDate>
         
-        <guid>https://leanmax.github.io/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/</guid>
+        <guid>http://localhost:1313/p/django%E9%9D%A2%E8%AF%95%E9%A2%98%E4%B8%89/</guid>
         <description>&lt;h1 id=&#34;一django的form和modeform的作用&#34;&gt;&lt;strong&gt;一、django的Form和ModeForm的作用？&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;Django的Form和ModelForm是框架中非常重要的两个组件，主要用于处理表单数据和数据模型。以下是它们的具体作用：&lt;/p&gt;
 &lt;h2 id=&#34;1-django-form&#34;&gt;1. Django Form：
