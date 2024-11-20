@@ -4199,7 +4199,7 @@ CBV（class base views）： 基于类的视图，就是在视图里使用类处
 &lt;/div&gt;&lt;h1 id=&#34;十列举django的内置组件&#34;&gt;&lt;strong&gt;十、列举django的内置组件？&lt;/strong&gt;
 &lt;/h1&gt;&lt;p&gt;Django 是一个功能强大的全栈框架，提供了大量内置组件，帮助开发者快速构建和维护Web应用。这些内置组件涵盖了从数据管理、用户身份认证到安全性、性能优化等方面的需求。&lt;/p&gt;
 &lt;p&gt;以下是 Django 的一些重要内置组件：&lt;/p&gt;
-&lt;h2 id=&#34;1-模型model&#34;&gt;1. 模型（Model）**
+&lt;h2 id=&#34;1-模型model&#34;&gt;1. 模型（Model）
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;&lt;strong&gt;ORM（Object-Relational Mapping）&lt;/strong&gt;：Django 提供了内置的 ORM 系统，帮助开发者通过 Python 类定义数据库表结构，而不需要直接写 SQL。常用组件包括：
 &lt;ul&gt;

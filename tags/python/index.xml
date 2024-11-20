@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Python on Lean Max</title>
+        <link>http://localhost:1313/tags/python/</link>
+        <description>Recent content in Python on Lean Max</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Lean Max</copyright>
+        <lastBuildDate>Tue, 19 Nov 2024 21:31:10 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Python内存管理</title>
+        <link>http://localhost:1313/p/python%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</link>
+        <pubDate>Tue, 19 Nov 2024 21:31:10 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/python%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</guid>
+        <description>&lt;h1 id=&#34;python的内存池机制&#34;&gt;Python的内存池机制
+&lt;/h1&gt;&lt;p&gt;Python中有分为大内存和小内存：（256K为界限分大小内存）
+1、大内存使用malloc进行分配
+2、小内存使用内存池进行分配
+3、Python的内存池(金字塔)
+　　第3层：最上层，用户对Python对象的直接操作
+　　第1层和第2层：内存池，有Python的接口函数PyMem_Malloc实现&amp;mdash;&amp;ndash;若请求分配的内存在1~256字节之间就使用内存池管理系统进行分配，调用malloc函数分配内存，但是每次只会分配一块大小为256K的大块内存，不会调用free函数释放内存，将该内存块留在内存池中以便下次使用。
+　　第0层：大内存&amp;mdash;&amp;ndash;若请求分配的内存大于256K，malloc函数分配内存，free函数释放内存。
+　　第-1，-2层：操作系统进行操作&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
