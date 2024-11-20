@@ -14,14 +14,40 @@
         
         <guid>http://localhost:1313/p/python%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</guid>
         <description>&lt;h1 id=&#34;python的内存池机制&#34;&gt;Python的内存池机制
-&lt;/h1&gt;&lt;p&gt;Python中有分为大内存和小内存：（256K为界限分大小内存）
-1、大内存使用malloc进行分配
-2、小内存使用内存池进行分配
-3、Python的内存池(金字塔)
-　　第3层：最上层，用户对Python对象的直接操作
-　　第1层和第2层：内存池，有Python的接口函数PyMem_Malloc实现&amp;mdash;&amp;ndash;若请求分配的内存在1~256字节之间就使用内存池管理系统进行分配，调用malloc函数分配内存，但是每次只会分配一块大小为256K的大块内存，不会调用free函数释放内存，将该内存块留在内存池中以便下次使用。
-　　第0层：大内存&amp;mdash;&amp;ndash;若请求分配的内存大于256K，malloc函数分配内存，free函数释放内存。
-　　第-1，-2层：操作系统进行操作&lt;/p&gt;
+&lt;/h1&gt;&lt;h2 id=&#34;为什么要引入内存池&#34;&gt;为什么要引入内存池
+&lt;/h2&gt;&lt;p&gt;当创建大量消耗小内存的对象时，频繁调用new/malloc会导致大量的内存碎片，致使效率降低。内存池的作用就是预先在内存中申请一定数量的，大小相等的内存块留作备用，当有新的内存需求时，就先从内存池中分配内存给这个需求，不够之后再申请新的内存。这样做最显著的优势就是能够减少内存碎片，提升效率。&lt;/p&gt;
+&lt;h2 id=&#34;工作原理&#34;&gt;工作原理
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/python%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/image.png&#34;
+	width=&#34;1686&#34;
+	height=&#34;1408&#34;
+	srcset=&#34;http://localhost:1313/p/python%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/image_hu316941598588942303.png 480w, http://localhost:1313/p/python%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/image_hu9329858548873378381.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;119&#34;
+		data-flex-basis=&#34;287px&#34;
+	
+&gt;&lt;br&gt;
+Python中有分为&lt;strong&gt;大内存&lt;/strong&gt;和&lt;strong&gt;小内存&lt;/strong&gt;：&lt;strong&gt;（256K为界限分大小内存）&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;1、大内存使用malloc进行分配&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;2、小内存使用内存池进行分配&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;3、Python的内存池(金字塔)&lt;/strong&gt;&lt;br&gt;
+  &lt;em&gt;&lt;strong&gt;第3层：&lt;/strong&gt;&lt;/em&gt; 最上层，对于python内置的对象（比如int,dict等）都有独立的私有内存池，对象之间的内存池不共享，即int释放的内存，不会被分配给float使用&lt;br&gt;
+  &lt;em&gt;&lt;strong&gt;第2层：&lt;/strong&gt;&lt;/em&gt; 当申请的内存大小小于256KB时，内存分配主要由 Python 对象分配器（Python’s object allocator）实施&lt;br&gt;
+  &lt;em&gt;&lt;strong&gt;第1层：&lt;/strong&gt;&lt;/em&gt; 当申请的内存大小大于256KB时，由Python原生的内存分配器进行分配，本质上是调用C标准库中的malloc/realloc等函数&lt;br&gt;
+  &lt;em&gt;&lt;strong&gt;第0层：&lt;/strong&gt;&lt;/em&gt; 大内存&amp;mdash;&amp;ndash;若请求分配的内存大于256K，malloc函数分配内存，free函数释放内存。&lt;br&gt;
+  &lt;em&gt;&lt;strong&gt;第-1，-2层：&lt;/strong&gt;&lt;/em&gt; 操作系统进行操作&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;关于释放内存方面，当一个对象的引用计数变为0时，Python就会调用它的析构函数。调用析构函数并不意味着最终一定会调用free来释放内存空间，如果真是这样的话，那频繁地申请、释放内存空间会使Python的执行效率大打折扣。因此在析构时也采用了内存池机制，从内存池申请到的内存会被归还到内存池中，以避免频繁地申请和释放动作。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;references&#34;&gt;References
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://juejin.cn/post/6856235545220415496&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://juejin.cn/post/6856235545220415496&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         

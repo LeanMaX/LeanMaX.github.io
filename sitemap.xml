@@ -3,13 +3,19 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2024-11-19T21:31:10+08:00</lastmod>
+    <lastmod>2024-11-20T15:12:16+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/</loc>
-    <lastmod>2024-11-19T21:31:10+08:00</lastmod>
+    <lastmod>2024-11-20T15:12:16+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/post/</loc>
-    <lastmod>2024-11-19T21:31:10+08:00</lastmod>
+    <lastmod>2024-11-20T15:12:16+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/%E5%A4%9A%E6%80%81/</loc>
+    <lastmod>2024-11-20T15:12:16+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2024-11-20T15:12:16+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/python/</loc>
     <lastmod>2024-11-19T21:31:10+08:00</lastmod>
@@ -18,9 +24,6 @@
     <lastmod>2024-11-19T21:31:10+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2024-11-19T21:31:10+08:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/categories/%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2024-11-19T21:31:10+08:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/p/%E9%A3%9E%E4%B9%A6%E5%90%8E%E7%AB%AF%E4%B8%80%E9%9D%A2/</loc>

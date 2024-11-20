@@ -7,21 +7,57 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Lean Max</copyright>
-        <lastBuildDate>Tue, 19 Nov 2024 21:31:10 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 20 Nov 2024 15:12:16 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>多态</title>
+        <link>http://localhost:1313/p/%E5%A4%9A%E6%80%81/</link>
+        <pubDate>Wed, 20 Nov 2024 15:12:16 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/%E5%A4%9A%E6%80%81/</guid>
+        <description>&lt;h1 id=&#34;多态的定义&#34;&gt;多态的定义
+&lt;/h1&gt;&lt;p&gt;“多态（英语：polymorphism），是指计算机程序运行时，相同的消息可能会送给多个不同的类别之对象，而系统可依据对象所属类别，引发对应类别的方法，而有不同的行为。简单来说，所谓多态意指相同的消息给予不同的对象会引发不同的动作称之。”其实更简单地来说，就是“在用父类指针调用函数时，实际调用的是指针指向的实际类型（子类）的成员函数”。多态性使得程序调用的函数是在运行时动态确定的，而不是在编译时静态确定的。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Python内存管理</title>
         <link>http://localhost:1313/p/python%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</link>
         <pubDate>Tue, 19 Nov 2024 21:31:10 +0800</pubDate>
         
         <guid>http://localhost:1313/p/python%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</guid>
         <description>&lt;h1 id=&#34;python的内存池机制&#34;&gt;Python的内存池机制
-&lt;/h1&gt;&lt;p&gt;Python中有分为大内存和小内存：（256K为界限分大小内存）
-1、大内存使用malloc进行分配
-2、小内存使用内存池进行分配
-3、Python的内存池(金字塔)
-　　第3层：最上层，用户对Python对象的直接操作
-　　第1层和第2层：内存池，有Python的接口函数PyMem_Malloc实现&amp;mdash;&amp;ndash;若请求分配的内存在1~256字节之间就使用内存池管理系统进行分配，调用malloc函数分配内存，但是每次只会分配一块大小为256K的大块内存，不会调用free函数释放内存，将该内存块留在内存池中以便下次使用。
-　　第0层：大内存&amp;mdash;&amp;ndash;若请求分配的内存大于256K，malloc函数分配内存，free函数释放内存。
-　　第-1，-2层：操作系统进行操作&lt;/p&gt;
+&lt;/h1&gt;&lt;h2 id=&#34;为什么要引入内存池&#34;&gt;为什么要引入内存池
+&lt;/h2&gt;&lt;p&gt;当创建大量消耗小内存的对象时，频繁调用new/malloc会导致大量的内存碎片，致使效率降低。内存池的作用就是预先在内存中申请一定数量的，大小相等的内存块留作备用，当有新的内存需求时，就先从内存池中分配内存给这个需求，不够之后再申请新的内存。这样做最显著的优势就是能够减少内存碎片，提升效率。&lt;/p&gt;
+&lt;h2 id=&#34;工作原理&#34;&gt;工作原理
+&lt;/h2&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/python%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/image.png&#34;
+	width=&#34;1686&#34;
+	height=&#34;1408&#34;
+	srcset=&#34;http://localhost:1313/p/python%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/image_hu316941598588942303.png 480w, http://localhost:1313/p/python%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/image_hu9329858548873378381.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;119&#34;
+		data-flex-basis=&#34;287px&#34;
+	
+&gt;&lt;br&gt;
+Python中有分为&lt;strong&gt;大内存&lt;/strong&gt;和&lt;strong&gt;小内存&lt;/strong&gt;：&lt;strong&gt;（256K为界限分大小内存）&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;1、大内存使用malloc进行分配&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;2、小内存使用内存池进行分配&lt;/strong&gt;&lt;br&gt;
+&lt;strong&gt;3、Python的内存池(金字塔)&lt;/strong&gt;&lt;br&gt;
+  &lt;em&gt;&lt;strong&gt;第3层：&lt;/strong&gt;&lt;/em&gt; 最上层，对于python内置的对象（比如int,dict等）都有独立的私有内存池，对象之间的内存池不共享，即int释放的内存，不会被分配给float使用&lt;br&gt;
+  &lt;em&gt;&lt;strong&gt;第2层：&lt;/strong&gt;&lt;/em&gt; 当申请的内存大小小于256KB时，内存分配主要由 Python 对象分配器（Python’s object allocator）实施&lt;br&gt;
+  &lt;em&gt;&lt;strong&gt;第1层：&lt;/strong&gt;&lt;/em&gt; 当申请的内存大小大于256KB时，由Python原生的内存分配器进行分配，本质上是调用C标准库中的malloc/realloc等函数&lt;br&gt;
+  &lt;em&gt;&lt;strong&gt;第0层：&lt;/strong&gt;&lt;/em&gt; 大内存&amp;mdash;&amp;ndash;若请求分配的内存大于256K，malloc函数分配内存，free函数释放内存。&lt;br&gt;
+  &lt;em&gt;&lt;strong&gt;第-1，-2层：&lt;/strong&gt;&lt;/em&gt; 操作系统进行操作&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;关于释放内存方面，当一个对象的引用计数变为0时，Python就会调用它的析构函数。调用析构函数并不意味着最终一定会调用free来释放内存空间，如果真是这样的话，那频繁地申请、释放内存空间会使Python的执行效率大打折扣。因此在析构时也采用了内存池机制，从内存池申请到的内存会被归还到内存池中，以避免频繁地申请和释放动作。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;references&#34;&gt;References
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://juejin.cn/post/6856235545220415496&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://juejin.cn/post/6856235545220415496&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         <item>
@@ -34,6 +70,8 @@
 算法：多音字回溯、Hash实现&lt;/p&gt;
 &lt;p&gt;协程和线程的区别、InfluxDB的实现原理、B+树的优点、操作系统索引的作用、为什么使用Django Signal、什么是Django Channels、了解Redis吗，了解WebSocket原理吗、遇到哪些问题，怎么解决的，清洗流程是什么、可视化系统做了什么、怎么定义API的、数据量多大、Redis作用、Redis你了解吗
 无重复子串&lt;/p&gt;
+&lt;p&gt;怎么理解面向对象、C++虚函数特点（为什么构造函数不能是虚函数）、C++多态、虚函数表、虚函数指针、什么场景用B树、B树和B+树的优缺点、联合索引、Redis相较于其他的消息队列有什么优点、为什么要使用Redis、你这个毫秒级之前是多少（怎么优化的）、Channels中Redis的作用是什么、为什么又要使用InfluxDB又要使用MySQL、MySQL存储结构、什么是时序数据、什么是协程、进程和线程的区别、什么时候要用到线程什么时候要用进程
+两个队列实现一个栈&lt;/p&gt;
 </description>
         </item>
         <item>
@@ -264,6 +302,8 @@ Redis除了可以用作缓存之外，还可以用于分布式锁、限流、消
 &lt;li&gt;如果节点是红色的，则它的子节点必须是黑色的（反之不一定）；&lt;/li&gt;
 &lt;li&gt;从任意节点到它的叶子节点或空子节点的每条路径，必须包含相同数目的黑色节点（即相同的黑色高度）。&lt;/li&gt;
 &lt;/ol&gt;
+&lt;h3 id=&#34;应用场景&#34;&gt;应用场景
+&lt;/h3&gt;&lt;p&gt;C++STL中的map和set、Java的TreeMap以及nginx中的timer等&lt;/p&gt;
 &lt;h2 id=&#34;b树&#34;&gt;B树
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;每个结点最多有m-1个关键字。&lt;/li&gt;
@@ -272,6 +312,17 @@ Redis除了可以用作缓存之外，还可以用于分布式锁、限流、消
 &lt;li&gt;每个结点中的关键字都按照从小到大的顺序排列，每个关键字的左子树中的所有关键字都小于它，而右子树中的所有关键字都大于它。&lt;/li&gt;
 &lt;li&gt;所有叶子结点都位于同一层，或者说根结点到每个叶子结点的长度都相同。&lt;/li&gt;
 &lt;/ol&gt;
+&lt;h3 id=&#34;应用场景-1&#34;&gt;应用场景
+&lt;/h3&gt;&lt;p&gt;B树适用于需要频繁进行搜索、插入和删除操作的应用场景，如数据库和文件系统&lt;/p&gt;
+&lt;h4 id=&#34;引申为什么不用b树或b树&#34;&gt;引申：为什么不用B树或B+树
+&lt;/h4&gt;&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;红黑树的插入和删除操作效率较高：&lt;/strong&gt; 红黑树的插入和删除操作比 B树 和 B+树 更简单，因为红黑树的平衡操作（如颜色反转和旋转）比B树的节点分裂和合并操作更为直接。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;红黑树和B树的存储和内存管理差异：&lt;/strong&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;红黑树：&lt;/strong&gt;&lt;/em&gt; 它是一种&lt;strong&gt;二叉树&lt;/strong&gt;，每个节点最多有两个子节点，这使得它在内存中的存储结构更加简单且容易管理。相对于B树，它对于内存的访问模式更适合快速查找和修改。&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;&lt;strong&gt;B树/B+树：&lt;/strong&gt;&lt;/em&gt; 它们是 多叉树，每个节点可以有多个子节点。这种结构非常适合磁盘存储，因为它减少了树的高度，从而减少了磁盘I/O的次数。然而在内存中，这种结构的管理复杂度相对较高，需要更多的内存来存储节点的多个子指针。&lt;/li&gt;
+&lt;/ul&gt;
 &lt;h2 id=&#34;b树-1&#34;&gt;B+树
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;B树基础上：&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
@@ -279,9 +330,11 @@ Redis除了可以用作缓存之外，还可以用于分布式锁、限流、消
 &lt;li&gt;B+树与B树最大的不同是内部结点不保存数据，只用于索引，所有数据（或者说记录）都保存在叶子结点中。&lt;/li&gt;
 &lt;li&gt;每个叶子结点都存有相邻叶子结点的指针，叶子结点本身依关键字的大小自小而大顺序链接&lt;/li&gt;
 &lt;/ol&gt;
+&lt;h3 id=&#34;应用场景-2&#34;&gt;应用场景
+&lt;/h3&gt;&lt;p&gt;B+树适用于需要大量范围查询的应用场景，如数据库索引和搜索引擎&lt;/p&gt;
 &lt;h2 id=&#34;为什么mysql使用b树而不是红黑树b树&#34;&gt;为什么MySQL使用B+树而不是红黑树/B树
 &lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;更少的IO次数：&lt;/strong&gt; B+树的非叶节点只包含键，而不包含真实数据，因此每个节点存储的记录个数比B数多很多（即阶m更大），因此B+树的高度更低，访问时所需要的IO次数更少。此外，由于每个节点存储的记录数更多，所以对访问局部性原理的利用更好，缓存命中率更高。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;更少的IO次数：&lt;/strong&gt; B+树的非叶节点只包含键，而不包含真实数据，因此每个节点存储的记录个数比B数多很多（即阶m更大，更加矮胖），因此B+树的高度更低，访问时所需要的IO次数更少。此外，由于每个节点存储的记录数更多，所以对访问局部性原理的利用更好，缓存命中率更高。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;更适于范围查询：&lt;/strong&gt; 在B树中进行范围查询时，首先找到要查找的下限，然后对B树进行中序遍历，直到找到查找的上限；而B+树的范围查询，只需要对链表进行遍历即可。&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;更稳定的查询效率：&lt;/strong&gt; B树的查询时间复杂度在1到树高之间(分别对应记录在根节点和叶节点)，而B+树的查询复杂度则稳定为树高，因为所有数据都在叶节点。&lt;/li&gt;
 &lt;li&gt;**红黑树：**通过舍弃严格的平衡和引入红黑节点，解决了AVL旋转效率过低的问题，但是在磁盘等场景下，树仍然太高，IO次数太多；&lt;/li&gt;
