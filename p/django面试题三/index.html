@@ -748,30 +748,30 @@
 </h2><div class="table-wrapper"><table>
   <thead>
       <tr>
-          <th>方法</th>
-          <th>作用</th>
-          <th>场景</th>
-          <th>示例</th>
+          <th style="text-align: left">方法</th>
+          <th style="text-align: left">作用</th>
+          <th style="text-align: left">场景</th>
+          <th style="text-align: left">示例</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td><code>raw()</code></td>
-          <td>执行原生 SQL 并返回模型实例</td>
-          <td>查询复杂的或无法通过 ORM 实现的查询</td>
-          <td><code>Book.objects.raw('SELECT * FROM myapp_book')</code></td>
+          <td style="text-align: left"><code>raw()</code></td>
+          <td style="text-align: left">执行原生 SQL 并返回模型实例</td>
+          <td style="text-align: left">查询复杂的或无法通过 ORM 实现的查询</td>
+          <td style="text-align: left"><code>Book.objects.raw('SELECT * FROM myapp_book')</code></td>
       </tr>
       <tr>
-          <td><code>Manager.raw()</code></td>
-          <td>在模型管理器中自定义查询</td>
-          <td>自定义模型管理器中的复杂 SQL 查询</td>
-          <td><code>Book.objects.with_custom_sql()</code></td>
+          <td style="text-align: left"><code>Manager.raw()</code></td>
+          <td style="text-align: left">在模型管理器中自定义查询</td>
+          <td style="text-align: left">自定义模型管理器中的复杂 SQL 查询</td>
+          <td style="text-align: left"><code>Book.objects.with_custom_sql()</code></td>
       </tr>
       <tr>
-          <td><code>connection.cursor()</code></td>
-          <td>使用游标执行任意 SQL</td>
-          <td>执行任意 SQL（包括查询、插入、更新、删除等操作）</td>
-          <td><code>cursor.execute('SELECT * FROM myapp_book')</code></td>
+          <td style="text-align: left"><code>connection.cursor()</code></td>
+          <td style="text-align: left">使用游标执行任意 SQL</td>
+          <td style="text-align: left">执行任意 SQL（包括查询、插入、更新、删除等操作）</td>
+          <td style="text-align: left"><code>cursor.execute('SELECT * FROM myapp_book')</code></td>
       </tr>
   </tbody>
 </table></div>
@@ -1265,21 +1265,21 @@
 </h1><div class="table-wrapper"><table>
   <thead>
       <tr>
-          <th>类别</th>
-          <th>优点</th>
-          <th>缺点</th>
+          <th style="text-align: left">类别</th>
+          <th style="text-align: left">优点</th>
+          <th style="text-align: left">缺点</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td>ORM</td>
-          <td><strong>简化开发流程</strong>：ORM框架使得开发者无需编写复杂的SQL语句，从而简化了开发流程。<br><strong>提高代码可读性</strong>：ORM框架隐藏了底层数据库的实现细节，使得代码更加清晰易懂。<br><strong>易用性</strong>：可以有效减少重复SQL，提供了基础的CRUD操作、多表关联查询、事务控制、钩子函数等功能。<br><strong>移植性好</strong>：ORM框架可以轻松地切换不同的数据库，而无需修改大量的SQL语句。</td>
-          <td><strong>学习成本高</strong>：需要掌握ORM框架的API和概念，有一定的学习成本。<br><strong>可能影响查询性能</strong>：ORM框架在查询数据时可能会产生额外的开销，导致查询性能下降。<br><strong>复杂数据模型处理有限</strong>：对于复杂的数据模型，ORM框架的性能和可靠性可能受到限制。<br></td>
+          <td style="text-align: left">ORM</td>
+          <td style="text-align: left"><strong>简化开发流程</strong>：ORM框架使得开发者无需编写复杂的SQL语句，从而简化了开发流程。<br><strong>提高代码可读性</strong>：ORM框架隐藏了底层数据库的实现细节，使得代码更加清晰易懂。<br><strong>易用性</strong>：可以有效减少重复SQL，提供了基础的CRUD操作、多表关联查询、事务控制、钩子函数等功能。<br><strong>移植性好</strong>：ORM框架可以轻松地切换不同的数据库，而无需修改大量的SQL语句。</td>
+          <td style="text-align: left"><strong>学习成本高</strong>：需要掌握ORM框架的API和概念，有一定的学习成本。<br><strong>可能影响查询性能</strong>：ORM框架在查询数据时可能会产生额外的开销，导致查询性能下降。<br><strong>复杂数据模型处理有限</strong>：对于复杂的数据模型，ORM框架的性能和可靠性可能受到限制。<br></td>
       </tr>
       <tr>
-          <td>原生SQL</td>
-          <td><strong>灵活性</strong>：原生SQL提供了灵活的查询语法，可以精确控制数据访问，满足各种复杂查询需求。<br><strong>性能优势</strong>：对于大量数据的处理，原生SQL的性能通常优于ORM框架。<br><strong>直接操作数据库</strong>：原生SQL可以直接操作数据库，避免ORM框架可能产生的额外开销。</td>
-          <td><strong>编写和维护成本高</strong>：需要手写SQL语句，并对其进行维护，有一定的编写和维护成本。<br><strong>数据库依赖性</strong>：SQL语句通常针对特定的数据库编写，切换数据库时需要修改SQL语句。<br><strong>代码可读性差</strong>：相比ORM框架，原生SQL的代码可读性较差，不易于理解和维护。</td>
+          <td style="text-align: left">原生SQL</td>
+          <td style="text-align: left"><strong>灵活性</strong>：原生SQL提供了灵活的查询语法，可以精确控制数据访问，满足各种复杂查询需求。<br><strong>性能优势</strong>：对于大量数据的处理，原生SQL的性能通常优于ORM框架。<br><strong>直接操作数据库</strong>：原生SQL可以直接操作数据库，避免ORM框架可能产生的额外开销。</td>
+          <td style="text-align: left"><strong>编写和维护成本高</strong>：需要手写SQL语句，并对其进行维护，有一定的编写和维护成本。<br><strong>数据库依赖性</strong>：SQL语句通常针对特定的数据库编写，切换数据库时需要修改SQL语句。<br><strong>代码可读性差</strong>：相比ORM框架，原生SQL的代码可读性较差，不易于理解和维护。</td>
       </tr>
   </tbody>
 </table></div>

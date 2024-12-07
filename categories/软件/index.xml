@@ -18,11 +18,25 @@
 文章将就如何在Ubuntu 20.04下进行clash安装和配置进行记录。&lt;/p&gt;
 &lt;h1 id=&#34;下载&#34;&gt;下载
 &lt;/h1&gt;&lt;p&gt;因为clash的原仓库已经删库跑路了（悲），目前可行的方案就是从第三方库中进行下载。&lt;br&gt;
-我这里是从https://github.com/doreamon-design/clash/releases 上找到匹配自己架构的clash_2.0.24_linux_amd64.tar.gz下载下来的。&lt;br&gt;
+我这里是从 &lt;a class=&#34;link&#34; href=&#34;https://github.com/doreamon-design/clash/releases&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/doreamon-design/clash/releases&lt;/a&gt; 上找到匹配自己架构的&lt;code&gt;clash_2.0.24_linux_amd64.tar.gz&lt;/code&gt;下载下来的。&lt;br&gt;
 已知科学上网的目的是进入Github，但科学上网的代理工具又需要从Github上clone下来，所以这里我选择的是从本机的Windows下载后再copy到Ubuntu中，当然网上也有很多不同的方式去代理到Github中，这里不详细展开。&lt;/p&gt;
 &lt;h1 id=&#34;安装&#34;&gt;安装
-&lt;/h1&gt;&lt;p&gt;&lt;code&gt;bash tar -zxvf clash_2.0.24_linux_amd64.tar.gz # 在安装包所在路径解压安装包 chmod +x clash # 给解压后的文件赋予执行权限 mv clash /usr/local/bin/clash # 移动文件位置 clash -v # 查看是否成功安装 &lt;/code&gt;&lt;/p&gt;
-&lt;h1 id=&#34;修改系统代理&#34;&gt;修改系统代理
+&lt;/h1&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;tar -zxvf clash_2.0.24_linux_amd64.tar.gz &lt;span class=&#34;c1&#34;&gt;# 在安装包所在路径解压安装包&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;chmod +x clash &lt;span class=&#34;c1&#34;&gt;# 给解压后的文件赋予执行权限&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mv clash /usr/local/bin/clash &lt;span class=&#34;c1&#34;&gt;# 移动文件位置&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;clash -v &lt;span class=&#34;c1&#34;&gt;# 查看是否成功安装&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h1 id=&#34;修改系统代理&#34;&gt;修改系统代理
 &lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ubuntu%E4%B8%8Bclash%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/image.png&#34;
 	width=&#34;926&#34;
 	height=&#34;838&#34;
@@ -38,8 +52,19 @@
 	
 &gt;&lt;/p&gt;
 &lt;h1 id=&#34;配置文件&#34;&gt;配置文件
-&lt;/h1&gt;&lt;p&gt;&lt;code&gt;bash clash # 启动 Clash，生成 ~/.config/clash/config.yaml 文件 cd ~/.config/clash/ # 进入目录配置文件 wget -O config.yaml &#39;订阅地址&#39; # 把订阅地址的配置文件导入本地配置文件 &lt;/code&gt;
-启动后就可以在 &lt;a class=&#34;link&#34; href=&#34;http://clash.razord.top/#/settings&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+&lt;/h1&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;clash &lt;span class=&#34;c1&#34;&gt;# 启动 Clash，生成 ~/.config/clash/config.yaml 文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/.config/clash/ &lt;span class=&#34;c1&#34;&gt;# 进入目录配置文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;wget -O config.yaml &lt;span class=&#34;s1&#34;&gt;&amp;#39;订阅地址&amp;#39;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# 把订阅地址的配置文件导入本地配置文件&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;启动后就可以在 &lt;a class=&#34;link&#34; href=&#34;http://clash.razord.top/#/settings&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;http://clash.razord.top/#/settings&lt;/a&gt; 进行节点管理。&lt;/p&gt;
 &lt;h1 id=&#34;开机自启动&#34;&gt;开机自启动
 &lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ubuntu%E4%B8%8Bclash%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/image-1.png&#34;
@@ -58,14 +83,22 @@
 &gt;&lt;br&gt;
 当然也可以通过&lt;code&gt;systemctl enable clash&lt;/code&gt;进行配置，但据说会有点问题，我并没有尝试。&lt;br&gt;
 另一种方法：&lt;br&gt;
-在&lt;code&gt;~/.zshrc&lt;/code&gt;（这里看你的shell）中添加：
-`bash&lt;/p&gt;
-&lt;h1 id=&#34;check-if-clash-is-already-running&#34;&gt;Check if Clash is already running
-&lt;/h1&gt;&lt;p&gt;if ! pgrep -x &amp;ldquo;clash&amp;rdquo; &amp;gt; /dev/null; then
-/usr/local/bin/clash
-fi
-`&lt;/p&gt;
-&lt;h1 id=&#34;调试&#34;&gt;调试
+在&lt;code&gt;~/.zshrc&lt;/code&gt;（这里看你的shell）中添加：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# Check if Clash is already running&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; ! pgrep -x &lt;span class=&#34;s2&#34;&gt;&amp;#34;clash&amp;#34;&lt;/span&gt; &amp;gt; /dev/null&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;then&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    /usr/local/bin/clash
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h1 id=&#34;调试&#34;&gt;调试
 &lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ubuntu%E4%B8%8Bclash%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/image-2.png&#34;
 	width=&#34;2014&#34;
 	height=&#34;1074&#34;
