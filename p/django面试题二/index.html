@@ -1052,31 +1052,31 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 </h2><div class="table-wrapper"><table>
   <thead>
       <tr>
-          <th style="text-align: left">特性</th>
-          <th style="text-align: left"><code>only()</code></th>
-          <th style="text-align: left"><code>defer()</code></th>
+          <th>特性</th>
+          <th><code>only()</code></th>
+          <th><code>defer()</code></th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left"><strong>目的</strong></td>
-          <td style="text-align: left">只加载指定字段</td>
-          <td style="text-align: left">延迟加载指定字段</td>
+          <td><strong>目的</strong></td>
+          <td>只加载指定字段</td>
+          <td>延迟加载指定字段</td>
       </tr>
       <tr>
-          <td style="text-align: left"><strong>初次查询的字段</strong></td>
-          <td style="text-align: left">只查询指定的字段，其余字段延迟加载</td>
-          <td style="text-align: left">查询所有字段，除了被延迟的字段</td>
+          <td><strong>初次查询的字段</strong></td>
+          <td>只查询指定的字段，其余字段延迟加载</td>
+          <td>查询所有字段，除了被延迟的字段</td>
       </tr>
       <tr>
-          <td style="text-align: left"><strong>额外查询</strong></td>
-          <td style="text-align: left">访问未加载的字段时，触发额外的数据库查询</td>
-          <td style="text-align: left">访问延迟加载的字段时，触发额外的数据库查询</td>
+          <td><strong>额外查询</strong></td>
+          <td>访问未加载的字段时，触发额外的数据库查询</td>
+          <td>访问延迟加载的字段时，触发额外的数据库查询</td>
       </tr>
       <tr>
-          <td style="text-align: left"><strong>适用场景</strong></td>
-          <td style="text-align: left">只关心某些字段，其他字段可以延迟加载</td>
-          <td style="text-align: left">大部分字段需要立即使用，但部分字段可以延迟加载</td>
+          <td><strong>适用场景</strong></td>
+          <td>只关心某些字段，其他字段可以延迟加载</td>
+          <td>大部分字段需要立即使用，但部分字段可以延迟加载</td>
       </tr>
   </tbody>
 </table></div>
@@ -1163,36 +1163,36 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 </h2><div class="table-wrapper"><table>
   <thead>
       <tr>
-          <th style="text-align: left">特性</th>
-          <th style="text-align: left"><code>select_related</code></th>
-          <th style="text-align: left"><code>prefetch_related</code></th>
+          <th>特性</th>
+          <th><code>select_related</code></th>
+          <th><code>prefetch_related</code></th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left"><strong>适用关系</strong></td>
-          <td style="text-align: left">一对一、外键（多对一）</td>
-          <td style="text-align: left">多对多、反向外键</td>
+          <td><strong>适用关系</strong></td>
+          <td>一对一、外键（多对一）</td>
+          <td>多对多、反向外键</td>
       </tr>
       <tr>
-          <td style="text-align: left"><strong>数据库查询次数</strong></td>
-          <td style="text-align: left">只执行一次查询</td>
-          <td style="text-align: left">执行多次查询</td>
+          <td><strong>数据库查询次数</strong></td>
+          <td>只执行一次查询</td>
+          <td>执行多次查询</td>
       </tr>
       <tr>
-          <td style="text-align: left"><strong>工作原理</strong></td>
-          <td style="text-align: left">使用 SQL <code>JOIN</code> 在一次查询中获取所有相关数据</td>
-          <td style="text-align: left">进行多个查询，并在 Python 层面将结果合并</td>
+          <td><strong>工作原理</strong></td>
+          <td>使用 SQL <code>JOIN</code> 在一次查询中获取所有相关数据</td>
+          <td>进行多个查询，并在 Python 层面将结果合并</td>
       </tr>
       <tr>
-          <td style="text-align: left"><strong>性能表现</strong></td>
-          <td style="text-align: left">适用于简单的关系；太多 <code>JOIN</code> 操作时性能可能下降</td>
-          <td style="text-align: left">适用于复杂关系（特别是多对多），避免大量重复数据</td>
+          <td><strong>性能表现</strong></td>
+          <td>适用于简单的关系；太多 <code>JOIN</code> 操作时性能可能下降</td>
+          <td>适用于复杂关系（特别是多对多），避免大量重复数据</td>
       </tr>
       <tr>
-          <td style="text-align: left"><strong>示例场景</strong></td>
-          <td style="text-align: left">Person 和 Profile（外键/一对一）</td>
-          <td style="text-align: left">Person 和 Book（多对多）</td>
+          <td><strong>示例场景</strong></td>
+          <td>Person 和 Profile（外键/一对一）</td>
+          <td>Person 和 Book（多对多）</td>
       </tr>
   </tbody>
 </table></div>
@@ -1479,30 +1479,30 @@ django通过’django.middleware.csrf.CsrfViewMiddleware’这个中间层来完
 </h2><div class="table-wrapper"><table>
   <thead>
       <tr>
-          <th style="text-align: left">方法</th>
-          <th style="text-align: left">返回类型</th>
-          <th style="text-align: left">示例结果</th>
-          <th style="text-align: left">适用场景</th>
+          <th>方法</th>
+          <th>返回类型</th>
+          <th>示例结果</th>
+          <th>适用场景</th>
       </tr>
   </thead>
   <tbody>
       <tr>
-          <td style="text-align: left"><code>values()</code></td>
-          <td style="text-align: left">字典的 <code>QuerySet</code></td>
-          <td style="text-align: left"><code>[{'id': 1, 'username': 'JohnDoe'}, ...]</code></td>
-          <td style="text-align: left">需要键值对时</td>
+          <td><code>values()</code></td>
+          <td>字典的 <code>QuerySet</code></td>
+          <td><code>[{'id': 1, 'username': 'JohnDoe'}, ...]</code></td>
+          <td>需要键值对时</td>
       </tr>
       <tr>
-          <td style="text-align: left"><code>values_list()</code></td>
-          <td style="text-align: left">元组的 <code>QuerySet</code></td>
-          <td style="text-align: left"><code>[(1, 'JohnDoe'), (2, 'JaneDoe')]</code></td>
-          <td style="text-align: left">需要字段值的列表或元组时</td>
+          <td><code>values_list()</code></td>
+          <td>元组的 <code>QuerySet</code></td>
+          <td><code>[(1, 'JohnDoe'), (2, 'JaneDoe')]</code></td>
+          <td>需要字段值的列表或元组时</td>
       </tr>
       <tr>
-          <td style="text-align: left"><code>values_list(flat=True)</code></td>
-          <td style="text-align: left">列表（单个字段）</td>
-          <td style="text-align: left"><code>['JohnDoe', 'JaneDoe']</code></td>
-          <td style="text-align: left">只需要某个字段的简单列表时</td>
+          <td><code>values_list(flat=True)</code></td>
+          <td>列表（单个字段）</td>
+          <td><code>['JohnDoe', 'JaneDoe']</code></td>
+          <td>只需要某个字段的简单列表时</td>
       </tr>
   </tbody>
 </table></div>

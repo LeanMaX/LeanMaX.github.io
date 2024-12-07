@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Ubuntu on Lean Max</title>
+        <link>http://localhost:1313/tags/ubuntu/</link>
+        <description>Recent content in Ubuntu on Lean Max</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>Lean Max</copyright>
+        <lastBuildDate>Sat, 07 Dec 2024 16:16:30 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/ubuntu/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Ubuntu下clash的安装与配置</title>
+        <link>http://localhost:1313/p/ubuntu%E4%B8%8Bclash%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</link>
+        <pubDate>Sat, 07 Dec 2024 16:16:30 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/ubuntu%E4%B8%8Bclash%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</guid>
+        <description>&lt;h1 id=&#34;前言&#34;&gt;前言
+&lt;/h1&gt;&lt;p&gt;因为实习和科研需要，重新启用了在U盘中封存已久的Ubuntu（之前是双系统）。但由于许久不用Linux了，许多命令and软件的安装都忘了，尤其是clash，对我来说无疑是最重要的科学上网代理工具。&lt;br&gt;
+文章将就如何在Ubuntu 20.04下进行clash安装和配置进行记录。&lt;/p&gt;
+&lt;h1 id=&#34;下载&#34;&gt;下载
+&lt;/h1&gt;&lt;p&gt;因为clash的原仓库已经删库跑路了（悲），目前可行的方案就是从第三方库中进行下载。&lt;br&gt;
+我这里是从https://github.com/doreamon-design/clash/releases 上找到匹配自己架构的clash_2.0.24_linux_amd64.tar.gz下载下来的。&lt;br&gt;
+已知科学上网的目的是进入Github，但科学上网的代理工具又需要从Github上clone下来，所以这里我选择的是从本机的Windows下载后再copy到Ubuntu中，当然网上也有很多不同的方式去代理到Github中，这里不详细展开。&lt;/p&gt;
+&lt;h1 id=&#34;安装&#34;&gt;安装
+&lt;/h1&gt;&lt;p&gt;&lt;code&gt;bash tar -zxvf clash_2.0.24_linux_amd64.tar.gz # 在安装包所在路径解压安装包 chmod +x clash # 给解压后的文件赋予执行权限 mv clash /usr/local/bin/clash # 移动文件位置 clash -v # 查看是否成功安装 &lt;/code&gt;&lt;/p&gt;
+&lt;h1 id=&#34;修改系统代理&#34;&gt;修改系统代理
+&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ubuntu%E4%B8%8Bclash%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/image.png&#34;
+	width=&#34;926&#34;
+	height=&#34;838&#34;
+	srcset=&#34;http://localhost:1313/p/ubuntu%E4%B8%8Bclash%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/image_hu3458918983251809202.png 480w, http://localhost:1313/p/ubuntu%E4%B8%8Bclash%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/image_hu4012828085394153113.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;110&#34;
+		data-flex-basis=&#34;265px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h1 id=&#34;配置文件&#34;&gt;配置文件
+&lt;/h1&gt;&lt;p&gt;&lt;code&gt;bash clash # 启动 Clash，生成 ~/.config/clash/config.yaml 文件 cd ~/.config/clash/ # 进入目录配置文件 wget -O config.yaml &#39;订阅地址&#39; # 把订阅地址的配置文件导入本地配置文件 &lt;/code&gt;
+启动后就可以在 &lt;a class=&#34;link&#34; href=&#34;http://clash.razord.top/#/settings&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;http://clash.razord.top/#/settings&lt;/a&gt; 进行节点管理。&lt;/p&gt;
+&lt;h1 id=&#34;开机自启动&#34;&gt;开机自启动
+&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ubuntu%E4%B8%8Bclash%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/image-1.png&#34;
+	width=&#34;1294&#34;
+	height=&#34;1170&#34;
+	srcset=&#34;http://localhost:1313/p/ubuntu%E4%B8%8Bclash%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/image-1_hu3597946420284899925.png 480w, http://localhost:1313/p/ubuntu%E4%B8%8Bclash%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/image-1_hu4702179351757312759.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;110&#34;
+		data-flex-basis=&#34;265px&#34;
+	
+&gt;&lt;br&gt;
+当然也可以通过&lt;code&gt;systemctl enable clash&lt;/code&gt;进行配置，但据说会有点问题，我并没有尝试。&lt;br&gt;
+另一种方法：&lt;br&gt;
+在&lt;code&gt;~/.zshrc&lt;/code&gt;（这里看你的shell）中添加：
+`bash&lt;/p&gt;
+&lt;h1 id=&#34;check-if-clash-is-already-running&#34;&gt;Check if Clash is already running
+&lt;/h1&gt;&lt;p&gt;if ! pgrep -x &amp;ldquo;clash&amp;rdquo; &amp;gt; /dev/null; then
+/usr/local/bin/clash
+fi
+`&lt;/p&gt;
+&lt;h1 id=&#34;调试&#34;&gt;调试
+&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;http://localhost:1313/p/ubuntu%E4%B8%8Bclash%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/image-2.png&#34;
+	width=&#34;2014&#34;
+	height=&#34;1074&#34;
+	srcset=&#34;http://localhost:1313/p/ubuntu%E4%B8%8Bclash%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/image-2_hu11957413667653508167.png 480w, http://localhost:1313/p/ubuntu%E4%B8%8Bclash%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/image-2_hu12221336025736605318.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;187&#34;
+		data-flex-basis=&#34;450px&#34;
+	
+&gt;&lt;br&gt;
+如果可以顺利查看外网，那就是成功啦～&lt;/p&gt;
+&lt;h1 id=&#34;references&#34;&gt;References
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/doreamon-design/clash/releases&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://github.com/doreamon-design/clash/releases&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://eaglebear2002.github.io/%E6%8A%80%E6%9C%AF%E7%A7%91%E6%99%AE/Ubuntu%2022.04%20%E5%AE%89%E8%A3%85%20Clash/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://eaglebear2002.github.io/%E6%8A%80%E6%9C%AF%E7%A7%91%E6%99%AE/Ubuntu%2022.04%20%E5%AE%89%E8%A3%85%20Clash/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://clashx2.com/11941.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://clashx2.com/11941.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

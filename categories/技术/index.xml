@@ -7,7 +7,48 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Lean Max</copyright>
-        <lastBuildDate>Wed, 20 Nov 2024 15:12:16 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 22 Nov 2024 15:48:21 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>C/C&#43;&#43;运行四个步骤</title>
+        <link>http://localhost:1313/p/c/c-%E8%BF%90%E8%A1%8C%E5%9B%9B%E4%B8%AA%E6%AD%A5%E9%AA%A4/</link>
+        <pubDate>Fri, 22 Nov 2024 15:48:21 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/c/c-%E8%BF%90%E8%A1%8C%E5%9B%9B%E4%B8%AA%E6%AD%A5%E9%AA%A4/</guid>
+        <description>&lt;h1 id=&#34;cc运行的四个步骤&#34;&gt;C/C++运行的四个步骤
+&lt;/h1&gt;&lt;p&gt;编写完成一个C/C++程序后，想要运行起来，必须要经过四个步骤：预处理、编译、汇编和链接。每个步骤都会生成对应的文件，如下图所示（注意后缀名）：
+&lt;img src=&#34;http://localhost:1313/p/c/c-%E8%BF%90%E8%A1%8C%E5%9B%9B%E4%B8%AA%E6%AD%A5%E9%AA%A4/image.png&#34;
+	width=&#34;1392&#34;
+	height=&#34;169&#34;
+	srcset=&#34;http://localhost:1313/p/c/c-%E8%BF%90%E8%A1%8C%E5%9B%9B%E4%B8%AA%E6%AD%A5%E9%AA%A4/image_hu3309922946344439354.png 480w, http://localhost:1313/p/c/c-%E8%BF%90%E8%A1%8C%E5%9B%9B%E4%B8%AA%E6%AD%A5%E9%AA%A4/image_hu2888482898228634156.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;alt text&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;823&#34;
+		data-flex-basis=&#34;1976px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;预处理（Preprocess）：&lt;/strong&gt; 预编译把一些&lt;code&gt;#define&lt;/code&gt;的宏定义完成文本替换，然后将&lt;code&gt;#include&lt;/code&gt;的文件里的内容复制到&lt;code&gt;.cpp&lt;/code&gt;文件里，如果&lt;code&gt;.h&lt;/code&gt;文件里还有&lt;code&gt;.h&lt;/code&gt;文件，就递归展开。在预处理这一步，代码注释直接被忽略，不会进入到后续的处理中，所以注释在程序中不会执行。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;编译（Compile）：&lt;/strong&gt; 编译只是把我们写的代码转为汇编代码，它的工作是检查词法和语法规则，所以，如果程序没有词法或则语法错误，那么不管逻辑是怎样错误的，都不会报错。编译不是指程序从源文件到二进制程序的全部过程，而是指将经过预处理之后的程序转换成特定汇编代码(assembly code)的过程。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;汇编（Assemble）：&lt;/strong&gt; 汇编过程将上一步的汇编代码(main.s)转换成机器码(machine code)，这一步产生的文件叫做目标文件(main.o)，是二进制格式。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;链接（Link）：&lt;/strong&gt; C/C++代码经过汇编之后生成的目标文件(*.o)并不是最终的可执行二进制文件，而仍是一种中间文件(或称临时文件)，目标文件仍然需要经过链接(Link)才能变成可执行文件。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;既然目标文件和可执行文件的格式是一样的（都是二进制格式），为什么还要再链接一次呢？&lt;br&gt;
+因为编译只是将我们自己写的代码变成了二进制形式，它还需要和系统组件（比如标准库、动态链接库等）结合起来，这些组件都是程序运行所必须的。&lt;br&gt;
+链接（Link）其实就是一个“打包”的过程，它将所有二进制形式的目标文件(.o)和系统组件组合成一个可执行文件。完成链接的过程也需要一个特殊的软件，叫做链接器（Linker）。&lt;br&gt;
+此外需要注意的是：C++程序编译的时候其实只识别.cpp文件，每个cpp文件都会分别编译一次，生成一个.o文件。这个时候，链接器除了将目标文件和系统组件组合起来，还需要将编译器生成的多个.o或者.obj文件组合起来，生成最终的可执行文件(Executable file)。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;references&#34;&gt;References
+&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://zhuanlan.zhihu.com/p/618037867&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;https://zhuanlan.zhihu.com/p/618037867&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>多态</title>
         <link>http://localhost:1313/p/%E5%A4%9A%E6%80%81/</link>
         <pubDate>Wed, 20 Nov 2024 15:12:16 +0800</pubDate>
